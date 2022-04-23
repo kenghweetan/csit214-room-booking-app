@@ -8,7 +8,10 @@ app.get("/", (req, res) => {
   res.sendFile(path.join(__dirname, "/views/index.html"));
 });
 
-const PORT = 3001;
+let PORT = process.env.PORT;
+if (port == null || port == "") {
+  PORT = 3001;
+}
 app.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`);
 });
