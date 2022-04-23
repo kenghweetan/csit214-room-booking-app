@@ -1,5 +1,28 @@
 {
   "dependencies": {
-    "express": "^4.17.3"
-  }
+    "express": "^4.17.3",
+    "mysql": "^2.18.1"
+  },
+  "name": "csit214-room-booking-app",
+  "description": "Room Booking System for University of Wollongong CSIT214",
+  "version": "1.0.0",
+  "main": "app.js",
+  "devDependencies": {
+    "nodemon": "^2.0.15"
+  },
+  "scripts": {
+    "start": "node app.js",
+    "dev": "nodemon app.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/kenghweetan/csit214-room-booking-app.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/kenghweetan/csit214-room-booking-app/issues"
+  },
+  "homepage": "https://github.com/kenghweetan/csit214-room-booking-app#readme"
 }
