@@ -9,9 +9,11 @@ app.get("/", (req, res) => {
 });
 
 let PORT = process.env.PORT;
+
 if (PORT == null || PORT == "") {
   PORT = 3001;
 }
+
 app.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`);
 });
