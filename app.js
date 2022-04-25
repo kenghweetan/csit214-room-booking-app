@@ -5,10 +5,15 @@ const app = express();
 app.use(express.json());
 
 app.get("/", (req, res) => {
-  res.sendFile(path.join(__dirname, "/views/index.html"));
+  res.sendFile(path.join(__dirname, "/views/login.html"));
 });
 
-const PORT = 3001;
+let PORT = process.env.PORT;
+
+if (PORT == null || PORT == "") {
+  PORT = 3001;
+}
+
 app.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`);
 });
