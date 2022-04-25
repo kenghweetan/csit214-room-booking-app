@@ -1,15 +1,30 @@
+const mysql = require("mysql2/promise");
 const dbConfig = require("../config/db.config.js");
-const mysql2 = require("mysql2");
+const { Sequelize } = require("Sequelize");
 
-const connection = mysql2.createConnection({
-  host: dbConfig.HOST,
-  user: dbConfig.USER,
-  password: dbConfig.PASSWORD,
-});
+async function initialise() {
+  const {
+    DB: db = "rookboomdb",
+    PORT: port = 3306,
+    USER: user,
+    PASSWORD: password,
+    HOST: host,
+  } = dbConfig;
 
-connection.connect((err) => {
-  if (err) throw err;
-  console.log("Connected to the database!");
-});
+  const connection = await mysql.createConnection({
+    host,
+    port,
+    user,
+    password,
+  });
+  await connection.query(`CREATE DATABASE IF NOT EXISTS ${db};`);
 
-module.exports = connection;
+  const sequelize = new Sequelize(db, user, password, {
+    host,
+    dialect: "mysql",
+  });
+
+  return sequelize;
+}
+
+module.exports = initialise();
