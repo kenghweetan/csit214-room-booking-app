@@ -15,8 +15,6 @@ app.get("/", (req, res) => {
 });
 
 app.post("/login", (req, res) => {
-  console.log(req.body);
-  console.log(req.body.email);
   res.render(path.join(__dirname, "/views/login"), { title: "Login" });
 });
 
