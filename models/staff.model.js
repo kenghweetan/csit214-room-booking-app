@@ -1,26 +1,23 @@
-const { Sequelize, DataTypes, Model } = require('sequelize');
+const { DataTypes, Model } = require("sequelize");
 const sequelize = require("./db");
 
+class Staff extends Model {}
 
-class staff extends Model {}
+Staff.init(
+  {
+    email: {
+      type: DataTypes.STRING,
+      allowNull: false,
+      primaryKey: true,
+    },
+    password: {
+      type: DataTypes.STRING,
+      allowNull: false,
+    },
+  },
+  {
+    sequelize,
+  }
+);
 
-module.exports = sequelize.then(async function(sequelize) {
-    staff.init({
-
-        email: {
-            type: DataTypes.STRING,
-            allowNull: false,
-            primaryKey: true
-        },
-        password: {
-            type: DataTypes.STRING,
-            allowNull: false,
-        }
-
-    }, {
-        sequelize,
-        modelName: 'staff'
-    });
-
-    await student.sync();
-})
+// await student.sync();
