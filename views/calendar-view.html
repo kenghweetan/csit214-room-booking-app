@@ -44,7 +44,7 @@
     </div>
     <div class="sdate" >
         <label for="start-date">Starting Date:</label>
-        <input type="date" id="sDate" name="sDate" onchange="displayCalendar()">
+        <input type="date" id="sDate" name="sDate">
     </div>
     <div class="calendar">
         <table class="table" id="table">
@@ -112,7 +112,7 @@
             const date = value;
             document.getElementById("displayDate").innerHTML = date;
         }
-        document.getElementById("sDate").addEventListener("change",displayDate);
+        
 
         function displayCalendar() {
             for (i=0; i<6; i++) {
@@ -121,8 +121,9 @@
                 document.body.appendChild(myClone);
             }
         }
-        default value for starting date (today)
-        js date object
+        document.getElementById("sDate").addEventListener("change",displayDate, displayCalendar);
+        //default value for starting date (today)
+        //js date object
         
         
     </script>
