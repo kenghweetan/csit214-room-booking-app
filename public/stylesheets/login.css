@@ -1,0 +1,40 @@
+.center-screen {
+display: flex;
+justify-content: center;
+align-items: center;
+text-align: center;
+min-height: 100vh;
+}
+
+.image-container:before {
+content: "";
+position: absolute;
+top: 0;
+left: 0;
+right: 0;
+bottom: 0;
+}
+
+.image-container {
+overflow: hidden;
+position: relative;
+width: 100%;
+}
+
+h1 {
+font-family: Chronicle Display A, Chronicle Display B, Times New Roman,
+    Times, serif;
+font-weight: 500;
+font-size: xxx-large;
+position: absolute;
+top: 50%;
+color: white;
+}
+
+h1 span {
+background-color: #001641;
+padding-left: 50px;
+padding-right: 50px;
+padding-bottom: 50px;
+padding-top: 10px;
+}
