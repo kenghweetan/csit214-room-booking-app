@@ -2,7 +2,7 @@ const express = require("express");
 const path = require("path");
 const app = express();
 //const sequelize = require("./models/db");
-const sequelize = require("./models/amenities.model.js");
+const sequelize = require("./db/migrations/create-amenity.js");
 
 app.set("views", "./views");
 app.set("view engine", "ejs");
@@ -12,6 +12,10 @@ app.use(express.urlencoded({ extended: false }));
 
 app.get("/", (req, res) => {
     res.render(path.join(__dirname, "/views/login"), { title: "Login" });
+});
+
+app.get("/calendar-view", (req, res) => {
+    res.render(path.join(__dirname, "/views/calendar-view"), { title: "Calendar" });
 });
 
 app.post("/login", (req, res) => {

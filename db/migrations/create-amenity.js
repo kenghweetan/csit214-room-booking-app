@@ -1,29 +1,3 @@
-const { DataTypes, Model } = require("sequelize");
-const sequelize = require("./db");
-
-/* class Amenity extends Model {}
-
-Amenity.init({
-    roomName: {
-        type: DataTypes.STRING,
-        allowNull: false,
-        references: {
-            model: 'room.model',
-            key: 'id'
-        }
-
-    },
-    type: {
-        type: DataTypes.STRING,
-        allowNull: false,
-        primaryKey: true,
-    },
-}, {
-    sequelize,
-});
-
-Room.hasMany(Amenity); */
-
 "use strict";
 module.exports = {
     up: (queryInterface, Sequelize) => {
