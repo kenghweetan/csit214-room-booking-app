@@ -2,10 +2,8 @@ window.onload = createWeekView;
 
 function createWeekView() {
   let date = new Date();
-  console.log(date);
   const week = document.getElementById("week");
   for (let i = 0; i < 6; i++) {
-    console.log("hello");
     week.appendChild(createTimeLineCard(date.setDate(date.getDate() + 1)));
   }
 }
