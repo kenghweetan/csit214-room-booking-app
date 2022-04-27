@@ -3,26 +3,23 @@ const sequelize = require("./db");
 
 class PromoCode extends Model {}
 
-PromoCode.init(
-  {
+PromoCode.init({
     name: {
-      type: DataTypes.STRING,
-      allowNull: false,
-      primaryKey: true,
+        type: DataTypes.STRING,
+        allowNull: false,
+        primaryKey: true,
     },
     discountRate: {
-      type: DataTypes.INTEGER,
-      allowNull: false,
+        type: DataTypes.INTEGER,
+        allowNull: false,
     },
     expiryDate: {
-      type: DataTypes.DATE,
-      allowNull: false,
+        type: DataTypes.DATE,
+        allowNull: false,
     },
-  },
-  {
+}, {
     sequelize,
-  }
-);
+});
 
 /*   await PromoCode.sync();
   const users = await PromoCode.findAll();
