@@ -11,7 +11,11 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 
 app.get("/", (req, res) => {
-    res.render(path.join(__dirname, "/views/login"), { title: "Login" });
+  res.render(path.join(__dirname, "/views/login"), { title: "Login" });
+});
+
+app.get("/bookingDetails", (req, res) => {
+  res.render(path.join(__dirname, "/views/bookingDetails"), { title: "Login" });
 });
 
 app.get("/calendar-view", (req, res) => {
@@ -19,15 +23,16 @@ app.get("/calendar-view", (req, res) => {
 });
 
 app.post("/login", (req, res) => {
-    res.render(path.join(__dirname, "/views/login"), { title: "Login" });
+  const { userType, email, password } = req.body;
+  res.render(path.join(__dirname, "/views/login"), { title: "Login" });
 });
 
 let PORT = process.env.PORT;
 
 if (PORT == null || PORT == "") {
-    PORT = 3001;
+  PORT = 3001;
 }
 
 app.listen(PORT, () => {
-    console.log(`Server running on port ${PORT}`);
+  console.log(`Server running on port ${PORT}`);
 });
