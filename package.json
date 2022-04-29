@@ -1,5 +1,6 @@
 {
   "dependencies": {
+    "cjs-loader": "^0.1.0",
     "cross-env": "^7.0.3",
     "dotenv": "^16.0.0",
     "ejs": "^3.1.7",

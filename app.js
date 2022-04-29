@@ -11,28 +11,31 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 
 app.get("/", (req, res) => {
-  res.render(path.join(__dirname, "/views/login"), { title: "Login" });
+    res.render(path.join(__dirname, "/views/login"), { title: "Login" });
 });
 
 app.get("/bookingDetails", (req, res) => {
-  res.render(path.join(__dirname, "/views/bookingDetails"), { title: "Login" });
+    res.render(path.join(__dirname, "/views/bookingDetails"), { title: "Login" });
 });
 
 app.get("/calendar-view", (req, res) => {
     res.render(path.join(__dirname, "/views/calendar-view"), { title: "Calendar" });
 });
 
-app.post("/login", (req, res) => {
-  const { userType, email, password } = req.body;
-  res.render(path.join(__dirname, "/views/login"), { title: "Login" });
-});
+/* app.post("/login", (req, res) => {
+    const { userType, email, password } = req.body;
+    res.render(path.join(__dirname, "/views/login"), { title: "Login" });
+}); */
+
+// routes
+app.use('/dbroutes', require('../db/db_routes/dbroutes'));
 
 let PORT = process.env.PORT;
 
 if (PORT == null || PORT == "") {
-  PORT = 3001;
+    PORT = 3001;
 }
 
 app.listen(PORT, () => {
-  console.log(`Server running on port ${PORT}`);
+    console.log(`Server running on port ${PORT}`);
 });
