@@ -2,7 +2,7 @@ const express = require("express");
 const session = require("express-session");
 const path = require("path");
 const app = express();
-const db = require("./db/models/index.js");
+const sequelize = require("./models/db");
 const login = require("./controllers/login");
 
 app.set("views", "./views");
