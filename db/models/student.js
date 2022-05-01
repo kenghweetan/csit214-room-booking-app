@@ -32,13 +32,7 @@ module.exports = (sequelize, DataTypes) => {
     }, {});
 
     Student.associate = (models) => {
-        Student.hasMany(models.Booking, {
-            foreignKey: {
-                name: 'email',
-                allowNull: false
-            },
-            as: 'id'
-        });
+        Student.hasMany(models.Booking);
     };
     return Student;
 };

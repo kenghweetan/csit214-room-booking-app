@@ -15,13 +15,7 @@ module.exports = (sequelize, DataTypes) => {
     }, {});
 
     Amenity.associate = (models) => {
-        Amenity.belongsTo(models.Room, {
-            foreignKey: {
-                name: 'roomName',
-                allowNull: false
-            },
-            as: 'id'
-        });
+        Amenity.belongsTo(models.Room);
     };
     return Amenity;
 };

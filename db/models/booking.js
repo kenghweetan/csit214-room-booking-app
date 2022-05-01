@@ -64,27 +64,9 @@ module.exports = (sequelize, DataTypes) => {
     }, {});
 
     Booking.associate = (models) => {
-        Booking.belongsTo(models.Room, {
-            foreignKey: {
-                name: 'roomName',
-                allowNull: false
-            },
-            as: 'id'
-        });
-        Booking.belongsTo(models.PromoCode, {
-            foreignKey: {
-                name: 'name',
-                allowNull: false
-            },
-            as: 'id'
-        });
-        Booking.belongsTo(models.Student, {
-            foreignKey: {
-                name: 'email',
-                allowNull: false
-            },
-            as: 'id'
-        });
+        Booking.belongsTo(models.Room);
+        Booking.belongsTo(models.PromoCode);
+        Booking.belongsTo(models.Student);
     };
     return Booking;
 };

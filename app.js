@@ -1,8 +1,7 @@
 const express = require("express");
 const path = require("path");
 const app = express();
-//const sequelize = require("./models/db");
-const sequelize = require("./db/migrations/create-amenity.js");
+const db = require("./db/models/index.js");
 
 app.set("views", "./views");
 app.set("view engine", "ejs");
@@ -21,14 +20,6 @@ app.get("/bookingDetails", (req, res) => {
 app.get("/calendar-view", (req, res) => {
     res.render(path.join(__dirname, "/views/calendar-view"), { title: "Calendar" });
 });
-
-/* app.post("/login", (req, res) => {
-    const { userType, email, password } = req.body;
-    res.render(path.join(__dirname, "/views/login"), { title: "Login" });
-}); */
-
-// routes
-app.use('/dbroutes', require('../db/db_routes/dbroutes'));
 
 let PORT = process.env.PORT;
 

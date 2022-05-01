@@ -41,13 +41,7 @@ module.exports = (sequelize, DataTypes) => {
     }, {});
 
     PromoCode.associate = (models) => {
-        PromoCode.hasMany(models.Booking, {
-            foreignKey: {
-                name: 'name',
-                allowNull: false
-            },
-            as: 'id'
-        });
+        PromoCode.hasMany(models.Booking);
     };
     return PromoCode;
 };

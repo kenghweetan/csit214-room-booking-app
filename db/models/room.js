@@ -1,7 +1,7 @@
 'use strict';
 module.exports = (sequelize, DataTypes) => {
     const Room = sequelize.define('Room', {
-        roomName: {
+        name: {
             type: DataTypes.STRING,
             primaryKey: true
         },
@@ -12,20 +12,8 @@ module.exports = (sequelize, DataTypes) => {
     }, {});
 
     Room.associate = (models) => {
-        Room.hasMany(models.Amenity, {
-                foreignKey: {
-                    name: 'roomName',
-                    allowNull: false
-                },
-                as: 'id'
-            }),
-            Room.hasMany(models.Booking, {
-                foreignKey: {
-                    name: 'roomName',
-                    allowNull: false
-                },
-                as: 'id'
-            });
-    };
+        Room.hasMany(models.Amenity);
+        Room.hasMany(models.Booking);
+    }
     return Room;
 };
