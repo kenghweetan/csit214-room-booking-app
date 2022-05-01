@@ -40,6 +40,7 @@ module.exports = (sequelize, DataTypes) => {
             defaultValue: DataTypes.UUIDV1,
             allowNull: false,
             unique: true,
+            primaryKey: true,
         },
         status: {
             type: DataTypes.ENUM("confirmed", "canceled"),
