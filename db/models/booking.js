@@ -54,7 +54,7 @@ module.exports = (sequelize, DataTypes) => {
             type: DataTypes.DATE,
             allowNull: false,
         },
-        grossPriceInCents: {
+        grossPrice: {
             type: DataTypes.DECIMAL(15, 2),
             allowNull: false,
         },
