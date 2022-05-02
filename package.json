@@ -1,20 +1,25 @@
 {
   "dependencies": {
+    "cjs-loader": "^0.1.0",
+    "cross-env": "^7.0.3",
     "dotenv": "^16.0.0",
+    "ejs": "^3.1.7",
     "express": "^4.17.3",
-    "mysql2": "^2.3.3"
+    "mysql2": "^2.3.3",
+    "sequelize": "^6.19.0"
   },
   "name": "csit214-room-booking-app",
   "description": "Room Booking System for University of Wollongong CSIT214",
   "version": "1.0.0",
   "main": "app.js",
   "devDependencies": {
-    "nodemon": "^2.0.15"
+    "nodemon": "^2.0.15",
+    "sequelize-cli": "^6.4.1"
   },
   "scripts": {
-    "start": "node app.js",
-    "dev": "nodemon app.js",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "cross-env NODE_ENV=production node app.js",
+    "dev": "npx sequelize-cli db:create && npx sequelize-cli db:migrate && npx sequelize-cli db:seed:all && cross-env NODE_ENV=development nodemon app.js",
+    "test": "cross-env NODE_ENV=test echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
     "type": "git",
