@@ -1,4 +1,3 @@
-console.log("hi");
 document.getElementById("loginForm").addEventListener("submit", login);
 
 function login(event) {
