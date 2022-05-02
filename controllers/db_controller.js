@@ -1,20 +1,23 @@
 const db = require("../db/models");
+const booking = require("../db/models/booking");
 const Op = db.Sequelize.Op;
 const { Booking, Room } = db;
 
 module.exports = {
     findAll: (req, res) => {
         const bookDetails = req.query.bookDetails;
-        var condition = bookDetails ?
-            {
+        var condition = bookDetails ? {
                 bookDetails: {
+                    [Op.like]: `%${bookingId}%`,
+                    [Op.like]: `%${status}%`,
                     [Op.like]: `%${startDateTime}%`,
                     [Op.like]: `%${endDateTime}%`,
                     [Op.like]: `%${grossPrice}%`,
+                    [Op.like]: `%${netPrice}%`,
                 },
             } :
             null;
-        Room.findAll({ where: condition })
+        Booking.findAll({ where: condition })
             .then((data) => {
                 res.send(data);
             })
@@ -26,7 +29,7 @@ module.exports = {
     },
 
     updateBookingDetails: (req, res) => {
-        let { startDateTime, endDateTime } = req.body;
+        let { status, startDateTime, endDateTime, grossPrice, netPrice } = req.body;
         let bookingId = req.params.bookingId;
 
         userBook
@@ -36,7 +39,7 @@ module.exports = {
             .then((booking) => {
                 if (booking) {
                     booking
-                        .update({ startDateTime, endDateTime })
+                        .update({ status, startDateTime, endDateTime, grossPrice, netPrice })
                         .then((updateBooking) => {
                             return res.status(202).json({
                                 message: "Booking updated successfully",
@@ -86,4 +89,30 @@ module.exports = {
                 return res.status(400).json({ error });
             });
     },
+
+    createBookings: (req, res) => {
+        if (!req.body.bookingId) {
+            res.status(400).send({
+                message: "Please input values"
+            });
+            return;
+        }
+        const create = {
+            status: req.body.status,
+            startDateTime: req.body.startDateTime,
+            endDateTime: req.body.endDateTime,
+            grossPrice: req.body.grossPrice,
+            netPrice: req.body.netPrice
+        };
+
+        Booking.create(create)
+            .then(data => {
+                res.send(data);
+            })
+            .catch(err => {
+                res.status(500).send({
+                    message: err.message || "error occured"
+                });
+            });
+    }
 };
