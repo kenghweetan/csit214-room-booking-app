@@ -6,11 +6,12 @@ function login(event) {
   const email = document.getElementById("email").value;
   const password = document.getElementById("password").value;
 
-  axios({
-    method: "post",
-    url: "/login",
-    data: { userType, email, password },
-  })
+  axios
+    .post("/login", {
+      userType,
+      email,
+      password,
+    })
     .then((result) => {
       window.location = "/calendar-view";
     })
