@@ -1,1 +1,0 @@
-{"version":"1.0.0","name":"csit214-room-booking-app","dependencies":{"cross-env":{"version":"7.0.3"},"dotenv":{"version":"16.0.0"},"ejs":{"version":"3.1.7"},"express":{"version":"4.17.3"},"mysql2":{"version":"2.3.3"},"sequelize":{"version":"6.19.0"}}}
