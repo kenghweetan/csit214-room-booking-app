@@ -3,10 +3,9 @@ module.exports = {
   up: (queryInterface, Sequelize) => {
     return queryInterface.createTable("bookings", {
       bookingId: {
-        type: Sequelize.UUID,
-        defaultValue: Sequelize.UUIDV1,
+        type: Sequelize.INTEGER,
+        autoIncrement: true,
         allowNull: false,
-        unique: true,
         primaryKey: true,
       },
       status: {

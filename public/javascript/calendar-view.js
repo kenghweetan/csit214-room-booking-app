@@ -1,13 +1,15 @@
 window.onload = loadDefaultView;
 
 function loadDefaultView() {
-  document.getElementById("sDate").valueAsDate = new Date();
-  createWeekView();
+  const defaultDate = new Date();
+  document.getElementById("sDate").valueAsDate = defaultDate;
+  createWeekView(defaultDate);
 }
 
-function createWeekView() {
-  // let date = new Date();
-  let date = document.getElementById("sDate").valueAsDate;
+/** Creates a weekly view of Rooms
+ * @param StartingDate: Javascript Date object
+ */
+function createWeekView(date) {
   // console.log(date.getDate());
   // console.log(new Date());
   const week = document.getElementById("week");
@@ -19,10 +21,11 @@ function createWeekView() {
   // }
 
   for (let i = 0; i < 6; i++) {
-    // week.appendChild(createTimeLineCard(date.setDate(date.getDate() + 1)));
-    newWeek.push(
-      createTimeLineCard(date.setDate(date.getDate() + (i === 0 ? 0 : 1)))
-    );
+    const getADate = date.getDate();
+    const addDate = i === 0 ? 0 : 1;
+    const setADate = date.setDate(getADate + addDate);
+
+    newWeek.push(createTimeLineCard(setADate));
   }
 
   /*   console.log(newWeek);
@@ -47,16 +50,14 @@ function createTimeLineTable(date) {
   const caption = document.createElement("caption");
   caption.setAttribute("id", "captionDate");
 
-  caption.innerHTML = new Date(date).toString();
+  caption.innerHTML = new Date(date).toLocaleDateString("en-SG");
 
-  timeLineTable.appendChild(caption);
-  timeLineTable.appendChild(createTLHead(date));
-  timeLineTable.appendChild(createTLBody());
+  timeLineTable.append(caption, createTLHeader(date), createTLBody());
 
   return timeLineTable;
 }
 
-function createTLHead() {
+function createTLHeader() {
   const thead = document.createElement("thead");
 
   const tr = document.createElement("tr");
@@ -66,7 +67,7 @@ function createTLHead() {
   roomsCol.innerHTML = "Rooms";
   tr.appendChild(roomsCol);
 
-  for (i = 9; i <= 18; i++) {
+  for (let i = 9; i <= 18; i++) {
     const th = document.createElement("th");
     th.innerHTML = i + ":00";
     tr.appendChild(th);

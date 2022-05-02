@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <title>Booking Form Page</title>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <!--<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css"> -->
+        <link
+            href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css"
+            rel="stylesheet"
+            integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3"
+            crossorigin="anonymous"
+        />
+
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+
+        <style>
+            .center-screen {
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                text-align: center;
+                min-height: 100vh;
+            }
+        </style>
+    </head>
+    <body>
+        <div class="container center-screen">
+            <form>
+                <div class="d-flex flex-column justify-content-center">
+                    <div class="p-5"><h1>Booking Details</h1></div>
+                </div>
+
+                <div class="d-flex ">
+                    <div class="flex-shrink-0">
+                        <img src="test1.jpg" class="media-object" style="width:330px">
+                        <figcaption class="figure-caption">Room XXX</figcaption>
+                        <div class="p-2 bd-highlight">
+                            <div class="d-flex flex-column;"><b><u>Ammenities</u></b></div>
+                            <div style="float:left;">
+                                <ul class="list">
+                                    <li class="list">a</li>
+                                    <li class="list">Dapibus ac facilisis in</li>
+                                    <li class="list">Morbi leo risus</li>
+                                    <li class="list">Porta ac consectetur ac</li>
+                                    <li class="list">Vestibulum at eros</li>
+                                </ul>                                
+                            </div>
+
+                            <div style="float:left;">
+                                <ul class="list">
+                                    <li class="list">Cras justo odio</li>
+                                    <li class="list">Dapibus ac facilisis in</li>
+                                    <li class="list">Morbi leo risus</li>
+                                    <li class="list">Porta ac consectetur ac</li>
+                                    <li class="list">Vestibulum at eros</li>
+                                </ul>
+                            </div>
+                    </div>
+                </div>
+
+                <div class="flex-grow-1 ms-3 row justify-content-center">
+
+                    <div class = "d-flex flex-row justify-content-left">
+                        <h3>Summary:</h3>
+                    </div>
+
+                    <div class="flex-grow-1 ms-3 row justify-content-evenly">
+                        <label
+                        for="venue"
+                        class="col-md-2 col-form-label"
+                        style="text-align: left"
+                        >Venue:</label>
+
+                        <div class="col-lg-4 col-md-6">
+                            <select class="form-control" type="select" id="venue">
+                                <option>Room ABC</option>
+                                <option>Room CDE</option>
+                                <option>Room EFG</option>
+                                <option>Room HIJ</option>
+                                <option>Room LOL</option>
+                                <option>Room HELP</option>
+                                <option>Room ME</option>
+                                <option>Room PLS</option>
+                            </select>
+                        </div>
+                    </div>
+                    
+                    <div class="flex-grow-1 ms-3 row justify-content-evenly">
+                        <label
+                        for="startDate"
+                        class="col-md-2 col-form-label"
+                        style="text-align: left"
+                        >Start Date:</label>
+
+                        <div class="col-lg-4 col-md-6">
+                            <input type="text" class="form-control" id="startDate" />
+                        </div>
+                    </div>
+                    
+                    <div class="flex-grow-1 ms-3 row justify-content-evenly">
+                        <label
+                            for="endDate"
+                            class="col-md-2 col-form-label"
+                            style="text-align: left"
+                            >End Date:</label>
+                                    
+                        <div class="col-lg-4 col-md-6">
+                            <input type="text" class="form-control" id="endDate" />
+                        </div>
+                    </div>
+
+                    <div class="flex-grow-1 ms-3 row justify-content-evenly">
+                        <label
+                            for="Time"
+                            class="col-md-2 col-form-label"
+                            style="text-align: left"
+                            >Time:</label>
+                    
+                            <div class="col-lg-4 col-md-6">
+                                <input type="text" class="form-control" id="Time" />
+                            </div>
+                    </div>
+
+                    <div class="flex-grow-1 ms-3 row justify-content-evenly">
+                        <label
+                            for="Cost"
+                            class="col-md-2 col-form-label"
+                            style="text-align: left"
+                            >Cost:</label>
+
+                        <div class="col-lg-4 col-md-6">
+                            <p></p>
+                        </div>
+                    </div>
+
+                    <div class = "button-wrapper d-flex flex-row justify-content-center">
+                        <div class="p-5">
+                            <button type="submit" class="btn btn-primary">Confirm</button>
+                        </div>
+                        <div class="p-5">
+                            <button type="button" class="btn btn-light">Cancel</button>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </body>
+</html>
