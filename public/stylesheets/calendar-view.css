@@ -1,0 +1,29 @@
+.header {
+    text-align: center;
+    font-family:Consolas, monaco, monospace;
+    color: navy;
+    padding-top: 50px;
+}
+.showStartDate {
+    padding-left: 25px;
+    padding-top: 50px;
+    font-size:larger;
+}
+
+.calendar {
+    margin: 20px 20px;
+    padding: 20px;
+}
+
+#displayDate {
+    font-size: 35px;
+}
+
+caption {
+    caption-side:top;
+    font-size:25px;
+}
+
+.selectable:not(booked):hover {
+    background-color: black !important;
+}
