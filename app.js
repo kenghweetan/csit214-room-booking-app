@@ -42,7 +42,9 @@ app.get("/calendar-view", (req, res) => {
     });
 });
 
-require("./routes/db_routes")(app);
+require("./routes/bookingRoutes")(app);
+require("./routes/roomRoutes")(app);
+
 let PORT = process.env.PORT;
 
 if (PORT == null || PORT == "") {
