@@ -1,3 +1,5 @@
+const { default: axios } = require("axios");
+
 window.onload = loadDefaultView;
 
 function loadDefaultView() {
@@ -9,7 +11,7 @@ function loadDefaultView() {
 /** Creates a weekly view of Rooms
  * @param StartingDate: Javascript Date object
  */
-function createWeekView(date) {
+async function createWeekView(date) {
   // console.log(date.getDate());
   // console.log(new Date());
   const week = document.getElementById("week");
@@ -25,7 +27,7 @@ function createWeekView(date) {
     const addDate = i === 0 ? 0 : 1;
     const setADate = date.setDate(getADate + addDate);
 
-    newWeek.push(createTimeLineCard(setADate));
+    newWeek.push(await createTimeLineCard(setADate));
   }
 
   /*   console.log(newWeek);
@@ -33,17 +35,17 @@ function createWeekView(date) {
   week.replaceChildren(...newWeek);
 }
 
-function createTimeLineCard(date) {
+async function createTimeLineCard(date) {
   const timeLineCard = document.createElement("div");
   timeLineCard.setAttribute(
     "class",
     "calendar card shadow-sm table-responsive"
   );
-  timeLineCard.appendChild(createTimeLineTable(date));
+  timeLineCard.appendChild(await createTimeLineTable(date));
   return timeLineCard;
 }
 
-function createTimeLineTable(date) {
+async function createTimeLineTable(date) {
   const timeLineTable = document.createElement("table");
   timeLineTable.setAttribute("class", "table");
   timeLineTable.setAttribute("id", "tableid");
@@ -52,7 +54,7 @@ function createTimeLineTable(date) {
 
   caption.innerHTML = new Date(date).toLocaleDateString("en-SG");
 
-  timeLineTable.append(caption, createTLHeader(date), createTLBody());
+  timeLineTable.append(caption, createTLHeader(date), await createTLBody());
 
   return timeLineTable;
 }
@@ -76,13 +78,16 @@ function createTLHeader() {
   return thead;
 }
 
-function createTLBody() {
+async function createTLBody(date) {
   const tBody = document.createElement("tbody");
-  const rooms = ["room1", "room2", "room3", "room4"];
-  for (const room of rooms) {
+  const rooms = (await axios.get("/api/rooms")).data;
+  console.log(rooms);
+  rooms.forEach((room) => {
+    const bookings = await axios.get("/api/bookings", { startingDate: date }).data;
+    console.log(room);
     const tr = document.createElement("tr");
     const roomNameCol = document.createElement("td");
-    roomNameCol.innerHTML = room;
+    roomNameCol.innerHTML = room.name;
     tr.appendChild(roomNameCol);
 
     for (i = 9; i <= 18; i++) {
@@ -100,7 +105,6 @@ function createTLBody() {
     }
 
     tBody.appendChild(tr);
-  }
-
+  });
   return tBody;
 }
