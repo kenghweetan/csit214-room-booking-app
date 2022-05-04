@@ -1,7 +1,7 @@
 const db = require("../db/models");
-const booking = require("../db/models/room");
 const Op = db.Sequelize.Op;
 const { Room } = db;
+
 
 module.exports = {
     findAll: (req, res) => {
@@ -27,90 +27,66 @@ module.exports = {
             });
     },
 
-    updateRoomDetails: (req, res) => {
-        let { name, capacity, location, launchDateTime, hourlyRate } = req.body;
-        let nameId = req.params.nameId;
-
-        roomBook
-            .findOne({
-                where: { nameId: name },
-            })
-            .then((booking) => {
-                if (booking) {
-                    booking
-                        .update({ name, capacity, location, launchDateTime, hourlyRate })
-                        .then((updateRoom) => {
-                            return res.status(202).json({
-                                message: "Room updated successfully",
-                                updateRoom,
-                            });
-                        });
-                } else {
-                    return (
-                        res.status(206),
-                        json({
-                            message: "Room not updated",
-                        })
-                    );
-                }
-            })
-            .catch((error) => {
-                return res.status(400).json({
-                    error: error,
-                });
+    updateRoomDetails: async(req, res) => {
+        const name = req.params.name;
+        try {
+            const num = await Room.update(req.body, {
+                where: { name: name },
             });
+
+            if (num == 1) {
+                res.send({ message: "updated successfully." });
+            } else {
+                res.send({ message: `cannot update ${name}.` });
+            }
+        } catch (err) {
+            res.status(500).send({
+                message: "Error updating" + name,
+            });
+        }
     },
 
     deleteRooms: (req, res) => {
-        /*   Booking.destroy({
-                  truncate: true
-              }).then(() => {
-                  return res.status(200).json({
-                      success: true,
-                      "message": "Deleted"
-                  })
-              }).catch(err => {
-                  return res.status(400).json({
-                      err
-                  })
-              }) */
+
         let name = req.params.name;
 
         Room.destroy({
                 where: { name: name },
             })
-            .then(() => {
-                return res.status(200).json({
-                    message: "Room Deleted successfully",
-                });
+            .then(num => {
+                if (num == 1) {
+                    return res.status(200).json({
+                        message: "Room Deleted successfully",
+                    });
+                } else {
+                    res.send({
+                        message: `Cannot delete Tutorial with id=${name}. Maybe Tutorial was not found!`
+                    });
+                }
             })
-            .catch((err) => {
-                return res.status(400).json({ error });
+            .catch(err => {
+                res.status(500).send({
+                    message: "Could not delete Tutorial with id=" + name
+                });
             });
     },
 
     createRooms: (req, res) => {
-        if (!req.body.name) {
-            res.status(400).send({
-                message: "Please input values"
-            });
-            return;
-        }
-        const create = {
+        const creates = {
             name: req.body.name,
             capacity: req.body.capacity,
             location: req.body.location,
             launchDateTime: req.body.launchDateTime,
-            hourlyRate: req.body.hourlyRate
+            hourlyRate: req.body.hourlyRate,
         };
 
-        Room.create(create)
-            .then(data => {
+        Room.create(creates)
+            .then((data) => {
                 res.send(data);
             })
-            .catch(err => {
+            .catch((err) => {
                 res.status(500).send({
-                    message: err.message || "error occured"
+                    message: err.message || "error occured",
                 });
             });
     }
