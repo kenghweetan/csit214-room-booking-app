@@ -36,9 +36,27 @@ app.get("/bookingDetails", (req, res) => {
   res.render(path.join(__dirname, "/views/bookingDetails"), { title: "Login" });
 });
 
+app.get("/editBooking", (req, res) => {
+  res.render(path.join(__dirname, "/views/editBooking"), {
+    title: "Edit Booking",
+  });
+});
+
 app.get("/calendar-view", (req, res) => {
   res.render(path.join(__dirname, "/views/calendar-view"), {
     title: "Calendar",
+  });
+});
+
+app.get("/addBooking", (req, res) => {
+  res.render(path.join(__dirname, "/views/addBooking"), {
+    title: "Add Booking",
+  });
+});
+
+app.get("/addRoom", (req, res) => {
+  res.render(path.join(__dirname, "/views/addRoom"), {
+    title: "Add Room",
   });
 });
 
