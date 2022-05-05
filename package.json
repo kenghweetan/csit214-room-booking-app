@@ -1,10 +1,12 @@
 {
   "dependencies": {
+    "axios": "^0.27.2",
     "cjs-loader": "^0.1.0",
     "cross-env": "^7.0.3",
     "dotenv": "^16.0.0",
     "ejs": "^3.1.7",
     "express": "^4.17.3",
+    "express-session": "^1.17.2",
     "mysql2": "^2.3.3",
     "sequelize": "^6.19.0"
   },
@@ -18,7 +20,7 @@
   },
   "scripts": {
     "start": "cross-env NODE_ENV=production node app.js",
-    "dev": "npx sequelize-cli db:create && npx sequelize-cli db:migrate && npx sequelize-cli db:seed:all && cross-env NODE_ENV=development nodemon app.js",
+    "dev": "npx sequelize-cli db:create && npx sequelize-cli db:migrate && npx sequelize-cli db:seed:undo:all && npx sequelize-cli db:seed:all && cross-env NODE_ENV=development nodemon app.js",
     "test": "cross-env NODE_ENV=test echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
