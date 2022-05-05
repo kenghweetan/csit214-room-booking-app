@@ -1,12 +1,12 @@
 module.exports = app => {
-    const dbController = require('../controllers/bookingController.js');
+    const bookingController = require('../controllers/bookingController.js');
     var router = require("express").Router();
 
 
-    router.put('/:bookingId', dbController.updateBookingDetails);
-    router.get('/', dbController.findAll);
-    router.delete('/:name', dbController.deleteBookings);
-    router.post('/', dbController.createBookings);
+    router.put('/:email', bookingController.updateBookingDetails);
+    router.get('/', bookingController.findAll);
+    router.delete('/:email', bookingController.deleteBookings);
+    router.post('/', bookingController.createBookings);
 
 
     app.use('/api/bookings/', router);

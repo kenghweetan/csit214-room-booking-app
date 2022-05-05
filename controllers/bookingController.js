@@ -1,23 +1,21 @@
+//const { status } = require("express/lib/response");
 const db = require("../db/models");
-const booking = require("../db/models/booking");
 const Op = db.Sequelize.Op;
-const { Booking, Room } = db;
+const { Booking } = db;
 
 module.exports = {
-    findAll: (req, res) => {
+    /*  findAll: (req, res) => {
         const bookDetails = req.query.bookDetails;
         var condition = bookDetails ? {
                 bookDetails: {
-                    [Op.like]: `%${bookingId}%`,
                     [Op.like]: `%${status}%`,
                     [Op.like]: `%${startDateTime}%`,
                     [Op.like]: `%${endDateTime}%`,
-                    [Op.like]: `%${grossPrice}%`,
-                    [Op.like]: `%${netPrice}%`,
+                    [Op.like]: `%${RoomName}%`,
                 },
             } :
             null;
-        Booking.findAll({ where: condition })
+        Booking.findOne({ where: condition })
             .then((data) => {
                 res.send(data);
             })
@@ -27,92 +25,118 @@ module.exports = {
                 });
             });
     },
+ */
 
-    updateBookingDetails: (req, res) => {
-        let { status, startDateTime, endDateTime, grossPrice, netPrice } = req.body;
-        let bookingId = req.params.bookingId;
-
-        userBook
-            .findOne({
-                where: { bookingId: bookingId },
+    /*  findAll: (req, res) => {
+         const status = req.query.status;
+         var condition = status ? {
+             status: {
+                 [Op.like]: `%${status}%`
+             }
+         } : null;
+         Booking.findAll({ where: condition })
+             .then(data => {
+                 res.send(data);
+             })
+             .catch(err => {
+                 res.status(500).send({
+                     message: err.message || "Some error occurred while retrieving tutorials."
+                 });
+             });
+     }, */
+    findAll: (req, res) => {
+        const grossPrice = req.query.grossPrice;
+        const endDateTime = req.query.endDateTime;
+        const status = req.query.status;
+        const RoomName = req.query.RoomName;
+        Booking.findAll({
+                where: {
+                    [Op.or]: [{
+                            grossPrice: {
+                                [Op.like]: `%${grossPrice}%`,
+                            },
+                        },
+                        {
+                            endDateTime: {
+                                [Op.like]: `%${endDateTime}%`,
+                            },
+                        },
+                        {
+                            status: {
+                                [Op.like]: `%${status}%`,
+                            },
+                        },
+                        {
+                            RoomName: {
+                                [Op.like]: `%${RoomName}%`,
+                            },
+                        },
+                    ],
+                },
             })
-            .then((booking) => {
-                if (booking) {
-                    booking
-                        .update({ status, startDateTime, endDateTime, grossPrice, netPrice })
-                        .then((updateBooking) => {
-                            return res.status(202).json({
-                                message: "Booking updated successfully",
-                                updateBooking,
-                            });
-                        });
-                } else {
-                    return (
-                        res.status(206),
-                        json({
-                            message: "Booking not updated",
-                        })
-                    );
-                }
+            .then((data) => {
+                res.send(data);
             })
-            .catch((error) => {
-                return res.status(400).json({
-                    error: error,
+            .catch((err) => {
+                res.status(500).send({
+                    message: err.message || "Some error occurred while retrieving tutorials.",
                 });
             });
     },
 
-    deleteBookings: (req, res) => {
-        /*   Booking.destroy({
-                  truncate: true
-              }).then(() => {
-                  return res.status(200).json({
-                      success: true,
-                      "message": "Deleted"
-                  })
-              }).catch(err => {
-                  return res.status(400).json({
-                      err
-                  })
-              }) */
-        let name = req.params.name;
-
-        Booking.destroy({
-                where: { name: name },
-            })
-            .then(() => {
-                return res.status(200).json({
-                    message: "Booking Deleted successfully",
-                });
-            })
-            .catch((err) => {
-                return res.status(400).json({ error });
+    updateBookingDetails: async(req, res) => {
+        const bookingId = req.params.bookingId;
+        try {
+            const num = await Booking.update(req.body, {
+                where: { bookingId: bookingId },
             });
+
+            if (num == 1) {
+                res.send({ message: "Updated Successfully." });
+            } else {
+                res.send({ message: `Cannot Update ${bookingId}.` });
+            }
+        } catch (err) {
+            res.status(500).send({
+                message: `Error 500 Updating ${bookingId}`,
+            });
+        }
+    },
+
+    deleteBookings: async(req, res) => {
+        try {
+            let bookingId = req.params.bookingId;
+
+            await Booking.destroy({
+                where: { bookingId: bookingId },
+            });
+
+            return res.status(200).json({
+                message: "Booking Deleted Successfully",
+            });
+        } catch (err) {
+            return res.status(400).json({ error });
+        }
     },
 
     createBookings: (req, res) => {
-        if (!req.body.bookingId) {
-            res.status(400).send({
-                message: "Please input values"
-            });
-            return;
-        }
-        const create = {
+        const creates = {
             status: req.body.status,
             startDateTime: req.body.startDateTime,
             endDateTime: req.body.endDateTime,
             grossPrice: req.body.grossPrice,
-            netPrice: req.body.netPrice
+            netPrice: req.body.netPrice,
         };
 
-        Booking.create(create)
-            .then(data => {
+        Booking.create(creates)
+            .then((data) => {
                 res.send(data);
             })
-            .catch(err => {
-                res.status(500).send({
-                    message: err.message || "error occured"
-                });
+
+        .catch((err) => {
+            res.status(500).send({
+                message: err.message || "error occured",
             });
-    }
+        });
+    },
 };
