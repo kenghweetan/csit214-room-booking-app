@@ -1,0 +1,131 @@
+<html>
+    <head>
+        <title>
+            Create Room
+        </title>
+        <style>
+            body{
+                background-color: lightgrey;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                padding: 10px;
+            }
+            .container{
+                max-width: 700px;
+                width: 100%;
+                background: #fff;
+                padding: 25px 30px;
+                border-radius: 5px;
+            }
+
+            .container .title{
+                font-size: 25px;
+                font-weight: 500;
+            }
+
+        </style>
+        <script>
+            function vaildTime(){
+                document.getElementById("timeError").innerHTML="";
+            }
+
+            function createRoom(){
+                if (document.getElementById("rName").value == null || (document.getElementById("rName").value).trim() ==""){
+                    document.getElementById("nError").innerHTML = "<br />" +"Please give the room a name.";
+                }
+                else if(document.getElementById("rSize").value == null || (document.getElementById("rSize").value).trim() ==""){
+                    document.getElementById("sError").innerHTML = "<br />" +"Please give the room a volume.";
+                }
+            }
+        </script>
+    </head>
+    <body>
+        <div class="container">
+            <div class="title">Create Room</div>
+            <form action="#">
+                <div class="roominfo">
+                    <div class="textbox">
+                        <label for="details">Room Name</label>
+                        <input id="rName" type="text" name="name" placeholder="Name the room" required size="20">
+                        <span class="errMsg" id="nError"></span>
+                    </div>
+                </div>
+                <div class="roominfo">
+                    <div class="textbox">
+                        <label for="details">Room Size</label>
+                        <input id="rSize" type="text" name="size" placeholder="Size the Room" required size="20">
+                        <span class="errMsg" id="sError"></span>
+                    </div>
+                </div>
+                <div class="roominfo">
+                    <div class="textbox">
+                        <label for="details">Room Price</label>
+                        <input id="rPrice" type="text" name="price" placeholder="Price the Room" required size="20">
+                        <span class="errMsg" id="pError"></span>
+                    </div>
+                </div>
+                <div class="roominfo">
+                    <div class="textbox">
+                        <label for="details">Promo Codes</label>
+                        <input type="text" placeholder="Promo Codes (if any)" size="20">
+                    </div>
+                </div>
+                <div class="roominfo">
+                    <label for="avaliable">Room Avaliable From :</label>
+                    <br>
+                    <select name="time" id="">
+                        <option value="00">8:30</option>
+                        <option value="01">9:00</option>
+                        <option value="02">9:30</option>
+                        <option value="03">10:00</option>
+                        <option value="04">10:30</option>
+                        <option value="05">11:00</option>
+                        <option value="06">11:30</option>
+                        <option value="07">12:00</option>
+                        <option value="08">12:30</option>
+                        <option value="09">13:00</option>
+                        <option value="10">13:30</option>
+                        <option value="11">14:00</option>
+                        <option value="12">14:30</option>
+                        <option value="13">15:00</option>
+                        <option value="14">15:30</option>
+                        <option value="11">16:00</option>
+                        <option value="12">16:30</option>
+                        <option value="13">17:00</option>
+                    </select>
+                    <label for="avaliable">to</label>
+                    <select name="time" id="">
+                        <option value="00">8:30</option>
+                        <option value="01">9:00</option>
+                        <option value="02">9:30</option>
+                        <option value="03">10:00</option>
+                        <option value="04">10:30</option>
+                        <option value="05">11:00</option>
+                        <option value="06">11:30</option>
+                        <option value="07">12:00</option>
+                        <option value="08">12:30</option>
+                        <option value="09">13:00</option>
+                        <option value="10">13:30</option>
+                        <option value="11">14:00</option>
+                        <option value="12">14:30</option>
+                        <option value="13">15:00</option>
+                        <option value="14">15:30</option>
+                        <option value="11">16:00</option>
+                        <option value="12">16:30</option>
+                        <option value="13">17:00</option>
+                    </select>
+                    <span class="errMsg" id="timeError"></span>
+                </div>
+                <div class="date">
+                    <input type="date" id="Date" name="Date" onchange="vaildDate()">
+                    <span class="errMsg" id="dateError"></span>
+                </div>
+                <div class="tBtns">
+                    <input class="btn" id="create" type="button" name="create" value="CREATE" onclick="createRoom()">
+                    <input class="btn" id="cancel" type="button" name="cancel" value="CANCEL" onclick="cancelRoom()">
+                </div>
+            </form>
+        </div>
+    </body>
+</html>
