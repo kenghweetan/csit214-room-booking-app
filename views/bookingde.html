@@ -31,20 +31,24 @@
       
     <div class="row">
       <div class=" col-md-4">
-       <h3 class="display-3">Room A1</h3>
-      </div>
+        <label for="Rname" class=" form-label col-form-lable">Room name</label>
+        <input type="text" class="form-control" id="Rname" value = "Room1" disabled readonlyS>
+        <br>
+         <label for="Rlocation" class=" form-label col-form-lable">Location</label>
+        <input type="text" class="form-control" id="Rlocation" value = "Lxxxxxx" disabled readonlyS>
+          </div>
       
       <div class="col-md-4">
         <form role="form"> 
               <label for="Rlocation" class=" form-label ">Start Date & Time</label>
-              <input type="text" class="form-control" id="sT" value = "00/00/00, 00:00" disabled readonly>
+              <input type="datetime-local" class="form-control" id="sT" value = "00/00/00, 00:00" disabled readonly>
           </br>
 
               <label for="Rcapacity" class=" form-label">End Date & Time</label>
-              <input type="text" class="form-control" id="eT" value = "00/00/00, 00:00" disabled readonlyS>
+              <input type="datetime-local" class="form-control" id="eT" value = "00/00/00, 00:00" disabled readonlyS>
           </br>
         </form>
-     </div>
+      </div>
 
      <div class = "col-md-4">
       <form role="form"> 
@@ -57,9 +61,7 @@
 
        <form class="row"role ="form"> 
         <div class="col-md-4">
-            <label for="Rlocation" class=" form-label col-form-lable">Location</label>
-            <input type="text" class="form-control" id="Rlocation" value = "Lxxxxxx" disabled readonlyS>
-            <br>
+            
             <label for="Rcapacity" class=" form-label col-form-lable">Capacity</label>
             <input type="text" class="form-control" id="Rcapacity" value = "69" disabled readonlyS>
             <br>
