@@ -15,75 +15,97 @@
    
   <body>
 
-    <nav class="navbar navbar-dark bg-dark">
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
       <div class="container-fluid">
-        <a class="navbar-brand" href="#">
-          <img src="../public/images/bookingDetails/uow.png" alt="" width="130" height="40" class="d-inline-block align-text-top">
-        </a>
+        <a class="navbar-brand" href="#">Navbar</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+          aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse justify-content-center" id="navbarNav">
+          <ul class="navbar-nav">
+            <li class="nav-item">
+              <a class="nav-link" href="/">My Bookings</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="/addBooking">Book a Room</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link disabled">Contact Us</a>
+            </li>
+          </ul>
+        </div>
       </div>
-    </nav><br>
-
-  <div class="container">
-    <div class="row">
-      <h2>Booking Details</h2>
-
-    </div><br>
-      
-    <div class="row">
-      <div class=" col-md-4">
-       <p class = "roomd"><span>Room A1</span></p>
-       <img src="../public/images/bookingDetails/room1.jpg" class="room1" alt="room picture" width="200" height="150"/>
-      </div><br>
-      
-      <div class="col-md-4">
-        <form role="form"> 
-              <label for="Rlocation" class=" form-label ">Start Date & Time</label>
-              <input type="text" class="form-control" id="sT" value = "00/00/00, 00:00" disabled readonly>
-          </br>
-
-              <label for="Rcapacity" class=" form-label">End Date & Time</label>
-              <input type="text" class="form-control" id="eT" value = "00/00/00, 00:00" disabled readonlyS>
-          </br>
-        </form>
-     </div>
-
-     <div class = "col-md-4">
-      <form role="form"> 
-        <label for="Ramm" class="form-label">Ammenities</label>
-        <textarea class="form-control" id="Ramm" rows="3"disabled readonly>xxxxxx.</textarea>
-      </form>
-     </div>
-
-    </div>
-
-       <form class="row"role ="form"> 
-        <div class="col-md-4">
-            <label for="Rlocation" class=" form-label col-form-lable">Location</label>
+    </nav>
+      <br />
+      <div class="container">
+        <div class="row">
+          <h1>Room Details</h1>
+    
+        </div><br>
+          
+        <div class="row">
+          <div class=" col-md-4">
+            <label for="Rname" class=" form-label col-form-lable">Room name</label>
+            <input type="text" class="form-control" id="Rname" value = "Room1" disabled readonlyS>
+            <br>
+             <label for="Rlocation" class=" form-label col-form-lable">Location</label>
             <input type="text" class="form-control" id="Rlocation" value = "Lxxxxxx" disabled readonlyS>
-            <br>
-            <label for="Rcapacity" class=" form-label col-form-lable">Capacity</label>
-            <input type="text" class="form-control" id="Rcapacity" value = "69" disabled readonlyS>
-            <br>
+              </div>
+          
+          <div class="col-md-4">
+            <form role="form"> 
+                  <label for="Rdate" class=" form-label ">Date</label>
+                  <input type="date" class="form-control" id="sT" value = "" disabled readonly>
+              </br>
+    
+                  <label for="RsT" class=" form-label">Start Time</label>
+                  <input type="time" class="form-control" id="RsT" value = "" disabled readonlyS>
+              </br>
+                
+            </form>
+          </div>
+    
+         <div class = "col-md-4">
+          <form role="form"> 
+            <label for="Ramm" class="form-label">Ammenities</label>
+            <textarea class="form-control" id="Ramm" rows="3"disabled readonly>xxxxxx.</textarea>
+          </form>
+         </div>
+    
         </div>
-
-        <div class = "col-md-4 col-md-offset-1">
-          <label for="Rcapacity" class=" form-label col-form-lable">Prommotional Code</label>
-          <input type="text" class="form-control" id="Rprom" value = "000000"  disabled readonlyS>
-          <br>
-          <label for="Rprice" class="form-label col-form-lable">Price</label>
-          <input type="text" class="form-control" id="Rprice" value = "$69" disabled readonlyS>
-          <br><br>
+    
+           <form class="row"role ="form"> 
+            <div class="col-md-4">
+                
+                <label for="Rcapacity" class=" form-label col-form-lable">Capacity</label>
+                <input type="text" class="form-control" id="Rcapacity" value = "69" disabled readonlyS>
+                <br> 
+                <label for="Rprice" class="form-label col-form-lable">Price</label>
+              <input type="text" class="form-control" id="Rprice" value = "$69" disabled readonlyS>
+            </div>
+    
+            <div class = "col-md-4 col-md-offset-1">
+              <label for="ReT" class=" form-label">End Time</label>
+                <input type="time" class="form-control" id="ReT" value = "" disabled readonlyS>
+          </br>
+              <label for="Rcapacity" class=" form-label col-form-lable">Prommotional Code</label>
+              <input type="text" class="form-control" id="Rprom" value = "000000"  disabled readonlyS>
+            
+             
+              <br><br>
+            </div>
+           </form>
+       
+    
+            <div class="d-grid gap-2  d-md-flex justify-content-md-center">
+              <button type="submit"  class="btn btn-outline-primary btn-lg" onclick="window.location.href='editBooking.html'">Edit</button>
+               <button type="submit" class="btn btn-outline-secondary btn-lg">Back</button>
+            </div>
         </div>
-       </form>
-   
-
-        <div class="d-grid gap-2  d-md-flex justify-content-md-center">
-          <button type="submit"  class="btn btn-outline-primary btn-lg" onclick="window.location.href='editbooking.html'">Edit</button>
-           <button type="submit" class="btn btn-outline-secondary btn-lg">Back</button>
-        </div>
-    </div>
-        
-  </div>
+            
+      </div>
+     
  
 
     <!-- Optional JavaScript; choose one of the two! -->
