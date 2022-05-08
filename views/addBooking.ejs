@@ -1,9 +1,8 @@
 <!DOCTYPE html>
 <html lang="en">
-
-<head>
-
-    <%- include('../public/partials/head'); %>
+    <head>
+        <title>Booking Form Page</title>
+        <%- include('../public/partials/head'); %>
 
         <style>
             .center-screen {
@@ -14,26 +13,17 @@
                 min-height: 100vh;
             }
         </style>
-        <title>
-            <%= title%>
-        </title>
-</head>
-
-<body>
-
-    <%- include('../public/partials/nav'); %>
-        <div class="container">
+    </head>
+    <body>
+        <%- include('../public/partials/nav'); %>
+        <div class="container center-screen">
             <form>
                 <div class="d-flex flex-column justify-content-center">
-                    <div class="p-5">
-                        <h1>Booking Details</h1>
-                    </div>
+                    <div class="p-5"><h1>Booking Details</h1></div>
                 </div>
 
                 <div class="d-flex ">
                     <div class="flex-shrink-0">
-                        <img src="test1.jpg" class="media-object" style="width:330px">
-                        <figcaption class="figure-caption">Room XXX</figcaption>
                         <div class="p-2 bd-highlight">
                             <div class="d-flex flex-column;"><b><u>Ammenities</u></b></div>
                             <div style="float:left;">
@@ -43,7 +33,7 @@
                                     <li class="list">Morbi leo risus</li>
                                     <li class="list">Porta ac consectetur ac</li>
                                     <li class="list">Vestibulum at eros</li>
-                                </ul>
+                                </ul>                                
                             </div>
 
                             <div style="float:left;">
@@ -55,79 +45,95 @@
                                     <li class="list">Vestibulum at eros</li>
                                 </ul>
                             </div>
+                    </div>
+                </div>
+
+                <div class="flex-grow-1 ms-3 row justify-content-center">
+
+                    <div class = "d-flex flex-row justify-content-left">
+                        <h3>Summary:</h3>
+                    </div>
+
+                    <div class="flex-grow-1 ms-3 row justify-content-evenly">
+                        <label
+                        for="venue"
+                        class="col-md-2 col-form-label"
+                        style="text-align: left"
+                        >Venue:</label>
+
+                        <div class="col-lg-4 col-md-6">
+                            <select class="form-control" type="select" id="venue">
+                                <option>Room ABC</option>
+                                <option>Room CDE</option>
+                                <option>Room EFG</option>
+                                <option>Room HIJ</option>
+                                <option>Room LOL</option>
+                                <option>Room HELP</option>
+                                <option>Room ME</option>
+                                <option>Room PLS</option>
+                            </select>
+                        </div>
+                    </div>
+                    
+                    <div class="flex-grow-1 ms-3 row justify-content-evenly">
+                        <label
+                        for="Date"
+                        class="col-md-2 col-form-label"
+                        style="text-align: left"
+                        >Date:</label>
+
+                        <div class="col-lg-4 col-md-6">
+                            <input type="date" class="form-control" id="Date" />
+                        </div>
+                    </div>
+                    
+                    <div class="flex-grow-1 ms-3 row justify-content-evenly">
+                        <label
+                            for="startTime"
+                            class="col-md-2 col-form-label"
+                            style="text-align: left"
+                            >Start Time:</label>
+                                    
+                        <div class="col-lg-4 col-md-6">
+                            <input type="time" class="form-control" id="startTime" />
                         </div>
                     </div>
 
-                    <div class="flex-grow-1 ms-3 row justify-content-center">
-
-                        <div class="d-flex flex-row justify-content-left">
-                            <h3>Summary:</h3>
-                        </div>
-
-                        <div class="flex-grow-1 ms-3 row justify-content-evenly">
-                            <label for="venue" class="col-md-2 col-form-label" style="text-align: left">Venue:</label>
-
+                    <div class="flex-grow-1 ms-3 row justify-content-evenly">
+                        <label
+                            for="endTime"
+                            class="col-md-2 col-form-label"
+                            style="text-align: left"
+                            >End Time:</label>
+                    
                             <div class="col-lg-4 col-md-6">
-                                <select class="form-control" type="select" id="venue">
-                                    <option>Room ABC</option>
-                                    <option>Room CDE</option>
-                                    <option>Room EFG</option>
-                                    <option>Room HIJ</option>
-                                    <option>Room LOL</option>
-                                    <option>Room HELP</option>
-                                    <option>Room ME</option>
-                                    <option>Room PLS</option>
-                                </select>
+                                <input type="time" class="form-control" id="endTime" />
                             </div>
-                        </div>
+                    </div>
 
-                        <div class="flex-grow-1 ms-3 row justify-content-evenly">
-                            <label for="startDate" class="col-md-2 col-form-label" style="text-align: left">Start
-                                Date:</label>
+                    <div class="flex-grow-1 ms-3 row justify-content-evenly">
+                        <label
+                            for="Cost"
+                            class="col-md-2 col-form-label"
+                            style="text-align: left"
+                            >Cost:</label>
 
-                            <div class="col-lg-4 col-md-6">
-                                <input type="date" class="form-control" id="startDate" />
-                            </div>
-                        </div>
-
-                        <div class="flex-grow-1 ms-3 row justify-content-evenly">
-                            <label for="endDate" class="col-md-2 col-form-label" style="text-align: left">End
-                                Date:</label>
-
-                            <div class="col-lg-4 col-md-6">
-                                <input type="date" class="form-control" id="endDate" />
-                            </div>
-                        </div>
-
-                        <div class="flex-grow-1 ms-3 row justify-content-evenly">
-                            <label for="Time" class="col-md-2 col-form-label" style="text-align: left">Time:</label>
-
-                            <div class="col-lg-4 col-md-6">
-                                <input type="time" class="form-control" id="Time" />
-                            </div>
-                        </div>
-
-                        <div class="flex-grow-1 ms-3 row justify-content-evenly">
-                            <label for="Cost" class="col-md-2 col-form-label" style="text-align: left">Cost:</label>
-
-                            <div class="col-lg-4 col-md-6">
-                                <p></p>
-                            </div>
-                        </div>
-
-                        <div class="button-wrapper d-flex flex-row justify-content-center">
-                            <div class="p-5">
-                                <button type="submit" class="btn btn-primary">Confirm</button>
-                            </div>
-                            <div class="p-5">
-                                <button type="button" class="btn btn-light">Cancel</button>
-                            </div>
+                        <div class="col-lg-4 col-md-6">
+                            <p></p>
                         </div>
                     </div>
+
+                    <div class = "button-wrapper d-flex flex-row justify-content-center">
+                        <div class="p-5">
+                            <button type="submit" class="btn btn-primary">Confirm</button>
+                        </div>
+                        <div class="p-5">
+                            <button type="button" class="btn btn-light">Cancel</button>
+                        </div>
+                    </div>
+                </div>
             </form>
         </div>
-
         <%- include('../public/partials/scripts'); %>
-</body>
-
+    </body>
 </html>

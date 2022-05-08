@@ -42,13 +42,13 @@
                         <div class="row">
                             <div class=" col-md-4">
                              <p class = "roomd"><span>Room A1</span></p>
-                            </div><br>
+                            </div>
                             
                             <div class="col-md-4">
                                 <form role="form"> 
-                                    <label for="Rlocation" class=" form-label ">Date & Time</label>
-                                    <input type="text" class="form-control" id="sT" value = "00/00/00, 00:00" disabled readonly>
-                                </br>
+                                    <label for="Rlocation" class=" form-label ">Date</label>
+                                    <input type="date" class="form-control" id="sT" disabled readonly>
+                                    <br>
                                 </form>
                             </div>
                       
@@ -58,6 +58,19 @@
                                     <textarea class="form-control" id="Ramm" rows="3"disabled readonly>xxxxxx.</textarea>
                                 </form>
                             </div>
+
+                            <form class="row"role ="form"> 
+                                <div class="col-md-4">
+                                    <label for="startTime" class=" form-label ">Start Time</label>
+                                    <input type="time" class="form-control" id="startTime" disabled readonly>
+                                    <br>
+                                </div>
+                        
+                                <div class = "col-md-4 col-md-offset-1">
+                                    <label for="endTime" class=" form-label ">End Time</label>
+                                    <input type="time" class="form-control" id="endTime" disabled readonly>
+                                </div>
+                            </form>
                         </div>
 
                         <form class="row"role ="form"> 
