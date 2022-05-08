@@ -1,39 +1,40 @@
+const path = require("path");
 const router = require("express").Router();
 const loginController = require("../../controllers/login");
 
 module.exports = (app) => {
   router.get("/login", (_req, res) => {
-    res.render(path.join(__dirname, "/views/login"), { title: "Login" });
+    res.render("login", { title: "Login" });
   });
 
   router.post("/login", loginController);
 
   router.get("/bookingDetails/", (_req, res) => {
-    res.render(path.join(__dirname, "/views/bookingDetails"), {
+    res.render("bookingDetails", {
       title: "Booking Details",
     });
   });
 
   router.get("/editBooking", (_req, res) => {
-    res.render(path.join(__dirname, "/views/editBooking"), {
+    res.render("editBooking", {
       title: "Edit Booking",
     });
   });
 
   router.get("/calendar-view", (_req, res) => {
-    res.render(path.join(__dirname, "/views/calendar-view"), {
+    res.render("calendar-view", {
       title: "Calendar",
     });
   });
 
   router.get("/addBooking", (_req, res) => {
-    res.render(path.join(__dirname, "/views/addBooking"), {
+    res.render("addBooking", {
       title: "Add Booking",
     });
   });
 
   router.get("/addRoom", (_req, res) => {
-    res.render(path.join(__dirname, "/views/addRoom"), {
+    res.render("addRoom", {
       title: "Add Room",
     });
   });
