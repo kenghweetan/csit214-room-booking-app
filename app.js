@@ -1,78 +1,37 @@
+const dotenv = require("dotenv");
 const express = require("express");
 const session = require("express-session");
 const path = require("path");
 const app = express();
-const sequelize = require("./db/models");
-const login = require("./controllers/login");
 
+dotenv.config();
 app.set("views", "./views");
 app.set("view engine", "ejs");
 app.use(
-    session({
-        secret: process.env.SECRET,
-        resave: true,
-        saveUninitialized: true,
-    })
+  session({
+    secret: process.env.SECRET,
+    resave: true,
+    saveUninitialized: true,
+  })
 );
 app.use(express.static(__dirname + "/public"));
 app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
 
-app.get("/", (req, res) => {
-    console.log(req.session);
-    if (req.session.loggedIn) {
-        return res.redirect("/calendar-view");
-    }
-    return res.redirect("/login");
-});
-
-app.get("/login", (req, res) => {
-    res.render(path.join(__dirname, "/views/login"), { title: "Login" });
-});
-
-app.post("/login", login);
-
-app.get("/bookingDetails", (req, res) => {
-    res.render(path.join(__dirname, "/views/bookingDetails"), { title: "Login" });
-});
-
-app.get("/editBooking", (req, res) => {
-  res.render(path.join(__dirname, "/views/editBooking"), {
-    title: "Edit Booking",
-  });
-});
-
-app.get("/calendar-view", (req, res) => {
-    res.render(path.join(__dirname, "/views/calendar-view"), {
-        title: "Calendar",
-    });
-});
-
-app.get("/addBooking", (req, res) => {
-  res.render(path.join(__dirname, "/views/addBooking"), {
-    title: "Add Booking",
-  });
-});
-
-app.get("/addRoom", (req, res) => {
-  res.render(path.join(__dirname, "/views/addRoom"), {
-    title: "Add Room",
-  });
-});
-
-require("./routes/bookingRoutes")(app);
-require("./routes/roomRoutes")(app);
-require("./routes/promoCodeRoutes")(app);
-require("./routes/amenityRoutes")(app);
-require("./routes/studentRoutes")(app);
-require("./routes/staffRoutes")(app);
+require("./routes/api/bookingRoutes")(app);
+require("./routes/api/roomRoutes")(app);
+require("./routes/api/promoCodeRoutes")(app);
+require("./routes/api/amenityRoutes")(app);
+require("./routes/api/studentRoutes")(app);
+require("./routes/api/staffRoutes")(app);
+require("./routes/app/appRoutes")(app);
 
 let PORT = process.env.PORT;
 
 if (PORT == null || PORT == "") {
-    PORT = 3001;
+  PORT = 3001;
 }
 
 app.listen(PORT, () => {
-    console.log(`Server running on port ${PORT}`);
+  console.log(`Server running on port ${PORT}`);
 });
