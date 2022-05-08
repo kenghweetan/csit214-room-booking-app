@@ -1,26 +1,3 @@
-/* const { DataTypes, Model } = require("sequelize");
-const sequelize = require("./db");
-
-class PromoCode extends Model {}
-
-PromoCode.init({
-    name: {
-        type: DataTypes.STRING,
-        allowNull: false,
-        primaryKey: true,
-    },
-    discountRate: {
-        type: DataTypes.INTEGER,
-        allowNull: false,
-    },
-    expiryDate: {
-        type: DataTypes.DATE,
-        allowNull: false,
-    },
-}, {
-    sequelize,
-}); */
-
 'use strict';
 module.exports = (sequelize, DataTypes) => {
     const PromoCode = sequelize.define('PromoCode', {
@@ -41,7 +18,11 @@ module.exports = (sequelize, DataTypes) => {
     }, {});
 
     PromoCode.associate = (models) => {
-        PromoCode.hasMany(models.Booking);
+        PromoCode.hasMany(models.Booking, {
+            onDelete: 'CASCADE',
+            onUpdate: 'CASCADE'
+        });
+
     };
     return PromoCode;
 };
