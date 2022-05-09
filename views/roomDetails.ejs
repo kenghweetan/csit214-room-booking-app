@@ -33,72 +33,78 @@
         </div>
       </nav><br>
 
-  <div class="container">
-    <div class="row">
-      <h1>Room Details</h1>
-
-    </div><br>
-      
-    <div class="row">
-      <div class=" col-md-4">
-        <label for="Rname" class=" form-label col-form-lable">Room name</label>
-        <input type="text" class="form-control" id="Rname" value = "Room1" disabled readonlyS>
-        <br>
-         <label for="Rlocation" class=" form-label col-form-lable">Location</label>
-        <input type="text" class="form-control" id="Rlocation" value = "Lxxxxxx" disabled readonlyS>
+      <div class="container">
+        <div class="row">
+         <div class="col-md-8">
+           <h1 id="Rd">Room Details</h1>
+     
+         </div><br>
+         <div class="col-md-4 d-flex justify-content-lg-end">
+           <button type="submit" class="btn btn-outline-danger btn-lg" id="delet">Delete Room</button>
+         </div>
+        </div>
+         <div class="row">
+           <div class=" col-md-4">
+             <label for="Rname" class=" form-label col-form-lable">Room name</label>
+             <input type="text" class="form-control" id="Rname" value = "Room1" disabled >
+             <br>
+              <label for="Rlocation" class=" form-label col-form-lable">Location</label>
+             <input type="text" class="form-control" id="Rlocation" value = "Lxxxxxx" disabled >
+               </div>
+           
+           <div class="col-md-4">
+             <form role="form"> 
+                   <label for="Rdate" class=" form-label ">Date</label>
+                   <input type="date" class="form-control" id="Rdate" value = "" disabled>
+               </br>
+     
+                   <label for="RsT" class=" form-label">Start Time</label>
+                   <input type="time" class="form-control" id="RsT" value = "" disabled>
+               </br>
+                 
+             </form>
+           </div>
+     
+          <div class = "col-md-4">
+           <form role="form"> 
+             <label for="Ramm" class="form-label">Ammenities</label>
+             <textarea class="form-control" id="Ramm" rows="3"disabled >xxxxxx.</textarea>
+           </form>
           </div>
+     
+         </div>
+     
+            <form class="row"role ="form"> 
+             <div class="col-md-4">
+                 
+                 <label for="Rcapacity" class=" form-label col-form-lable">Capacity</label>
+                 <input type="text" class="form-control" id="Rcapacity" value = "69" disabled >
+                 <br> 
+                 <label for="Rprice" class="form-label col-form-lable">Price</label>
+               <input type="text" class="form-control" id="Rprice" value = "$69" disabled >
+             </div>
+     
+             <div class = "col-md-4 col-md-offset-1">
+               <label for="ReT" class=" form-label">End Time</label>
+                 <input type="time" class="form-control" id="ReT" value = "" disabled>
+           </br>
+               <label for="Rcapacity" class=" form-label col-form-lable">Prommotional Code</label>
+               <input type="text" class="form-control" id="Rprom" value = "000000"  disabled>
+             
+              
+               <br><br>
+             </div>
+            </form>
       
-      <div class="col-md-4">
-        <form role="form"> 
-            <label for="Rdate" class=" form-label ">Date</label>
-            <input type="date" class="form-control" id="sT" value = "" disabled readonly>
-        </br>
-
-            <label for="RsT" class=" form-label">Start Time</label>
-            <input type="time" class="form-control" id="RsT" value = "" disabled readonlyS>
-        </br>
-        </form>
-      </div>
-
-     <div class = "col-md-4">
-      <form role="form"> 
-        <label for="Ramm" class="form-label">Ammenities</label>
-        <textarea class="form-control" id="Ramm" rows="3"disabled readonly>xxxxxx.</textarea>
-      </form>
+    
+           <div class="d-grid gap-2  d-md-flex justify-content-md-center">
+             <input type="button"  class="btn btn-outline-primary btn-lg" id="edit" value="Edit"/>
+             <input type="button"  class="btn btn-outline-secondary btn-lg" id="back" value="Back"/>
+           </div>
+       </div>
+           
      </div>
-
-    </div>
-
-       <form class="row"role ="form"> 
-        <div class="col-md-4">
-            
-            <label for="Rcapacity" class=" form-label col-form-lable">Capacity</label>
-            <input type="text" class="form-control" id="Rcapacity" value = "69" disabled readonlyS>
-            <br>
-            <label for="Rprice" class="form-label col-form-lable">Price</label>
-          <input type="text" class="form-control" id="Rprice" value = "$69" disabled readonlyS>
-        </div>
-
-        <div class = "col-md-4 col-md-offset-1">
-          <label for="Rcapacity" class=" form-label col-form-lable">Prommotional Code</label>
-          <input type="text" class="form-control" id="Rprom" value = "000000"  disabled readonlyS>
-          <br>
-          
-          <br><br>
-        </div>
-       </form>
-   
-
-        <div class="d-grid gap-2  d-md-flex justify-content-md-center">
-            <label for="ReT" class=" form-label">End Time</label>
-            <input type="time" class="form-control" id="ReT" value = "" disabled readonlyS>
-      </br>
-          <button type="submit"  class="btn btn-outline-primary btn-lg" onclick="window.location.href='editRoom.html'">Edit</button>
-           <button type="submit" class="btn btn-outline-secondary btn-lg">Launch Now</button>
-        </div>
-    </div>
-        
-  </div>
+     <script type="text/javascript" src="/javascript/RoomJs.js"></script>
  
   <%- include('../public/partials/scripts'); %>
     
