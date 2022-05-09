@@ -52,36 +52,25 @@ module.exports = {
       RoomName = "",
       grossPrice = "",
     } = req.query;
+    const condition1 = RoomName
+      ? {
+          RoomName: {
+            [Op.like]: `%${RoomName}%`,
+          },
+        }
+      : null;
+    const condition2 = startDateTime
+      ? {
+          startDateTime: {
+            [Op.eq]: new Date(startDateTime),
+          },
+        }
+      : null;
+    console.log(startDateTime);
     Booking.findAll({
-      where: /* {
-        [Op.and]: [
-          {
-            grossPrice: {
-              [Op.like]: `%${grossPrice}%`,
-            },
-          },
-          {
-            startDateTime: {
-              [Op.like]: `%${startDateTime}`,
-            },
-          },
-          {
-            endDateTime: {
-              [Op.like]: `%${endDateTime}%`,
-            },
-          },
-          {
-            status: {
-              [Op.like]: `%${status}%`,
-            },
-          },
-          {
-            RoomName: {
-              [Op.like]: `%${RoomName}%`,
-            },
-          },
-        ],
-      } */ null,
+      where: {
+        [Op.and]: { ...condition1, ...condition2 },
+      },
     })
       .then((data) => {
         res.send(data);
@@ -115,7 +104,7 @@ module.exports = {
 
   deleteBookings: async (req, res) => {
     try {
-      let bookingId = req.params.bookingId;
+      const bookingId = req.params.bookingId;
 
       await Booking.destroy({
         where: { bookingId: bookingId },
@@ -129,8 +118,7 @@ module.exports = {
     }
   },
 
-  createBookings: (req, res) => {
-    console.log(req.session.email);
+  createBookings: async (req, res) => {
     const newBooking = {
       status: req.body.status,
       startDateTime: req.body.startDateTime,
@@ -139,16 +127,16 @@ module.exports = {
       promoCode: req.body.grossPrice,
       netPrice: req.body.netPrice,
       StudentEmail: req.session.email,
+      RoomName: req.body.roomName,
     };
 
-    Booking.create(newBooking)
-      .then((data) => {
-        res.send(data);
-      })
-      .catch((err) => {
-        res.status(500).send({
-          message: err.message || "error occured",
-        });
+    try {
+      const result = await Booking.create(newBooking);
+      return res.send(result);
+    } catch (err) {
+      return res.status(500).send({
+        message: err.message || "error occured",
       });
+    }
   },
 };

@@ -123,10 +123,10 @@ async function handleSubmit(event) {
   endDateTime.setMilliseconds(endTime.getMilliseconds());
 
   const bookingGrossPrice = Number($("#cost").html());
-  console.log($(this).children("option:selected").val());
+  console.log($("#venue").children("option:selected").val());
   console.log(
     await axios.post("api/bookings", {
-      roomName: "",
+      roomName: $("#venue").children("option:selected").val(),
       status: "confirmed",
       startDateTime,
       endDateTime,
