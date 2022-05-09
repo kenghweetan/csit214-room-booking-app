@@ -53,7 +53,7 @@ module.exports = {
       grossPrice = "",
     } = req.query;
     Booking.findAll({
-      where: {
+      where: /* {
         [Op.and]: [
           {
             grossPrice: {
@@ -81,7 +81,7 @@ module.exports = {
             },
           },
         ],
-      },
+      } */ null,
     })
       .then((data) => {
         res.send(data);
@@ -130,19 +130,21 @@ module.exports = {
   },
 
   createBookings: (req, res) => {
-    const creates = {
+    console.log(req.session.email);
+    const newBooking = {
       status: req.body.status,
       startDateTime: req.body.startDateTime,
       endDateTime: req.body.endDateTime,
       grossPrice: req.body.grossPrice,
+      promoCode: req.body.grossPrice,
       netPrice: req.body.netPrice,
+      StudentEmail: req.session.email,
     };
 
-    Booking.create(creates)
+    Booking.create(newBooking)
       .then((data) => {
         res.send(data);
       })
-
       .catch((err) => {
         res.status(500).send({
           message: err.message || "error occured",
