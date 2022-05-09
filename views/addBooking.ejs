@@ -4,7 +4,7 @@
 <head>
     <title>Booking Form Page</title>
     <%- include('../public/partials/head'); %>
-
+        <link rel="stylesheet" type="text/css" href="/stylesheets/timepicker.css" />
         <style>
             .center-screen {
                 display: flex;
@@ -13,31 +13,6 @@
                 text-align: center;
                 color: #212529;
                 min-height: 100vh;
-            }
-
-            .ui-timepicker-container {
-                font-weight: normal;
-                font-family: inherit;
-                font-size: 1rem;
-                white-space: nowrap;
-                color: #212529;
-                min-height: 1.2em;
-                padding: 0px 2px 1px;
-                border-radius: .25rem;
-                border: 1px solid #ced4da;
-                box-shadow: 0 1rem 3rem rgba(0, 0, 0, .175) !important
-            }
-
-            .form-control-time {
-                background-color: #fff;
-                background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3e%3cpath fill='none' stroke='%23343a40' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M2 5l6 6 6-6'/%3e%3c/svg%3e");
-                background-repeat: no-repeat;
-                background-position: right 0.75rem center;
-                background-size: 16px 12px;
-            }
-
-            .ui-timepicker-viewport {
-                text-align: left;
             }
         </style>
 </head>

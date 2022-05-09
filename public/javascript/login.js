@@ -16,6 +16,6 @@ function login(event) {
       window.location = "/calendar-view";
     })
     .catch((error) => {
-      console.log(`${error.response.data}`);
+      alert(`${error.response.data}`);
     });
 }
