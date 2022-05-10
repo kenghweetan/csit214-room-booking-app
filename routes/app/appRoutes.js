@@ -39,6 +39,24 @@ module.exports = (app) => {
     });
   });
 
+  router.get("/userAdminHome", (req, res) => {
+    res.render("userAdminHome", {
+      title: "View Accounts",
+    });
+  });
+
+  router.get("/userAdminEdit", (req, res) => {
+    res.render("userAdminEdit", {
+      title: "Edit Account",
+    });
+  });
+
+  router.get("/userAdminCreate", (req, res) => {
+    res.render("userAdminCreate", {
+      title: "Create Account",
+    });
+  });
+
   router.get("/", (req, res) => {
     console.log(req.session);
     if (req.session.loggedIn) {

@@ -56,19 +56,27 @@ function createAccountBody() {
       if (i === 3) {
         td.setAttribute("id", "manageAccCol");
 
+        const atag = document.createElement("a");
+        atag.setAttribute("href", "/userAdminEdit");
+        td.appendChild(atag);
+
+        const atag2 = document.createElement("a");
+        atag.setAttribute("href", "/userAdminCreate");
+        td.appendChild(atag2);
+
         const editButton = document.createElement("button");
         editButton.setAttribute("type", "button");
         editButton.setAttribute("class", "btn btn-primary");
         editButton.setAttribute("id", "editButton");
         editButton.innerHTML = "Edit";
-        td.appendChild(editButton);
+        atag.appendChild(editButton);
 
         const suspendButton = document.createElement("button");
         suspendButton.setAttribute("type", "button");
         suspendButton.setAttribute("class", "btn btn-danger");
         suspendButton.setAttribute("id", "suspendButton");
         suspendButton.innerHTML = "Suspend";
-        td.appendChild(suspendButton);
+        atag2.appendChild(suspendButton);
       }
 
       tr.appendChild(td);

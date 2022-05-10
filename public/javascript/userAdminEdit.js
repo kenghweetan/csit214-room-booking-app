@@ -16,7 +16,7 @@ function createAccDropdown() {
   // Create label for dropdown
   const accTypeLabel = document.createElement("label");
   accTypeLabel.setAttribute("id", "accTypeLabel");
-  accTypeLabel.innerHTML = "Choose Account Type";
+  accTypeLabel.innerHTML = "Account Type";
 
   // Create dropdown
   const accType = document.createElement("select");
@@ -80,6 +80,16 @@ function createButtons() {
   const buttonDiv = document.createElement("div");
   buttonDiv.setAttribute("class", "buttons");
 
+  // a tag for confirm button
+  const atag = document.createElement("a");
+  // atag.setAttribute();
+  buttonDiv.appendChild(atag);
+
+  // a tag for cancel button
+  const atag2 = document.createElement("a");
+  atag2.setAttribute("href", "/userAdminHome");
+  buttonDiv.appendChild(atag2);
+
   // Create confirm button
   const confirmButton = document.createElement("button");
   setAttributes(confirmButton, {
@@ -88,15 +98,16 @@ function createButtons() {
     type: "submit",
   });
   confirmButton.innerHTML = "Confirm";
-  buttonDiv.appendChild(confirmButton);
+  atag.appendChild(confirmButton);
 
+  // Create cancel button
   const cancelButton = document.createElement("button");
   setAttributes(cancelButton, {
     class: "btn btn-secondary",
     id: "cancelButton",
   });
   cancelButton.innerHTML = "Cancel";
-  buttonDiv.appendChild(cancelButton);
+  atag2.appendChild(cancelButton);
 
   return buttonDiv;
 }
