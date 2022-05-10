@@ -5,29 +5,79 @@
         </title>
         <style>
             body{
-                background-color: lightgrey;
+                background-color: rgb(178, 187, 198);
                 display: flex;
                 justify-content: center;
                 align-items: center;
                 padding: 10px;
             }
             .container{
-                max-width: 700px;
+                max-width: 1200px;
                 width: 100%;
-                background: #fff;
-                padding: 25px 30px;
+                background: #ffffffa9;
+                padding: 15px 30px;
                 border-radius: 5px;
+                
             }
 
             .container .title{
                 font-size: 25px;
                 font-weight: 500;
+                position: relative;
+            }
+
+            .container .title::before{
+                content: '';
+                position: absolute;
+                left: 0;
+                bottom: 0;
+                height: 3px;
+                width: 30px;
+                background: rgb(6, 32, 64);
+            }
+
+            .container form .roomInfo{
+                display: flex;
+                flex-wrap: wrap;
+                justify-content: space-between;
+                margin: 20px 0 12px 0;
+            }
+
+            form .roomInfo .textbox{
+                margin-bottom: 5px;
+                width: calc(100% / 2- 20px);
+            }
+
+            .roomInfo .textbox .details{
+                display: block;
+                font-weight: 500;
+                margin-bottom: 5px;
+
+            }
+            .roomInfo .textbox input{
+                height: 30px;
+                width: 100%;
+                outline: none;
+                border-radius: 5px;
+                border: 1px solid #ccc;
+                padding-left: 15px;
+                font-size: 16px;
+                border-bottom-width: 2px;
+                transition: all 0.3s ease;
+            }
+
+            .roomInfo .textbox input:focus,
+            .roomInfo .textbox input:valid{
+                border-color: rgb(6, 32, 64);
             }
 
         </style>
         <script>
             function vaildTime(){
                 document.getElementById("timeError").innerHTML="";
+            }
+            function vaildDate(){
+                document.getElementById("dateError").innerHTML="";
             }
 
             function createRoom(){
@@ -37,6 +87,43 @@
                 else if(document.getElementById("rSize").value == null || (document.getElementById("rSize").value).trim() ==""){
                     document.getElementById("sError").innerHTML = "<br />" +"Please give the room a volume.";
                 }
+                else if(document.getElementById("rPrice").value == null || (document.getElementById("rPrice").value).trim() ==""){
+                    document.getElementById("pError").innerHTML = "<br />" +"Please give the room a price.";
+                }
+                else if(document.getElementById("time1").value == document.getElementById("time2").value) {
+					document.getElementById("timeError").innerHTML = "<br />" + "Its an insufficient time!";
+                }
+                else if(document.getElementById("time1").value > document.getElementById("time2").value) {
+					document.getElementById("timeError").innerHTML = "<br />" + "You can't back to future.";
+                }
+                if (document.getElementById("Date").value == null || (document.getElementById("Date").value).trim() ==""){
+                    document.getElementById("dateError").innerHTML = "<br />" +"Please select a date.";
+                }
+                else{
+                    var newRoom = new Object();
+
+                    var text = document.getElementById("rName").value;
+                    roomName = text.toUpperCase();
+
+                    roomStatus = "Not Available";
+                    roomSize = document.getElementById("rSize").value;
+                    roomPrice= document.getElementById("rPrice").value;
+
+                    pCode = document.getElementById("promoCode").value;
+                    if (pCode == null || pCode.trim()==""){
+                        pCode = "None";
+                    }
+
+                    sTime = document.getElementById("time1").value;
+                    eTime = document.getElementById("time2").value;
+                    rDate = document.getElementById("Date").value;
+
+                    newRoom = {
+                        roomName,roomStatus,roomSize,roomPrice,
+                        pCode,sTime,eTime,rDate
+                    };
+                }
+
             }
         </script>
     </head>
@@ -44,37 +131,37 @@
         <div class="container">
             <div class="title">Create Room</div>
             <form action="#">
-                <div class="roominfo">
+                <div class="roomInfo">
                     <div class="textbox">
                         <label for="details">Room Name</label>
-                        <input id="rName" type="text" name="name" placeholder="Name the room" required size="20">
-                        <span class="errMsg" id="nError"></span>
+                        <input id="rName" type="text" name="name" placeholder="Name the room" required >
+                        <span class="errMsg" id="nError" style="color: red;"></span>
                     </div>
                 </div>
-                <div class="roominfo">
+                <div class="roomInfo">
                     <div class="textbox">
                         <label for="details">Room Size</label>
-                        <input id="rSize" type="text" name="size" placeholder="Size the Room" required size="20">
-                        <span class="errMsg" id="sError"></span>
+                        <input id="rSize" type="text" name="size" placeholder="Size the room" required >
+                        <span class="errMsg" id="sError" style="color: red;"></span>
                     </div>
                 </div>
-                <div class="roominfo">
+                <div class="roomInfo">
                     <div class="textbox">
                         <label for="details">Room Price</label>
-                        <input id="rPrice" type="text" name="price" placeholder="Price the Room" required size="20">
-                        <span class="errMsg" id="pError"></span>
+                        <input id="rPrice" type="text" name="price" placeholder="Price the room" required >
+                        <span class="errMsg" id="pError" style="color: red;"></span>
                     </div>
                 </div>
-                <div class="roominfo">
+                <div class="roomInfo">
                     <div class="textbox">
                         <label for="details">Promo Codes</label>
-                        <input type="text" placeholder="Promo Codes (if any)" size="20">
+                        <input id="promoCode" name="promoCode" type="text" placeholder="Promo Codes (if any)" >
                     </div>
                 </div>
-                <div class="roominfo">
+                <div class="crTime">
                     <label for="avaliable">Room Avaliable From :</label>
                     <br>
-                    <select name="time" id="">
+                    <select name="time1" id="time1" onchange="vaildTime();">
                         <option value="00">8:30</option>
                         <option value="01">9:00</option>
                         <option value="02">9:30</option>
@@ -95,7 +182,7 @@
                         <option value="13">17:00</option>
                     </select>
                     <label for="avaliable">to</label>
-                    <select name="time" id="">
+                    <select name="time2" id="time2" onchange="vaildTime();">
                         <option value="00">8:30</option>
                         <option value="01">9:00</option>
                         <option value="02">9:30</option>
@@ -115,13 +202,13 @@
                         <option value="12">16:30</option>
                         <option value="13">17:00</option>
                     </select>
-                    <span class="errMsg" id="timeError"></span>
+                    <span class="errMsg" id="timeError" style="color: red;"></span>
                 </div>
-                <div class="date">
-                    <input type="date" id="Date" name="Date" onchange="vaildDate()">
-                    <span class="errMsg" id="dateError"></span>
+                <div class="crDate">
+                    <input type="date" id="Date" name="Date" onchange="validateDate()">
+                    <span class="errMsg" id="dateError" style="color: red;"></span>
                 </div>
-                <div class="tBtns">
+                <div class="crBtn" >
                     <input class="btn" id="create" type="button" name="create" value="CREATE" onclick="createRoom()">
                     <input class="btn" id="cancel" type="button" name="cancel" value="CANCEL" onclick="cancelRoom()">
                 </div>
