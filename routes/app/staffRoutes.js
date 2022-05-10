@@ -8,6 +8,12 @@ module.exports = () => {
     });
   });
 
+  router.get("/roomDetails", isStaff, (request, response) => {
+    response.render("roomDetails", {
+      title: "roomDetails",
+    });
+  });
+
   router.get("/staff", isStaff, (_req, res) => {
     res.redirect("/addRoom");
   });
