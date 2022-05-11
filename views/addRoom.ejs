@@ -1,7 +1,6 @@
-<html>
+<!-- <html>
 
 <head>
-    <%- include('../public/partials/head'); %>
         <title>
             Create Room
         </title>
@@ -44,7 +43,6 @@
 </head>
 
 <body>
-    <%- include('../public/partials/nav'); %>
         <div class="container">
             <div class="title">Create Room</div>
             <form action="#">
@@ -131,7 +129,114 @@
                 </div>
             </form>
         </div>
+   
+</body>
+
+</html> -->
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>Create Room Page</title>
+    <%- include('../public/partials/head'); %>
+        <link rel="stylesheet" type="text/css" href="/stylesheets/timepicker.css" />
+        <style>
+            .center-screen {
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                text-align: center;
+                color: #212529;
+                min-height: 100vh;
+            }
+        </style>
+</head>
+
+<body>
+    <%- include('../public/partials/nav'); %>
+
+        <br />
+        <form id="addRoom">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-8">
+                        <h1 id="Bd">Create a Room</h1>
+
+                    </div><br>
+                    <div class="col-md-4 d-flex justify-content-lg-end">
+                        <button type="submit" class="btn btn-outline-danger btn-lg" id="delet">Delete Booking</button>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class=" col-md-4">
+                        <label for="Rname" class=" form-label col-form-lable" id="roomVenue">Room name</label>
+                        <select class="form-select" type="select" id="roomVenue2">
+                            <option value="" selected hidden>Select a Room</option>
+                    </select>
+                        <br>
+                        <label for="Rlocation" class=" form-label col-form-lable">Location</label>
+                        <input type="text" class="form-control" id="Rlocation" value="Lxxxxxx">
+
+                        <br>
+                        <label for="Rprice" class="form-label col-form-lable">Price</label>
+                        <input type="text" class="form-control" id="Rprice" value="$69">
+
+
+                    </div>
+
+
+
+                    <div class="col-md-4">
+                        <form role="form">
+                            <label for="Rcapacity" class=" form-label col-form-lable">Prommotional Code</label>
+                            <input type="text" class="form-control" id="Rprom" value="000000">
+
+                            </br>
+                            <label for="ReT" class=" form-label">Launch Room On</label>
+                            <input type="time" class="form-control" id="ReT" value="">
+                            </br>
+
+                            <label for="Rlocation" class=" form-label col-form-lable">Capacity</label>
+                            <input type="text" class="form-control" id="Rlocation" value="Lxxxxxx">
+
+
+
+                            </br>
+                            <br>
+                        </form>
+                    </div>
+
+                    <div class="col-md-4">
+
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1">
+                            <label class="form-check-label" for="flexRadioDefault1">
+                          Default radio
+                        </label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault2" checked>
+                            <label class="form-check-label" for="flexRadioDefault2">
+                          Default checked radio
+                        </label>
+                        </div>
+
+                    </div>
+
+
+                    <div class="d-grid gap-2  d-md-flex justify-content-md-center">
+                        <input type="submit" class="btn btn-outline-primary btn-lg" id="edit" value="Submit" />
+                        <input type="button" class="btn btn-outline-secondary btn-lg" id="back" value="Back" />
+                    </div>
+        </form>
+        </div>
+
+
+
+
+
         <%- include('../public/partials/scripts'); %>
+            <script type="text/javascript" src="/javascript/addRoom.js"></script>
 </body>
 
 </html>
