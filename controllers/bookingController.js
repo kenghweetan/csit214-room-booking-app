@@ -4,74 +4,30 @@ const Op = db.Sequelize.Op;
 const { Booking } = db;
 
 module.exports = {
-    /*  findAll: (req, res) => {
-        const bookDetails = req.query.bookDetails;
-        var condition = bookDetails ? {
-                bookDetails: {
-                    [Op.like]: `%${status}%`,
-                    [Op.like]: `%${startDateTime}%`,
-                    [Op.like]: `%${endDateTime}%`,
+    findAll: (req, res) => {
+        const {
+            startDateTime = "",
+                endDateTime = "",
+                status = "",
+                RoomName = "",
+                grossPrice = "",
+        } = req.query;
+        const condition1 = RoomName ? {
+                RoomName: {
                     [Op.like]: `%${RoomName}%`,
                 },
             } :
             null;
-        Booking.findOne({ where: condition })
-            .then((data) => {
-                res.send(data);
-            })
-            .catch((err) => {
-                res.status(500).send({
-                    message: err.message || "Error Occured.",
-                });
-            });
-    },
- */
-
-    /*  findAll: (req, res) => {
-         const status = req.query.status;
-         var condition = status ? {
-             status: {
-                 [Op.like]: `%${status}%`
-             }
-         } : null;
-         Booking.findAll({ where: condition })
-             .then(data => {
-                 res.send(data);
-             })
-             .catch(err => {
-                 res.status(500).send({
-                     message: err.message || "Some error occurred while retrieving tutorials."
-                 });
-             });
-     }, */
-    findAll: (req, res) => {
-        const grossPrice = req.query.grossPrice;
-        const endDateTime = req.query.endDateTime;
-        const status = req.query.status;
-        const RoomName = req.query.RoomName;
+        const condition2 = startDateTime ? {
+                startDateTime: {
+                    [Op.eq]: new Date(startDateTime),
+                },
+            } :
+            null;
+        console.log(startDateTime);
         Booking.findAll({
                 where: {
-                    [Op.or]: [{
-                            grossPrice: {
-                                [Op.like]: `%${grossPrice}%`,
-                            },
-                        },
-                        {
-                            endDateTime: {
-                                [Op.like]: `%${endDateTime}%`,
-                            },
-                        },
-                        {
-                            status: {
-                                [Op.like]: `%${status}%`,
-                            },
-                        },
-                        {
-                            RoomName: {
-                                [Op.like]: `%${RoomName}%`,
-                            },
-                        },
-                    ],
+                    [Op.and]: {...condition1, ...condition2 },
                 },
             })
             .then((data) => {
@@ -79,7 +35,7 @@ module.exports = {
             })
             .catch((err) => {
                 res.status(500).send({
-                    message: err.message || "Some error occurred while retrieving tutorials.",
+                    message: err.message || "Some error occurred while retrieving data",
                 });
             });
     },
@@ -105,7 +61,7 @@ module.exports = {
 
     deleteBookings: async(req, res) => {
         try {
-            let bookingId = req.params.bookingId;
+            const bookingId = req.params.bookingId;
 
             await Booking.destroy({
                 where: { bookingId: bookingId },
@@ -119,24 +75,25 @@ module.exports = {
         }
     },
 
-    createBookings: (req, res) => {
-        const creates = {
+    createBookings: async(req, res) => {
+        const newBooking = {
             status: req.body.status,
             startDateTime: req.body.startDateTime,
             endDateTime: req.body.endDateTime,
             grossPrice: req.body.grossPrice,
+            promoCode: req.body.grossPrice,
             netPrice: req.body.netPrice,
+            StudentEmail: req.session.email,
+            RoomName: req.body.roomName,
         };
 
-        Booking.create(creates)
-            .then((data) => {
-                res.send(data);
-            })
-
-        .catch((err) => {
-            res.status(500).send({
+        try {
+            const result = await Booking.create(newBooking);
+            return res.send(result);
+        } catch (err) {
+            return res.status(500).send({
                 message: err.message || "error occured",
             });
-        });
+        }
     },
 };

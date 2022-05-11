@@ -3,74 +3,69 @@ const Op = db.Sequelize.Op;
 const { Amenity } = db;
 
 module.exports = {
-    findAll: async(req, res) => {
-        const amenityDetails = req.query.amenityDetails;
-        var condition = amenityDetails ? {
-                amenityDetails: {
-                    [Op.like]: `%${amenityId}%`,
-                    [Op.like]: `%${type}%`,
-                    [Op.like]: `%${RoomName}%`,
-                },
-            } :
-            Amenity.findAll({ where: condition })
-            .then((data) => {
-                res.send(data);
-            })
-            .catch((err) => {
-                res.status(500).send({
-                    message: err.message || "Error Occured.",
-                });
-            });
-    },
+  findAll: async (req, res) => {
+    const condition = req.query.roomName
+      ? { roomName: { [Op.eq]: req.query.roomName } }
+      : null;
+    Amenity.findAll({ where: condition })
+      .then((data) => {
+        res.send(data);
+      })
+      .catch((err) => {
+        res.status(500).send({
+          message: err.message || "Error Occured.",
+        });
+      });
+  },
 
-    updateAmenityDetails: async(req, res) => {
-        const amenityID = req.params.amenityID;
-        try {
-            const num = await Amenity.update(req.body, {
-                where: { amenityID: amenityID },
-            });
+  updateAmenityDetails: async (req, res) => {
+    const amenityID = req.params.amenityID;
+    try {
+      const num = await Amenity.update(req.body, {
+        where: { amenityID: amenityID },
+      });
 
-            if (num == 1) {
-                res.send({ message: "Updated Successfully." });
-            } else {
-                res.send({ message: `Cannot Update ${amenityID}.` });
-            }
-        } catch (err) {
-            res.status(500).send({
-                message: `Error 500 Updating ${amenityID}`,
-            });
-        }
-    },
+      if (num == 1) {
+        res.send({ message: "Updated Successfully." });
+      } else {
+        res.send({ message: `Cannot Update ${amenityID}.` });
+      }
+    } catch (err) {
+      res.status(500).send({
+        message: `Error 500 Updating ${amenityID}`,
+      });
+    }
+  },
 
-    deleteAmenity: async(req, res) => {
-        try {
-            let amenityID = req.params.amenityID;
+  deleteAmenity: async (req, res) => {
+    try {
+      let amenityID = req.params.amenityID;
 
-            await Amenity.destroy({
-                where: { amenityID: amenityID },
-            });
+      await Amenity.destroy({
+        where: { amenityID: amenityID },
+      });
 
-            return res.status(200).json({
-                message: "Amenity Deleted Successfully",
-            });
-        } catch (err) {
-            return res.status(400).json({ error });
-        }
-    },
+      return res.status(200).json({
+        message: "Amenity Deleted Successfully",
+      });
+    } catch (err) {
+      return res.status(400).json({ error });
+    }
+  },
 
-    createAmenity: (req, res) => {
-        const creates = {
-            type: req.body.type,
-        };
+  createAmenity: (req, res) => {
+    const creates = {
+      type: req.body.type,
+    };
 
-        Amenity.create(creates)
-            .then((data) => {
-                res.send(data);
-            })
-            .catch((err) => {
-                res.status(500).send({
-                    message: err.message || "error occured",
-                });
-            });
-    },
+    Amenity.create(creates)
+      .then((data) => {
+        res.send(data);
+      })
+      .catch((err) => {
+        res.status(500).send({
+          message: err.message || "error occured",
+        });
+      });
+  },
 };

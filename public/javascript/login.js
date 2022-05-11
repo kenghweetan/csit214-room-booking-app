@@ -7,15 +7,15 @@ function login(event) {
   const password = document.getElementById("password").value;
 
   axios
-    .post("/login", {
+    .post("/api/login", {
       userType,
       email,
       password,
     })
     .then((result) => {
-      window.location = "/calendar-view";
+      window.location = "/";
     })
     .catch((error) => {
-      console.log(`${error.response.data}`);
+      alert(`${error.response.data}`);
     });
 }
