@@ -18,5 +18,11 @@ module.exports = () => {
     res.redirect("/addRoom");
   });
 
+  router.get("/promoHome", isStaff, (request, response) => {
+    response.render("promoHome", {
+      title: "Promo Code",
+    });
+  });
+
   return router;
 };
