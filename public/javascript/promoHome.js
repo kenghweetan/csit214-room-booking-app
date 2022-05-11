@@ -42,18 +42,20 @@ function createPromoHead() {
 }
 
 async function createPromoBody() {
-  const tBody = (await axios.get("/api/promocodes/")).data;
+  const promocodes = (await axios.get("/api/promocodes/")).data;
 
   const promoOptions =  await Promise.all(
-    promocodes.map(async (promocodes) => {
-      const percentage = (await axios.get(`api/promocodes?promo=${promocodes.name}`))
+    promocodes.map(async (promocode) => {
+      const percentage = (await axios.get(`api/promocodes?promo=${promocode.name}`))
         .data;
-      const promo = $("<td></td>")
+      var promoTR = document.createElement("tr");
+      const promoTD = $("<td></td>")
         .attr({
-          name: promo.name,
+          name: promocode.name,
         })
-        .html(promo.name);
-      return promoOptions;
+        .html(promocode.name);
+        promoTR.appendChild(promoTD);
+      return promoTD;
     })
   );
 }
