@@ -14,14 +14,14 @@ module.exports = () => {
     });
   });
 
-  router.get("/staff", isStaff, (_req, res) => {
-    res.redirect("/addRoom");
+  router.get("/viewPromoCodes", isStaff, (request, response) => {
+    response.render("viewPromoCodes", {
+      title: "Promo Codes",
+    });
   });
 
-  router.get("/promoHome", isStaff, (request, response) => {
-    response.render("promoHome", {
-      title: "Promo Code",
-    });
+  router.get("/staff", isStaff, (_req, res) => {
+    res.redirect("/addRoom");
   });
 
   return router;
