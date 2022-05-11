@@ -20,6 +20,12 @@ module.exports = () => {
     });
   });
 
+  router.get("/addPromoCodes", isStaff, (request, response) => {
+    response.render("addPromoCodes", {
+      title: "Add Promo Codes",
+    });
+  });
+
   router.get("/staff", isStaff, (_req, res) => {
     res.redirect("/addRoom");
   });
