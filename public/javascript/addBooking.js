@@ -46,7 +46,9 @@ $("#venue").on("change", function () {
 
 async function populateRoomDropdown() {
   const rooms = (await axios.get("/api/rooms")).data;
-
+  console.log(await axios.get("/api/rooms"));
+  console.log(await axios.get("/api/rooms").data);
+  console.log(rooms);
   const roomOptions = await Promise.all(
     rooms.map(async (room) => {
       const amenities = (await axios.get(`api/amenity?roomName=${room.name}`))
@@ -124,14 +126,21 @@ async function handleSubmit(event) {
 
   const bookingGrossPrice = Number($("#cost").html());
   console.log($("#venue").children("option:selected").val());
-  console.log(
-    await axios.post("api/bookings", {
+
+  try {
+    const result = await axios.post("api/bookings", {
       roomName: $("#venue").children("option:selected").val(),
       status: "confirmed",
       startDateTime,
       endDateTime,
       grossPrice: bookingGrossPrice,
       netPrice: bookingGrossPrice,
-    })
-  );
+    });
+    alert("booking successful!");
+  } catch (error) {
+    alert(error.message);
+  }
+  /* 
+  console.log(
+   ) */
 }

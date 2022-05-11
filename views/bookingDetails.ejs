@@ -10,107 +10,87 @@
 </head>
 
 <body>
-    <nav class="navbar navbar-expand-lg navbar-light bg-light">
-        <div class="container-fluid">
-            <a class="navbar-brand" href="#">Navbar</a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-      </button>
-            <div class="collapse navbar-collapse justify-content-center" id="navbarNav">
-                <ul class="navbar-nav">
-                    <li class="nav-item">
-                        <a class="nav-link" href="/">My Bookings</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="/addBooking">Book a Room</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link disabled">Contact Us</a>
-                    </li>
-                </ul>
-            </div>
-        </div>
-    </nav>
-    <br />
-    <div class="container">
-        <div class="row">
-            <div class="col-md-8">
-                <h1 id="Bd">Booking Details</h1>
+    <%- include('../public/partials/studentNav'); %>
+        <br />
+        <div class="container">
+            <div class="row">
+                <div class="col-md-8">
+                    <h1 id="Bd">Booking Details</h1>
 
-            </div><br>
-            <div class="col-md-4 d-flex justify-content-lg-end">
-                <button type="submit" class="btn btn-outline-danger btn-lg" id="delet">Delete Booking</button>
+                </div><br>
+                <div class="col-md-4 d-flex justify-content-lg-end">
+                    <button type="submit" class="btn btn-outline-danger btn-lg" id="delet">Delete Booking</button>
+                </div>
             </div>
-        </div>
-        <div class="row">
-            <div class=" col-md-4">
-                <label for="Rname" class=" form-label col-form-lable">Room name</label>
-                <select class="form-select" id="Rname" disabled>
-          <option>room1</option>
-        </select>
-                <br>
-                <label for="Rlocation" class=" form-label col-form-lable">Location</label>
-                <input type="text" class="form-control" id="Rlocation" value="Lxxxxxx" disabled readonlyS>
+            <div class="row">
+                <div class=" col-md-4">
+                    <label for="Rname" class=" form-label col-form-lable">Room name</label>
+                    <select class="form-select" id="Rname" disabled>
+                        <option>room1</option>
+                    </select>
+                    <br>
+                    <label for="Rlocation" class=" form-label col-form-lable">Location</label>
+                    <input type="text" class="form-control" id="Rlocation" value="Lxxxxxx" disabled readonlyS>
+                </div>
+
+                <div class="col-md-4">
+                    <form role="form">
+                        <label for="Rdate" class=" form-label ">Date</label>
+                        <input type="date" class="form-control" id="Rdate" value="" disabled>
+                        </br>
+
+                        <label for="RsT" class=" form-label">Start Time</label>
+                        <input type="time" class="form-control" id="RsT" value="" disabled>
+                        </br>
+
+                    </form>
+                </div>
+
+                <div class="col-md-4">
+                    <form role="form">
+                        <label for="Ramm" class="form-label">Ammenities</label>
+                        <textarea class="form-control" id="Ramm" rows="3" disabled readonly>xxxxxx.</textarea>
+                    </form>
+                </div>
+
             </div>
 
-            <div class="col-md-4">
-                <form role="form">
-                    <label for="Rdate" class=" form-label ">Date</label>
-                    <input type="date" class="form-control" id="Rdate" value="" disabled>
+            <form class="row" role="form">
+                <div class="col-md-4">
+
+                    <label for="Rcapacity" class=" form-label col-form-lable">Capacity</label>
+                    <input type="text" class="form-control" id="Rcapacity" value="69" disabled readonlyS>
+                    <br>
+                    <label for="Rprice" class="form-label col-form-lable">Price</label>
+                    <input type="text" class="form-control" id="Rprice" value="$69" disabled readonlyS>
+                </div>
+
+                <div class="col-md-4 col-md-offset-1">
+                    <label for="ReT" class=" form-label">End Time</label>
+                    <input type="time" class="form-control" id="ReT" value="" disabled>
                     </br>
+                    <label for="Rcapacity" class=" form-label col-form-lable">Prommotional Code</label>
+                    <input type="text" class="form-control" id="Rprom" value="000000" disabled>
 
-                    <label for="RsT" class=" form-label">Start Time</label>
-                    <input type="time" class="form-control" id="RsT" value="" disabled>
-                    </br>
 
-                </form>
+                    <br><br>
+                </div>
+            </form>
+
+
+            <div class="d-grid gap-2  d-md-flex justify-content-md-center">
+                <input type="button" class="btn btn-outline-primary btn-lg" id="edit" value="Edit" />
+                <input type="button" class="btn btn-outline-secondary btn-lg" id="back" value="Back" />
             </div>
-
-            <div class="col-md-4">
-                <form role="form">
-                    <label for="Ramm" class="form-label">Ammenities</label>
-                    <textarea class="form-control" id="Ramm" rows="3" disabled readonly>xxxxxx.</textarea>
-                </form>
-            </div>
+        </div>
 
         </div>
 
-        <form class="row" role="form">
-            <div class="col-md-4">
 
-                <label for="Rcapacity" class=" form-label col-form-lable">Capacity</label>
-                <input type="text" class="form-control" id="Rcapacity" value="69" disabled readonlyS>
-                <br>
-                <label for="Rprice" class="form-label col-form-lable">Price</label>
-                <input type="text" class="form-control" id="Rprice" value="$69" disabled readonlyS>
-            </div>
-
-            <div class="col-md-4 col-md-offset-1">
-                <label for="ReT" class=" form-label">End Time</label>
-                <input type="time" class="form-control" id="ReT" value="" disabled>
-                </br>
-                <label for="Rcapacity" class=" form-label col-form-lable">Prommotional Code</label>
-                <input type="text" class="form-control" id="Rprom" value="000000" disabled>
+        <script type="text/javascript" src="/javascript/bookingJs.js"></script>
 
 
-                <br><br>
-            </div>
-        </form>
-
-
-        <div class="d-grid gap-2  d-md-flex justify-content-md-center">
-            <input type="button" class="btn btn-outline-primary btn-lg" id="edit" value="Edit" />
-            <input type="button" class="btn btn-outline-secondary btn-lg" id="back" value="Back" />
-        </div>
-    </div>
-
-    </div>
-
-
-    <script type="text/javascript" src="/javascript/bookingJs.js"></script>
-
-
-    <%- include('../public/partials/scripts'); %>
+        <%- include('../public/partials/scripts'); %>
 </body>
 
 </html>

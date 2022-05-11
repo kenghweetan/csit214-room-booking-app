@@ -7,7 +7,7 @@ function login(event) {
   const password = document.getElementById("password").value;
 
   axios
-    .post("/api/login", {
+    .post("/api/auth/login", {
       userType,
       email,
       password,
