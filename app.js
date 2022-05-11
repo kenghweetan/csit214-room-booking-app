@@ -19,7 +19,7 @@ app.use(express.static(__dirname + "/public"));
 app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
 
-require("./routes/api/loginRoutes")(app);
+require("./routes/api/authRoutes")(app);
 require("./routes/api/bookingRoutes")(app);
 require("./routes/api/roomRoutes")(app);
 require("./routes/api/promoCodeRoutes")(app);
