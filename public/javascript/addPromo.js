@@ -18,7 +18,7 @@ function createEmailTextbox() {
   // Create label for textbox
   const emailTextLabel = document.createElement("label");
   emailTextLabel.setAttribute("id", "emailTextLabel");
-  emailTextLabel.innerHTML = "Email";
+  emailTextLabel.innerHTML = "Promo Code";
 
   // Create textbox
   const emailTextbox = document.createElement("input");
@@ -36,7 +36,7 @@ function createPwTextbox() {
   // Create label for password
   const pwTextLabel = document.createElement("label");
   pwTextLabel.setAttribute("id", "pwTextLabel");
-  pwTextLabel.innerHTML = "Password";
+  pwTextLabel.innerHTML = "Percentage";
 
   // Create textbox
   const pwTextbox = document.createElement("input");
@@ -90,5 +90,18 @@ function createButtons() {
 function setAttributes(el, attrs) {
   for (var key in attrs) {
     el.setAttribute(key, attrs[key]);
+  }
+}
+
+async function submitPromoCode() {
+
+  try {
+    const submit = await axios.post("/api/promocodes/", {
+      name: emailTextbox,
+      discountRate: pwTextbox
+    });
+    alert("Addition successful!");
+  }catch (error) {
+    alert(error.message);
   }
 }
