@@ -26,6 +26,12 @@ module.exports = () => {
     });
   });
 
+  router.get("/editPromoCodes", isStaff, (request, response) => {
+    response.render("editPromoCodes", {
+      title: "Edit Promo Codes",
+    });
+  });
+
   router.get("/staff", isStaff, (_req, res) => {
     res.redirect("/addRoom");
   });
