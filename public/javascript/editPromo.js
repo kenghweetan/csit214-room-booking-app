@@ -4,38 +4,10 @@ window.onload = createEditCard;
 function createEditCard() {
   const editCard = document.createElement("div");
   editCard.setAttribute("class", "editAccCard card shadow-sm table-responsive");
-  editCard.appendChild(createAccDropdown());
   editCard.appendChild(createEmailTextbox());
   editCard.appendChild(createPwTextbox());
   editCard.appendChild(createButtons());
   document.getElementById("editForm").appendChild(editCard);
-}
-
-// Create dropdown list to choose account type
-function createAccDropdown() {
-  // Create label for dropdown
-  const accTypeLabel = document.createElement("label");
-  accTypeLabel.setAttribute("id", "accTypeLabel");
-  accTypeLabel.innerHTML = "Account Type";
-
-  // Create dropdown
-  const accType = document.createElement("select");
-  setAttributes(accType, {
-    class: "form-select form-select-lg mb-3",
-    id: "selectDrop",
-    "aria-label": ".form-select-lg example",
-  });
-
-  // Create options for dropdown list
-  const accOptionList = ["Student", "Staff", "Admin"];
-  for (const options of accOptionList) {
-    const accOption = document.createElement("option");
-    accOption.setAttribute("value", options);
-    accOption.innerHTML = options;
-    accType.appendChild(accOption);
-  }
-  accTypeLabel.append(accType);
-  return accTypeLabel;
 }
 
 // Create textbox to edit email
@@ -43,7 +15,7 @@ function createEmailTextbox() {
   // Create label for textbox
   const emailTextLabel = document.createElement("label");
   emailTextLabel.setAttribute("id", "emailTextLabel");
-  emailTextLabel.innerHTML = "Email";
+  emailTextLabel.innerHTML = "Promo Code";
 
   // Create textbox
   const emailTextbox = document.createElement("input");
@@ -61,7 +33,7 @@ function createPwTextbox() {
   // Create label for password
   const pwTextLabel = document.createElement("label");
   pwTextLabel.setAttribute("id", "pwTextLabel");
-  pwTextLabel.innerHTML = "Password";
+  pwTextLabel.innerHTML = "Percentage";
 
   // Create textbox
   const pwTextbox = document.createElement("input");
@@ -87,7 +59,7 @@ function createButtons() {
 
   // a tag for cancel button
   const atag2 = document.createElement("a");
-  atag2.setAttribute("href", "/userAdminHome");
+  atag2.setAttribute("href", "/viewPromoCodes");
   buttonDiv.appendChild(atag2);
 
   // Create confirm button
