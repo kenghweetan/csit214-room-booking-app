@@ -72,7 +72,7 @@ function createButtons() {
   setAttributes(confirmButton, {
     class: "btn btn-primary",
     id: "confirmButton",
-    type: "submit",
+    //type: "submit",
   });
   confirmButton.innerHTML = "Confirm";
   atag.appendChild(confirmButton);
@@ -99,8 +99,8 @@ async function submitPromoCode(event) {
 
   try {
     const submit = await axios.post("/api/promocodes/", {
-      name: emailTextbox,
-      discountRate: pwTextbox
+      name: emailTextLabel.innerText,
+      discountRate: pwTextLabel.innerText
     });
     alert("Addition successful!");
   }catch (error) {
