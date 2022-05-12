@@ -32,7 +32,7 @@ function createPromoHead() {
   accCol.innerHTML = "Promo Code";
   tr.appendChild(accCol);
 
-  const headers = ["Promo Percentage", "Manage Promo"];
+  const headers = ["Promo Percentage", "Expiry Date", "Manage Promo"];
   for (const header of headers) {
     const accCol = document.createElement("th");
     accCol.innerHTML = header;
