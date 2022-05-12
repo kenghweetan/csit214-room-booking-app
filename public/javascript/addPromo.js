@@ -96,7 +96,7 @@ function setAttributes(el, attrs) {
 }
 
 async function submitPromoCode(event) {
-
+  event.preventDefault();
   try {
     const submit = await axios.post("/api/promocodes/", {
       name: emailTextbox.innerText,
