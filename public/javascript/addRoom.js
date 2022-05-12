@@ -1,38 +1,44 @@
-//document.getElementById("addRoom").addEventListener("submit", handleSubmit);
+document.getElementById("addRoom").addEventListener("submit", handleSubmit);
 
 $(document).ready(() => {
-    /*   document
-          .getElementById("date")
-          .setAttribute("min", dateToLocalISOString(new Date()).split("T")[0]);
-      populateTimeDropdown(); */
-    populateRoomDropdown();
+    var currentTime = new Date();
+    currentTime.setSeconds(0, 0);
+    document
+        .getElementById("launchDate")
+        .setAttribute("min", dateToLocalISOString(currentTime).replace(":00.000Z", ""))
 });
 
-async function populateRoomDropdown() {
-    const rooms = (await axios.get("/api/rooms")).data;
-
-    const roomOptions = await Promise.all(
-        rooms.map(async(room) => {
-            const amenities = (await axios.get(`api/amenity?roomName=${room.name}`))
-                .data;
-            const roomOption = $("<option></option>")
-                .attr({
-                    name: room.name,
-                })
-                .data("value", {...room, amenities })
-                .html(room.name);
-            return roomOption;
-        })
-    );
-    console.log(roomOptions)
-    $("#roomVenue2").append(...roomOptions);
+function dateToLocalISOString(date) {
+    return new Date(
+        date.getTime() - date.getTimezoneOffset() * 60000
+    ).toISOString();
 }
 
-{
-    /* <div class="col-lg-4 col-md-6">
-    <select class="form-select" type="select" id="venue" required>
-        <option value="" selected hidden>Select a Room</option>
-    </select>
-    </div>
-    </div> */
+
+async function handleSubmit(event) {
+    event.preventDefault();
+    const bookingDate = document.getElementById("launchDate").value;
+    const bookDate = new Date(bookingDate);
+    console.log(bookingDate)
+
+
+    const result = await axios.post("api/rooms", {
+            name: $('#Rname').val(),
+            capacity: $('#Rcapacity').val(),
+            location: $('#Rlocation').val(),
+            launchDateTime: bookDate,
+            hourlyRate: $('#Rprice').val(),
+
+
+
+        })
+        .then(function(response) {
+            console.log(response);
+        })
+        /*   alert("room creation successful!");
+    } catch (error) {
+        alert(error.message)
+
+    } */
+
 }

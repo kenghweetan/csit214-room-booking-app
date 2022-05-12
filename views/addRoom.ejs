@@ -163,23 +163,21 @@
                         <h1 id="Bd">Create a Room</h1>
 
                     </div><br>
-                    <div class="col-md-4 d-flex justify-content-lg-end">
+                    <!-- <div class="col-md-4 d-flex justify-content-lg-end">
                         <button type="submit" class="btn btn-outline-danger btn-lg" id="delet">Delete Booking</button>
-                    </div>
+                    </div> -->
                 </div>
                 <div class="row">
                     <div class=" col-md-4">
-                        <label for="Rname" class=" form-label col-form-lable" id="roomVenue">Room name</label>
-                        <select class="form-select" type="select" id="roomVenue2">
-                            <option value="" selected hidden>Select a Room</option>
-                        </select>
+                        <label for="Rname" class=" form-label col-form-lable">Room Name</label>
+                        <input type="text" class="form-control" id="Rname">
                         <br>
                         <label for="Rlocation" class=" form-label col-form-lable">Location</label>
-                        <input type="text" class="form-control" id="Rlocation" value="Lxxxxxx">
+                        <input type="text" class="form-control" id="Rlocation">
 
                         <br>
-                        <label for="Rprice" class="form-label col-form-lable">Price</label>
-                        <input type="text" class="form-control" id="Rprice" value="$69">
+                        <label for="Rprice" class="form-label col-form-lable">Hourly Rate</label>
+                        <input type="text" class="form-control" id="Rprice">
 
 
                     </div>
@@ -188,32 +186,34 @@
 
                     <div class="col-md-4">
                         <form role="form">
-                            <label for="Rcapacity" class=" form-label col-form-lable">Prommotional Code</label>
-                            <input type="text" class="form-control" id="Rprom" value="000000">
+                            <label for="Rpromo" class=" form-label col-form-lable">Promotion Code</label>
+                            <input type="text" class="form-control" id="Rpromo">
 
                             </br>
-                            <label for="ReT" class=" form-label">Launch Room On</label>
-                            <input type="time" class="form-control" id="ReT" value="">
+                            <label for="launchDate" class=" form-label">Launch Room On</label>
+                            <input type="datetime-local" class="form-control" id="launchDate" value="">
                             </br>
 
-                            <label for="Rlocation" class=" form-label col-form-lable">Capacity</label>
-                            <input type="text" class="form-control" id="Rlocation" value="Lxxxxxx">
+                            <label for="Rcapacity" class=" form-label col-form-lable">Capacity</label>
+                            <input type="text" class="form-control" id="Rcapacity">
                             </br>
                             <br>
                         </form>
                     </div>
 
                     <div class="col-md-4">
+                        <label for="form-check-input" class=" form-label col-form-lable">Ammenities Available</label>
 
                         <div class="form-check">
+
+
                             <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1">
                             <label class="form-check-label" for="flexRadioDefault1">
                                 Default radio
                             </label>
                         </div>
                         <div class="form-check">
-                            <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault2"
-                                checked>
+                            <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault2" checked>
                             <label class="form-check-label" for="flexRadioDefault2">
                                 Default checked radio
                             </label>
@@ -223,7 +223,7 @@
 
 
                     <div class="d-grid gap-2  d-md-flex justify-content-md-center">
-                        <input type="submit" class="btn btn-outline-primary btn-lg" id="edit" value="Submit" />
+                        <input type="submit" class="btn btn-outline-primary btn-lg" id="edit" value="submit" />
                         <input type="button" class="btn btn-outline-secondary btn-lg" id="back" value="Back" />
                     </div>
         </form>
