@@ -1,5 +1,7 @@
 window.onload = createCreateCard;
 
+document.getElementById("createForm").addEventListener("submit", submitPromoCode);
+
 // Create card for the form
 function createCreateCard() {
   const createCard = document.createElement("div");
@@ -93,7 +95,7 @@ function setAttributes(el, attrs) {
   }
 }
 
-async function submitPromoCode() {
+async function submitPromoCode(event) {
 
   try {
     const submit = await axios.post("/api/promocodes/", {
