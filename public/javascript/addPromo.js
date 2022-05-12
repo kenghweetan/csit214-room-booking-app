@@ -99,8 +99,8 @@ async function submitPromoCode(event) {
 
   try {
     const submit = await axios.post("/api/promocodes/", {
-      name: emailTextLabel.innerText,
-      discountRate: pwTextLabel.innerText
+      name: emailTextbox.innerText,
+      discountRate: pwTextbox.innerText
     });
     alert("Addition successful!");
   }catch (error) {
