@@ -9,6 +9,9 @@ module.exports = {
                 staffDetails: {
                     [Op.like]: `%${email}%`,
                     [Op.like]: `%${password}%`,
+                    [Op.like]: `%${suspended}%`,
+                    [Op.like]: `%${lastLoggedIn}%`,
+                    [Op.like]: `%${lastLoggedOut}%`,
                 },
             } :
             Staff.findAll({ where: condition })
@@ -32,11 +35,11 @@ module.exports = {
             if (num == 1) {
                 res.send({ message: "Updated Successfully." });
             } else {
-                res.send({ message: `Cannot Update ${amenityID}.` });
+                res.send({ message: `Cannot Update` });
             }
         } catch (err) {
             res.status(500).send({
-                message: `Error 500 Updating ${amenityID}`,
+                message: `Error 500 Updating`,
             });
         }
     },
@@ -61,6 +64,9 @@ module.exports = {
         const creates = {
             email: req.body.email,
             password: req.body.password,
+            suspended: req.body.suspended,
+            lastLoggedIn: req.body.lastLoggedIn,
+            lastLoggedOut: req.body.lastLoggedOut
         };
 
         Staff.create(creates)

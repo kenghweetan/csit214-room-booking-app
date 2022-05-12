@@ -9,11 +9,11 @@ dotenv.config();
 app.set("views", path.join(__dirname, "views"));
 app.set("view engine", "ejs");
 app.use(
-  session({
-    secret: process.env.SECRET,
-    resave: true,
-    saveUninitialized: true,
-  })
+    session({
+        secret: process.env.SECRET,
+        resave: true,
+        saveUninitialized: true,
+    })
 );
 app.use(express.static(__dirname + "/public"));
 app.use(express.urlencoded({ extended: false }));
@@ -25,14 +25,15 @@ require("./routes/api/promoCodeRoutes")(app);
 require("./routes/api/amenityRoutes")(app);
 require("./routes/api/studentRoutes")(app);
 require("./routes/api/staffRoutes")(app);
+require("./routes/api/userAdminRoutes")(app);
 require("./routes/app/appRoutes")(app);
 
 let PORT = process.env.PORT;
 
 if (PORT == null || PORT == "") {
-  PORT = 3001;
+    PORT = 3001;
 }
 
 app.listen(PORT, () => {
-  console.log(`Server running on port ${PORT}`);
+    console.log(`Server running on port ${PORT}`);
 });

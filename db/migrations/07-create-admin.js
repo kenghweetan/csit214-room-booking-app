@@ -1,6 +1,6 @@
 module.exports = {
     up: (queryInterface, Sequelize) => {
-        return queryInterface.createTable("staffs", {
+        return queryInterface.createTable("userAdmins", {
             email: {
                 type: Sequelize.STRING,
                 allowNull: false,
@@ -22,9 +22,10 @@ module.exports = {
             lastLoggedOut: {
                 type: Sequelize.DATE,
             },
+
         });
     },
     down: (queryInterface, Sequelize) => {
-        return queryInterface.dropTable("staffs");
+        return queryInterface.dropTable("userAdmins");
     },
 };

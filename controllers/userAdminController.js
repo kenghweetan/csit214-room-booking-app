@@ -1,12 +1,12 @@
 const db = require("../db/models");
 const Op = db.Sequelize.Op;
-const { Student } = db;
+const { userAdmin } = db;
 
 module.exports = {
     findAll: async(req, res) => {
-        const studentDetails = req.query.studentDetails;
-        var condition = studentDetails ? {
-                studentDetails: {
+        const userAdminDetails = req.query.userAdminDetails;
+        var condition = userAdminDetails ? {
+                userAdminDetails: {
                     [Op.like]: `%${email}%`,
                     [Op.like]: `%${password}%`,
                     [Op.like]: `%${suspended}%`,
@@ -14,7 +14,7 @@ module.exports = {
                     [Op.like]: `%${lastLoggedOut}%`,
                 },
             } :
-            Student.findAll({ where: condition })
+            userAdmin.findAll({ where: condition })
             .then((data) => {
                 res.send(data);
             })
@@ -25,10 +25,10 @@ module.exports = {
             });
     },
 
-    updateStudentDetails: async(req, res) => {
+    updateUserAdminDetails: async(req, res) => {
         const email = req.params.email;
         try {
-            const num = await Student.update(req.body, {
+            const num = await userAdmin.update(req.body, {
                 where: { email: email },
             });
 
@@ -44,23 +44,23 @@ module.exports = {
         }
     },
 
-    deleteStudent: async(req, res) => {
+    deleteUserAdmin: async(req, res) => {
         try {
             let email = req.params.email;
 
-            await Student.destroy({
+            await userAdmin.destroy({
                 where: { email: email },
             });
 
             return res.status(200).json({
-                message: "Student Deleted Successfully",
+                message: "User Admin Deleted Successfully",
             });
         } catch (err) {
             return res.status(400).json({ error });
         }
     },
 
-    createStudent: (req, res) => {
+    createUserAdmin: (req, res) => {
         const creates = {
             email: req.body.email,
             password: req.body.password,
@@ -69,7 +69,7 @@ module.exports = {
             lastLoggedOut: req.body.lastLoggedOut
         };
 
-        Student.create(creates)
+        userAdmin.create(creates)
             .then((data) => {
                 res.send(data);
             })
