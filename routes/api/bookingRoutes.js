@@ -4,6 +4,7 @@ module.exports = (app) => {
 
   router.put("/:email", bookingController.updateBookingDetails);
   // Find all bookings
+  router.get("/myBookings", bookingController.findByUser);
   router.get("/", bookingController.findAll);
   router.delete("/:email", bookingController.deleteBookings);
   router.post("/", bookingController.createBookings);

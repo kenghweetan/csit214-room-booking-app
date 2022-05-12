@@ -1,9 +1,16 @@
 const router = require("express").Router();
 const { isStudent } = require("../../middleware/isLoggedIn");
 module.exports = () => {
-  router.get("/bookingDetails", isStudent, (_req, res) => {
+  router.get("/bookingDetails/:bookingId", isStudent, (req, res) => {
     res.render("bookingDetails", {
       title: "Booking Details",
+      bookingId: req.params.bookingId,
+    });
+  });
+
+  router.get("/viewBookings", isStudent, (_req, res) => {
+    res.render("viewBookings", {
+      title: "My Bookings",
     });
   });
 
