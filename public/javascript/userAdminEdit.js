@@ -1,3 +1,5 @@
+// const { default: axios } = require("axios");
+
 window.onload = createEditCard;
 
 // Create card for the form
@@ -116,4 +118,8 @@ function setAttributes(el, attrs) {
   for (var key in attrs) {
     el.setAttribute(key, attrs[key]);
   }
+}
+
+async function getEditData() {
+  const results = await axios.put();
 }
