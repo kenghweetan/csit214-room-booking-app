@@ -116,6 +116,7 @@ async function handleSubmit(event) {
     const endDateTime = new Date(bookingDate);
 
     startDateTime.setHours(startTime.getHours());
+
     startDateTime.setMinutes(startTime.getMinutes());
     startDateTime.setSeconds(startTime.getSeconds());
     startDateTime.setMilliseconds(startTime.getMilliseconds());
