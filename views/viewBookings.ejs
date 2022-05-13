@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <!-- Required meta tags -->
+    <%- include('../public/partials/head'); %>
+
+        <!--<link rel="stylesheet" type="text/css" href="/stylesheets/userAdminHome.css" /> -->
+
+        <title>
+            <%= title%>
+        </title>
+</head>
+
+<body>
+    <%- include('../public/partials/studentNav'); %>
+        <div class="container">
+            <div class="header">
+                <h1>View Bookings</h1>
+            </div>
+            <div id="bookings">
+
+            </div>
+        </div>
+        <script src="/javascript/viewBookings.js" type="text/javascript"></script>
+        <%- include('../public/partials/scripts'); %>
+</body>
+
+</html>

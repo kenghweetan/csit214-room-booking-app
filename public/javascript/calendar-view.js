@@ -86,9 +86,10 @@ async function createTLBody(date) {
   const rooms = (await axios.get("/api/rooms")).data;
   console.log(rooms);
   rooms.forEach(async (room) => {
-    const bookings = await axios.get("/api/bookings", { startingDate: date })
-      .data;
-    console.log(room);
+    const bookings = await axios.get("/api/bookings", {
+      params: { startDateTime: date, roomName: room.name },
+    }).data;
+    console.log(bookings);
     const tr = document.createElement("tr");
     const roomNameCol = document.createElement("td");
     roomNameCol.innerHTML = room.name;

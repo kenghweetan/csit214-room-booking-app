@@ -18,46 +18,32 @@
 </head>
 
 <body>
-    <%- include('../public/partials/nav'); %>
+    <%- include('../public/partials/studentNav'); %>
         <div class="container center-screen">
             <form id="bookingForm">
                 <div class="d-flex flex-column justify-content-center">
                     <div class="p-5">
                         <h1>Booking Details</h1>
                     </div>
+                    <div class="flex-grow-1 ms-3 row justify-content-left">
+                        <h3>Summary:</h3>
+                    </div>
                 </div>
+                <div style="display: flex; flex-direction:row;">
+                    <div class="d-flex ">
+                        <div class="flex-shrink-0">
+                            <div class="p-2 bd-highlight">
+                                <div class="d-flex flex-column;"><b><u>Ammenities</u></b></div>
+                                <div style="float:left;">
+                                    <ul class="list" id="amenities">
+                                    </ul>
+                                </div>
 
-                <div class="d-flex ">
-                    <div class="flex-shrink-0">
-                        <div class="p-2 bd-highlight">
-                            <div class="d-flex flex-column;"><b><u>Ammenities</u></b></div>
-                            <div style="float:left;">
-                                <ul class="list" id="amenities">
-                                    <li class="list">Cras justo odio</li>
-                                    <li class="list">Dapibus ac facilisis in</li>
-                                    <li class="list">Morbi leo risus</li>
-                                    <li class="list">Porta ac consectetur ac</li>
-                                    <li class="list">Vestibulum at eros</li>
-                                </ul>
-                            </div>
-
-                            <div style="float:left;">
-                                <ul class="list">
-                                    <li class="list">Cras justo odio</li>
-                                    <li class="list">Dapibus ac facilisis in</li>
-                                    <li class="list">Morbi leo risus</li>
-                                    <li class="list">Porta ac consectetur ac</li>
-                                    <li class="list">Vestibulum at eros</li>
-                                </ul>
                             </div>
                         </div>
                     </div>
 
                     <div class="flex-grow-1 ms-3 row justify-content-center" style="gap: 5px;">
-
-                        <div class="d-flex flex-row justify-content-left">
-                            <h3>Summary:</h3>
-                        </div>
 
                         <div class="flex-grow-1 ms-3 row justify-content-evenly">
                             <label for="venue" class="col-md-2 col-form-label" style="text-align: left">Venue:</label>
@@ -83,7 +69,7 @@
 
                             <div class="col-lg-4 col-md-6">
                                 <input type="text" class="form-control form-control-time form-timepicker"
-                                    placeholder="Select Start Time" id="startTime" required />
+                                    placeholder="Select Start Time" id="startTime" autocomplete="off" required />
                             </div>
                         </div>
 
@@ -93,7 +79,7 @@
 
                             <div class="col-lg-4 col-md-6">
                                 <input type="text" class="form-control  form-control-time form-timepicker" id="endTime"
-                                    placeholder="Select End Time" required />
+                                    placeholder="Select End Time" autocomplete="off" required />
                             </div>
                         </div>
 
@@ -114,6 +100,7 @@
                             </div>
                         </div>
                     </div>
+                </div>
             </form>
         </div>
 

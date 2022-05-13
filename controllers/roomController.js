@@ -4,18 +4,19 @@ const { Room } = db;
 
 module.exports = {
     findAll: (req, res) => {
-        const roomDetails = req.query.roomDetails;
-        var condition = roomDetails ?
+        const name = req.query.name;
+        var condition = name ?
             {
-                roomDetails: {
-                    [Op.like]: `%${name}%`,
-                    [Op.like]: `%${capacity}%`,
-                    [Op.like]: `%${location}%`,
-                    [Op.like]: `%${launchDateTime}%`,
-                    [Op.like]: `%${hourlyRate}%`,
+                name: {
+                    [Op.eq]: `${name}`,
+                    /*                [Op.like]: `%${capacity}%`,
+                            [Op.like]: `%${location}%`,
+                            [Op.like]: `%${launchDateTime}%`,
+                            [Op.like]: `%${hourlyRate}%`, */
                 },
             } :
-            Room.findAll({ where: condition })
+            null;
+        Room.findAll({ where: condition })
             .then((data) => {
                 res.send(data);
             })
@@ -57,7 +58,7 @@ module.exports = {
                 message: "Room Deleted Successfully",
             });
         } catch (err) {
-            return res.status(400).json({ error });
+            return res.status(400).json({ err });
         }
     },
 
@@ -69,7 +70,7 @@ module.exports = {
             launchDateTime: req.body.launchDateTime,
             hourlyRate: req.body.hourlyRate,
         };
-
+        console.log(creates)
         Room.create(creates)
             .then((data) => {
                 res.send(data);

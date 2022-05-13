@@ -4,46 +4,6 @@ const Op = db.Sequelize.Op;
 const { Booking } = db;
 
 module.exports = {
-  /*  findAll: (req, res) => {
-        const bookDetails = req.query.bookDetails;
-        var condition = bookDetails ? {
-                bookDetails: {
-                    [Op.like]: `%${status}%`,
-                    [Op.like]: `%${startDateTime}%`,
-                    [Op.like]: `%${endDateTime}%`,
-                    [Op.like]: `%${RoomName}%`,
-                },
-            } :
-            null;
-        Booking.findOne({ where: condition })
-            .then((data) => {
-                res.send(data);
-            })
-            .catch((err) => {
-                res.status(500).send({
-                    message: err.message || "Error Occured.",
-                });
-            });
-    },
- */
-
-  /*  findAll: (req, res) => {
-         const status = req.query.status;
-         var condition = status ? {
-             status: {
-                 [Op.like]: `%${status}%`
-             }
-         } : null;
-         Booking.findAll({ where: condition })
-             .then(data => {
-                 res.send(data);
-             })
-             .catch(err => {
-                 res.status(500).send({
-                     message: err.message || "Some error occurred while retrieving tutorials."
-                 });
-             });
-     }, */
   findAll: (req, res) => {
     const {
       startDateTime = "",
@@ -77,10 +37,25 @@ module.exports = {
       })
       .catch((err) => {
         res.status(500).send({
-          message:
-            err.message || "Some error occurred while retrieving tutorials.",
+          message: err.message || "Some error occurred while retrieving data",
         });
       });
+  },
+
+  findByUser: async (req, res) => {
+    const userEmail = req.session.email;
+    try {
+      const data = await Booking.findAll({
+        where: {
+          StudentEmail: userEmail,
+        },
+      });
+      res.send(data);
+    } catch (err) {
+      res.status(500).send({
+        message: err.message || "Some error occurred while retrieving data",
+      });
+    }
   },
 
   updateBookingDetails: async (req, res) => {
