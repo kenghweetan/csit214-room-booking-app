@@ -16,6 +16,7 @@ function login(event) {
       window.location = "/";
     })
     .catch((error) => {
+      console.log(error.response.data);
       alert(`${error.response.data}`);
     });
 }

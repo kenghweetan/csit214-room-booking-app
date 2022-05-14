@@ -32,6 +32,12 @@ module.exports = () => {
     });
   });
 
+  router.get("/paymentReceipt", isStudent, (_req, res) => {
+    res.render("paymentReceipt", {
+      title: "Payment Receipt",
+    });
+  });
+
   router.get("/student", isStudent, (_req, res) => {
     res.redirect("/calendar-view");
   });

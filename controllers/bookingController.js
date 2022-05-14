@@ -11,6 +11,7 @@ module.exports = {
       status = "",
       RoomName = "",
       grossPrice = "",
+      bookingId = "",
     } = req.query;
     const condition1 = RoomName
       ? {
@@ -26,10 +27,18 @@ module.exports = {
           },
         }
       : null;
+    const condition3 = bookingId
+      ? {
+          bookingId: {
+            [Op.eq]: bookingId,
+          },
+        }
+      : null;
     console.log(startDateTime);
+
     Booking.findAll({
       where: {
-        [Op.and]: { ...condition1, ...condition2 },
+        [Op.and]: { ...condition1, ...condition2, ...condition3 },
       },
     })
       .then((data) => {
@@ -61,16 +70,51 @@ module.exports = {
   updateBookingDetails: async (req, res) => {
     const bookingId = req.params.bookingId;
     try {
+      const updatedBooking = {
+        status: req.body.status,
+        startDateTime: req.body.startDateTime,
+        endDateTime: req.body.endDateTime,
+        grossPrice: req.body.grossPrice,
+        promoCode: req.body.promoCode ? req.body.promoCode : null,
+        netPrice: req.body.netPrice,
+        StudentEmail: req.session.email,
+        RoomName: req.body.roomName,
+      };
+
+      const anotherBookingAlreadyExists = !!(await Booking.findOne({
+        where: {
+          [Op.and]: {
+            bookingId: {
+              [Op.ne]: bookingId,
+            },
+            RoomName: {
+              [Op.like]: `%${updatedBooking.RoomName}%`,
+            },
+            startDateTime: {
+              [Op.lt]: new Date(updatedBooking.endDateTime),
+            },
+            endDateTime: {
+              [Op.gt]: new Date(updatedBooking.startDateTime),
+            },
+          },
+        },
+      }));
+
+      if (anotherBookingAlreadyExists) {
+        return res.status(500).send("Timeslot unavailable");
+      }
+
       const num = await Booking.update(req.body, {
         where: { bookingId: bookingId },
       });
 
-      if (num == 1) {
-        res.send({ message: "Updated Successfully." });
+      if (num === 1) {
+        return res.send({ message: "Updated Successfully." });
       } else {
-        res.send({ message: `Cannot Update ${bookingId}.` });
+        return res.send({ message: `Cannot Update ${bookingId}.` });
       }
     } catch (err) {
+      console.log(err);
       res.status(500).send({
         message: `Error 500 Updating ${bookingId}`,
       });
@@ -106,6 +150,26 @@ module.exports = {
     };
 
     try {
+      const anotherBookingAlreadyExists = !!(await Booking.findOne({
+        where: {
+          [Op.and]: {
+            RoomName: {
+              [Op.like]: `%${newBooking.RoomName}%`,
+            },
+            startDateTime: {
+              [Op.lt]: new Date(newBooking.endDateTime),
+            },
+            endDateTime: {
+              [Op.gt]: new Date(newBooking.startDateTime),
+            },
+          },
+        },
+      }));
+
+      if (anotherBookingAlreadyExists) {
+        return res.status(500).send("Timeslot unavailable");
+      }
+
       const result = await Booking.create(newBooking);
       return res.send(result);
     } catch (err) {
