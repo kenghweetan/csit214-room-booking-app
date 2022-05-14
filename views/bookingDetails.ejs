@@ -12,6 +12,9 @@
 <body>
     <%- include('../public/partials/studentNav'); %>
         <br />
+        <span id='bookingId' hidden>
+            <%= JSON.stringify(bookingId); %>
+        </span>
         <div class="container">
             <div class="row">
                 <div class="col-md-8">
@@ -40,7 +43,7 @@
                         </br>
 
                         <label for="RsT" class=" form-label">Start Time</label>
-                        <input type="time" class="form-control" id="RsT" value="" disabled>
+                        <input type="text" class="form-control timepicker" id="RsT" value="" disabled>
                         </br>
 
                     </form>
@@ -62,14 +65,14 @@
                     <input type="text" class="form-control" id="Rcapacity" value="69" disabled readonlyS>
                     <br>
                     <label for="Rprice" class="form-label col-form-lable">Price</label>
-                    <input type="text" class="form-control" id="Rprice" value="$69" disabled readonlyS>
+                    <span>$<input type="text" class="form-control" id="Rprice" value="69" disabled readonlyS></span>
                 </div>
 
                 <div class="col-md-4 col-md-offset-1">
                     <label for="ReT" class=" form-label">End Time</label>
-                    <input type="time" class="form-control" id="ReT" value="" disabled>
+                    <input type="text" class="form-control timepicker" id="ReT" value="" disabled>
                     </br>
-                    <label for="Rcapacity" class=" form-label col-form-lable">Prommotional Code</label>
+                    <label for="Rcapacity" class=" form-label col-form-lable">Promotional Code</label>
                     <input type="text" class="form-control" id="Rprom" value="000000" disabled>
 
 
@@ -86,11 +89,8 @@
 
         </div>
 
-
-        <script type="text/javascript" src="/javascript/bookingJs.js"></script>
-
-
         <%- include('../public/partials/scripts'); %>
+            <script type="text/javascript" src="/javascript/bookingDetails.js"></script>
 </body>
 
 </html>
