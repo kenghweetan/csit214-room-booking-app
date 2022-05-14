@@ -3,26 +3,60 @@ const Op = db.Sequelize.Op;
 const { Room } = db;
 
 module.exports = {
+    /*   findAll: (req, res) => {
+          const name = req.query.name;
+          var condition = name ?
+              {
+                  name: {
+                      [Op.eq]: `${name}`,
+                                      [Op.like]: `%${capacity}%`,
+                              [Op.like]: `%${location}%`,
+                              [Op.like]: `%${launchDateTime}%`,
+                              [Op.like]: `%${hourlyRate}%`, 
+                  },
+              } :
+              null;
+          Room.findAll({ where: condition })
+              .then((data) => {
+                  res.send(data);
+              })
+              .catch((err) => {
+                  res.status(500).send({
+                      message: err.message || "Error Occured.",
+                  });
+              });
+      }, */
+
     findAll: (req, res) => {
-        const name = req.query.name;
-        var condition = name ?
-            {
+        const {
+            name = "",
+                capacity = "",
+                location = "",
+                launchDateTime = "",
+                hourlyRate = ""
+        } = req.query;
+        const condition1 = name ? {
                 name: {
-                    [Op.eq]: `${name}`,
-                    /*                [Op.like]: `%${capacity}%`,
-                            [Op.like]: `%${location}%`,
-                            [Op.like]: `%${launchDateTime}%`,
-                            [Op.like]: `%${hourlyRate}%`, */
+                    [Op.like]: `%${name}`,
                 },
             } :
             null;
-        Room.findAll({ where: condition })
-            .then((data) => {
+        const condition2 = location ? {
+                name: {
+                    [Op.like]: `%${location}`,
+                },
+            } :
+            null;
+        Room.findAll({
+                where: {
+                    [Op.and]: {...condition1, ...condition2 },
+                },
+            }).then((data) => {
                 res.send(data);
             })
             .catch((err) => {
                 res.status(500).send({
-                    message: err.message || "Error Occured.",
+                    message: err.message || "Some error occurred while retrieving data",
                 });
             });
     },

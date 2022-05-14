@@ -2,6 +2,7 @@
 
 document.getElementById("addRoom").addEventListener("submit", handleSubmit);
 document.getElementById("addRoom").addEventListener("submit", handleSubmits);
+document.getElementById("addRoom").addEventListener("submit", handleSubmits2);
 
 $(document).ready(() => {
     var currentTime = new Date();
@@ -17,15 +18,28 @@ function dateToLocalISOString(date) {
     ).toISOString();
 }
 
+
+async function handleSubmits2(event) {
+    event.preventDefault();
+    const radio2 = document.getElementById("flexCheckDefault2").value;
+
+    const result = await axios.post("api/amenity", {
+            type: radio2,
+            RoomName: $('#Rname').val(),
+        })
+        .then(function(response) {
+            console.log(response);
+        })
+}
+
+
+
 async function handleSubmits(event) {
     event.preventDefault();
     const radio1 = document.getElementById("flexCheckDefault").value;
-    const radio2 = document.getElementById("flexCheckDefault2").value;
-    //const room1 = document.getElementById("Rname").value;
 
     const result = await axios.post("api/amenity", {
             type: radio1,
-            radio2,
             RoomName: $('#Rname').val(),
         })
         .then(function(response) {
@@ -54,5 +68,4 @@ async function handleSubmit(event) {
         .then(function(response) {
             console.log(response);
         })
-
 }

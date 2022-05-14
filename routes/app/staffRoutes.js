@@ -33,7 +33,7 @@ module.exports = () => {
     });
 
     router.get("/staff", isStaff, (_req, res) => {
-        res.redirect("/addRoom");
+        res.redirect("/viewRoom");
     });
 
     router.get("/editRoom", isStaff, (request, response) => {
@@ -41,6 +41,13 @@ module.exports = () => {
             title: "Edit Promo Codes",
         });
     });
+
+    router.get("/viewRoom", isStaff, (request, response) => {
+        response.render("viewRoom", {
+            title: "View Rooms",
+        });
+    });
+
 
     return router;
 };
