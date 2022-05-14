@@ -13,6 +13,7 @@ function createCreateCard() {
   createCard.appendChild(createAccDropdown());
   createCard.appendChild(createEmailTextbox());
   createCard.appendChild(createPwTextbox());
+  createCard.appendChild(createPwCfmTextbox());
   createCard.appendChild(createButtons());
   document.getElementById("createForm").appendChild(createCard);
 }
@@ -33,7 +34,7 @@ function createAccDropdown() {
   });
 
   // Create options for dropdown list
-  const accOptionList = ["Student", "Staff", "Admin"];
+  const accOptionList = ["Student", "Staff"];
   for (const options of accOptionList) {
     const accOption = document.createElement("option");
     accOption.setAttribute("value", options);
@@ -51,7 +52,7 @@ function createEmailTextbox() {
   emailTextLabel.setAttribute("id", "emailTextLabel");
   emailTextLabel.innerHTML = "Email";
 
-  // Create textbox
+  // Create edit email textbox
   const emailTextbox = document.createElement("input");
   setAttributes(emailTextbox, {
     class: "form-control form-control-lg",
@@ -69,7 +70,7 @@ function createPwTextbox() {
   pwTextLabel.setAttribute("id", "pwTextLabel");
   pwTextLabel.innerHTML = "Password";
 
-  // Create textbox
+  // Create edit password textbox
   const pwTextbox = document.createElement("input");
   setAttributes(pwTextbox, {
     class: "form-control form-control-lg",
@@ -79,6 +80,25 @@ function createPwTextbox() {
 
   pwTextLabel.append(pwTextbox);
   return pwTextLabel;
+}
+
+// Create textbox to confirm password
+function createPwCfmTextbox() {
+  // Create label for password
+  const pwCfmTextLabel = document.createElement("label");
+  pwCfmTextLabel.setAttribute("id", "pwCfmTextLabel");
+  pwCfmTextLabel.innerHTML = "Confirm Password";
+
+  // Create textbox
+  const pwCfmTextbox = document.createElement("input");
+  setAttributes(pwCfmTextbox, {
+    class: "form-control form-control-lg",
+    id: "pwCfmTextbox",
+    type: "text",
+  });
+
+  pwCfmTextLabel.append(pwCfmTextbox);
+  return pwCfmTextLabel;
 }
 
 // Create confirm and cancel buttons for the form
@@ -91,11 +111,6 @@ function createButtons() {
   // atag.setAttribute();
   buttonDiv.appendChild(atag);
 
-  // a tag for cancel button
-  const atag2 = document.createElement("a");
-  atag2.setAttribute("href", "/userAdminHome");
-  buttonDiv.appendChild(atag2);
-
   // Create confirm button
   const confirmButton = document.createElement("button");
   setAttributes(confirmButton, {
@@ -105,6 +120,11 @@ function createButtons() {
   });
   confirmButton.innerHTML = "Confirm";
   atag.appendChild(confirmButton);
+
+  // a tag for cancel button
+  const atag2 = document.createElement("a");
+  atag2.setAttribute("href", "/userAdminHome");
+  buttonDiv.appendChild(atag2);
 
   // Create cancel button
   const cancelButton = document.createElement("button");
@@ -126,16 +146,16 @@ function setAttributes(el, attrs) {
 
 async function handleSubmit(event) {
   event.preventDefault();
-  // const bookingDate = document.getElementById("launchDate").value;
-  // const bookDate = new Date(bookingDate);
-  // console.log(bookingDate)
-
-  const result = await axios
-    .post("api/userAdmin", {
-      email: $("#emailTextbox").val(),
-      password: $("#pwTextbox").val(),
-    })
-    .then(function (response) {
-      console.log(response);
-    });
+  const accTypeResult = document.getElementById("selectDrop").value;
+  console.log(accTypeResult);
+  if (accTypeResult === "Student") {
+    const result = await axios
+      .post("api/students/", {
+        email: $("#emailTextbox").val(),
+        password: $("#pwTextbox").val(),
+      })
+      .then(function (response) {
+        console.log(response);
+      });
+  }
 }

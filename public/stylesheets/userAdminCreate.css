@@ -44,6 +44,16 @@
     align-self: center;
 }
 
+#pwCfmTextbox {
+    width: 300px;
+}
+
+#pwCfmTextLabel {
+    padding: 20px;
+    font-size: 25px;
+    align-self: center;
+}
+
 #confirmButton {
     margin-right: 10px;
 }

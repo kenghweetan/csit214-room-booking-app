@@ -1,6 +1,6 @@
 window.onload = createEditCard;
 
-document.getElementById("editAccForm").addEventListener("submit", handleSubmit);
+// document.getElementById("editAccForm").addEventListener("submit", handleSubmit);
 
 // Create card for the form
 function createEditCard() {
@@ -9,6 +9,7 @@ function createEditCard() {
   editCard.appendChild(createAccDropdown());
   editCard.appendChild(createEmailTextbox());
   editCard.appendChild(createPwTextbox());
+  editCard.appendChild(createPwCfmTextbox());
   editCard.appendChild(createButtons());
   document.getElementById("editForm").appendChild(editCard);
 }
@@ -26,6 +27,7 @@ function createAccDropdown() {
     class: "form-select form-select-lg mb-3",
     id: "selectDrop",
     "aria-label": ".form-select-lg example",
+    disabled: "",
   });
 
   // Create options for dropdown list
@@ -77,6 +79,25 @@ function createPwTextbox() {
   return pwTextLabel;
 }
 
+// Create textbox to confirm password
+function createPwCfmTextbox() {
+  // Create label for password
+  const pwCfmTextLabel = document.createElement("label");
+  pwCfmTextLabel.setAttribute("id", "pwCfmTextLabel");
+  pwCfmTextLabel.innerHTML = "Confirm Password";
+
+  // Create textbox
+  const pwCfmTextbox = document.createElement("input");
+  setAttributes(pwCfmTextbox, {
+    class: "form-control form-control-lg",
+    id: "pwCfmTextbox",
+    type: "text",
+  });
+
+  pwCfmTextLabel.append(pwCfmTextbox);
+  return pwCfmTextLabel;
+}
+
 // Create confirm and cancel buttons for the form
 function createButtons() {
   const buttonDiv = document.createElement("div");
@@ -123,15 +144,15 @@ function setAttributes(el, attrs) {
 // async function getEditData() {
 //   const results = await axios.put();
 // }
-async function handleSubmit(event) {
-  event.preventDefault();
-  try {
-    const result = await axios.put("/api/userAdmin/", {
-      email: emailTextbox.innerText,
-      password: pwTextbox.innerText,
-    });
-    alert("Edit successful!");
-  } catch (error) {
-    alert(error.message);
-  }
-}
+// async function handleSubmit(event) {
+//   event.preventDefault();
+//   try {
+//     const result = await axios.put("/api/userAdmin/", {
+//       email: emailTextbox.innerText,
+//       password: pwTextbox.innerText,
+//     });
+//     alert("Edit successful!");
+//   } catch (error) {
+//     alert(error.message);
+//   }
+// }
