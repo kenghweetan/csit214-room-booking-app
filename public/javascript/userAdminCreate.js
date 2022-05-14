@@ -1,4 +1,7 @@
 window.onload = createCreateCard;
+document
+  .getElementById("createAccForm")
+  .addEventListener("submit", handleSubmit);
 
 // Create card for the form
 function createCreateCard() {
@@ -119,4 +122,20 @@ function setAttributes(el, attrs) {
   for (var key in attrs) {
     el.setAttribute(key, attrs[key]);
   }
+}
+
+async function handleSubmit(event) {
+  event.preventDefault();
+  // const bookingDate = document.getElementById("launchDate").value;
+  // const bookDate = new Date(bookingDate);
+  // console.log(bookingDate)
+
+  const result = await axios
+    .post("api/userAdmin", {
+      email: $("#emailTextbox").val(),
+      password: $("#pwTextbox").val(),
+    })
+    .then(function (response) {
+      console.log(response);
+    });
 }

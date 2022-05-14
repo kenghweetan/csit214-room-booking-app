@@ -1,6 +1,6 @@
-// const { default: axios } = require("axios");
-
 window.onload = createEditCard;
+
+document.getElementById("editAccForm").addEventListener("submit", handleSubmit);
 
 // Create card for the form
 function createEditCard() {
@@ -120,6 +120,18 @@ function setAttributes(el, attrs) {
   }
 }
 
-async function getEditData() {
-  const results = await axios.put();
+// async function getEditData() {
+//   const results = await axios.put();
+// }
+async function handleSubmit(event) {
+  event.preventDefault();
+  try {
+    const result = await axios.put("/api/userAdmin/", {
+      email: emailTextbox.innerText,
+      password: pwTextbox.innerText,
+    });
+    alert("Edit successful!");
+  } catch (error) {
+    alert(error.message);
+  }
 }
