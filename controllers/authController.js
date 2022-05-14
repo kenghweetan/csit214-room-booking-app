@@ -13,14 +13,20 @@ module.exports = {
 
     // Execute SQL query that'll select the account from the database based on the specified email and password
     try {
-      const validStudent = await userTypeModel.findOne({
+      const validUser = await userTypeModel.findOne({
         where: { email: email, password: password },
       });
 
-      console.log(validStudent);
+      console.log(validUser);
 
-      if (!validStudent)
+      if (!validUser)
         return res.status(401).send("Incorrect Email and/or Password");
+      await userTypeModel.update(
+        { lastLoggedIn: new Date() },
+        {
+          where: { email: email },
+        }
+      );
     } catch (err) {
       return res.status(500).send({
         message: err.message || "Internal Server Error",
@@ -37,9 +43,24 @@ module.exports = {
 
   logout: async (req, res) => {
     // Authenticate the user
-    req.session.loggedIn = false;
-    req.session.email = "";
-    req.session.userType = "";
+    try {
+      const userTypeModel = db[req.session.userType];
+
+      await userTypeModel.update(
+        { lastLoggedOut: new Date() },
+        {
+          where: { email: req.session.email },
+        }
+      );
+
+      req.session.loggedIn = false;
+      req.session.email = "";
+      req.session.userType = "";
+    } catch (err) {
+      return res.status(500).send({
+        message: err.message || "Internal Server Error",
+      });
+    }
 
     return res.status(200).end();
   },
