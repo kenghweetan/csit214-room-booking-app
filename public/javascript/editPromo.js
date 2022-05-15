@@ -104,10 +104,11 @@ function createButtons() {
   atag.appendChild(confirmButton);
 
   // Create cancel button
-  const cancelButton = document.createElement("button");
+  const cancelButton = document.createElement("a");
   setAttributes(cancelButton, {
     class: "btn btn-secondary",
     id: "cancelButton",
+    href: "/viewPromoCodes",
   });
   cancelButton.innerHTML = "Cancel";
   atag2.appendChild(cancelButton);
