@@ -29,21 +29,20 @@
                 <div class=" col-md-4">
                     <label for="Rname" class=" form-label col-form-lable">Room name</label>
                     <select class="form-select" id="Rname" disabled>
-                        <option>room1</option>
                     </select>
                     <br>
                     <label for="Rlocation" class=" form-label col-form-lable">Location</label>
-                    <input type="text" class="form-control" id="Rlocation" value="Lxxxxxx" disabled readonlyS>
+                    <input type="text" class="form-control" id="Rlocation" disabled readonlyS>
                 </div>
 
                 <div class="col-md-4">
                     <form role="form">
                         <label for="Rdate" class=" form-label ">Date</label>
-                        <input type="date" class="form-control" id="Rdate" value="" disabled>
+                        <input type="date" class="form-control" id="Rdate" disabled>
                         </br>
 
                         <label for="RsT" class=" form-label">Start Time</label>
-                        <input type="text" class="form-control timepicker" id="RsT" value="" disabled>
+                        <input type="text" class="form-control timepicker" id="RsT" disabled>
                         </br>
 
                     </form>
@@ -51,8 +50,9 @@
 
                 <div class="col-md-4">
                     <form role="form">
-                        <label for="Ramm" class="form-label">Ammenities</label>
-                        <textarea class="form-control" id="Ramm" rows="3" disabled readonly>xxxxxx.</textarea>
+                        <label for="amenities" class="form-label">Amenities</label>
+                        <ul class="list" id="Ramenities">
+                        </ul>
                     </form>
                 </div>
 

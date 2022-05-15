@@ -42,6 +42,8 @@ $("#venue").on("change", function () {
         $("<li></li>").html(amenity.type)
       )
     );
+  $("#location").empty().html(selectedRoomInfo.location);
+  $("#capacity").empty().html(selectedRoomInfo.capacity);
 });
 
 async function populateRoomDropdown() {
@@ -125,6 +127,8 @@ async function handleSubmit(event) {
   endDateTime.setSeconds(endTime.getSeconds());
   endDateTime.setMilliseconds(endTime.getMilliseconds());
 
+  const bookingGrossPrice = Number($("#cost").html());
+
   try {
     const result = await axios.post("api/bookings", {
       roomName: $("#venue").children("option:selected").val(),
@@ -135,9 +139,11 @@ async function handleSubmit(event) {
       netPrice: bookingGrossPrice,
     });
     console.log(result);
+    console.log(result.data);
     alert("booking successful!");
-    window.location = "/paymentReceipt";
+    window.location = `/paymentReceipt/${result.data.bookingId}`;
   } catch (error) {
-    alert(error.response.data);
+    console.log(error);
+    alert(error.response.data || "Error adding Booking");
   }
 }

@@ -63,6 +63,7 @@ async function createBookingBody() {
       PromoCodeName,
       RoomName,
     } = booking;
+  
     const typedBooking = {
       roomName: RoomName,
       date: new Date(startDateTime).toLocaleDateString("en-SG"),
