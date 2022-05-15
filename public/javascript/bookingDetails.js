@@ -1,12 +1,27 @@
 document.getElementById("delet").style.display = "none";
+
 document.getElementById("edit").addEventListener("click", editbooking);
 document.getElementById("edit").addEventListener("click", changeText);
+$("#Rname").on("change", function () {
+  console.log($(this).val());
+  const selectedRoomInfo = $(this).children("option:selected").data().value;
+  $("#Ramenities")
+    .empty()
+    .append(
+      selectedRoomInfo.amenities?.map((amenity) =>
+        $("<li></li>").html(amenity.type)
+      )
+    );
+  console.log($(`#Rname`).val());
+  $("#Rlocation").empty().val(selectedRoomInfo.location);
+  $("#Rcapacity").empty().val(selectedRoomInfo.capacity);
+});
 
 window.addEventListener("load", () => {
-  $(document).ready(() => {
+  $(document).ready(async () => {
     populateTimeDropdown();
-    populateRoomDropdown();
-    loadBookingDetails();
+    await populateRoomDropdown();
+    await loadBookingDetails();
   });
 });
 
@@ -32,7 +47,13 @@ async function loadBookingDetails() {
       .slice(0, 5),
     promoCode: promoCode ? promoCode : "",
   };
-  document.getElementById("Rname").value = booking.roomName;
+  console.log($("#Rname option"));
+  $("#Rname option")
+    .filter(function () {
+      return this.value === booking.roomName;
+    })
+    .attr("selected", true)
+    .change();
   document.getElementById("Rdate").value = booking.date;
   $("#RsT").timepicker().setTime(booking.startTime);
   $("#ReT").timepicker().setTime(booking.endTime);
@@ -159,7 +180,6 @@ async function populateRoomDropdown() {
 async function handleSubmit(event) {
   event.preventDefault();
   const bookingId = JSON.parse(document.getElementById("bookingId").innerHTML);
-
   const startTime = $("#RsT").timepicker().getTime();
   const endTime = $("#ReT").timepicker().getTime();
   const bookingDate = document.getElementById("Rdate").valueAsDate;
@@ -170,6 +190,7 @@ async function handleSubmit(event) {
   startDateTime.setMinutes(startTime.getMinutes());
   startDateTime.setSeconds(startTime.getSeconds());
   startDateTime.setMilliseconds(startTime.getMilliseconds());
+
   endDateTime.setHours(endTime.getHours());
   endDateTime.setMinutes(endTime.getMinutes());
   endDateTime.setSeconds(endTime.getSeconds());

@@ -1,22 +1,28 @@
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-    <div class="container-fluid">
-        <a class="navbar-brand" href="/userAdminHome">UOW</a>
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+  <div class="container-fluid">
+    <a class="navbar-brand" href="/userAdminHome">UOW</a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+      aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
-        <div class="collapse navbar-collapse justify-content-center" id="navbarNav">
-            <ul class="navbar-nav">
-                <li class="nav-item">
-                    <a class="nav-link" href="/addRoom">Create a Room</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="/viewPromoCodes">Promo Codes</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" target="_blank" href="https://www.uow.edu.au/about/contacts/">Contact Us</a>
-                </li>
-            </ul>
-            <button class=" btn btn-secondary my-2 my-sm-0" id="logout" type="button">Logout</button>
-        </div>
+    <div class="collapse navbar-collapse justify-content-evenly" id="navbarNav">
+      <ul class="navbar-nav">
+        <li class="nav-item">
+          <a class="nav-link" href="/">Create a room</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/viewPromoCodes">Promo Codes</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link disabled" href="https://www.uow.edu.au/about/contacts/">Contact Us</a>
+        </li>
+      </ul>
+      <div>
+        <span class="navbar-text" id="navEmail">
+          <%= email%>
+        </span>
+        <button class=" btn btn-secondary my-2 my-sm-0" id="logout" type="button">Logout</button>
+      </div>
+
     </div>
 </nav>
