@@ -5,6 +5,7 @@ module.exports = () => {
     res.render("bookingDetails", {
       title: "Booking Details",
       email: req.session.email,
+      userType: req.session.userType,
       bookingId: req.params.bookingId,
     });
   });

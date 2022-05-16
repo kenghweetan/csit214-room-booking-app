@@ -32,9 +32,9 @@ module.exports = {
         }
       );
     } catch (err) {
-      return res.status(500).send({
-        message: err.message || "Internal Server Error",
-      });
+      return res
+        .status(500)
+        .send(`${err.message ? err.message : "Internal Server Error"}`);
     }
 
     // Authenticate the user
@@ -61,9 +61,9 @@ module.exports = {
       req.session.email = "";
       req.session.userType = "";
     } catch (err) {
-      return res.status(500).send({
-        message: err.message || "Internal Server Error",
-      });
+      return res
+        .status(500)
+        .send(`${err.message ? err.message : "Internal Server Error"}`);
     }
 
     return res.status(200).end();

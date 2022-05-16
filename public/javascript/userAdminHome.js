@@ -63,8 +63,12 @@ async function createAccountBody() {
     suspendCol.setAttribute("id", "suspendCol");
     typeCol.innerHTML = account.type;
     emailCol.innerHTML = account.email;
-    lastLoginCol.innerHTML = account.lastLoggedIn;
-    lastLogoutCol.innerHTML = account.lastLoggedOut;
+    lastLoginCol.innerHTML = account.lastLoggedIn
+      ? new Date(account.lastLoggedIn).toLocaleString("en-sg")
+      : "";
+    lastLogoutCol.innerHTML = account.lastLoggedOut
+      ? new Date(account.lastLoggedOut).toLocaleString("en-sg")
+      : "";
     suspendCol.innerHTML = account.suspended ? "Yes" : "No";
     tr.appendChild(typeCol);
     tr.appendChild(emailCol);
@@ -78,7 +82,10 @@ async function createAccountBody() {
 
     // a tag for edit button
     const atag = document.createElement("a");
-    atag.setAttribute("href", "/userAdminEdit");
+    atag.setAttribute(
+      "href",
+      `/userAdminEdit/${account.type}/${account.email}`
+    );
     td.appendChild(atag);
 
     const editButton = document.createElement("button");
@@ -94,11 +101,13 @@ async function createAccountBody() {
 
     const suspendButton = document.createElement("button");
     suspendButton.setAttribute("type", "button");
-    suspendButton.setAttribute("class", "btn btn-danger");
+
     suspendButton.setAttribute("id", "suspendButton");
     if (suspendCol.innerHTML === "No") {
+      suspendButton.setAttribute("class", "btn btn-danger");
       suspendButton.innerHTML = "Suspend";
     } else if (suspendCol.innerHTML === "Yes") {
+      suspendButton.setAttribute("class", "btn btn-success");
       suspendButton.innerHTML = "Unsuspend";
     }
 
@@ -109,7 +118,7 @@ async function createAccountBody() {
       console.log(emailColData);
       console.log(suspendedColData);
 
-      if (typeCol.innerHTML === "student") {
+      if (typeCol.innerHTML === "Student") {
         if (suspendedColData === "No") {
           const result = await axios.put(`/api/students/${emailColData}`, {
             suspended: "true",
@@ -121,7 +130,7 @@ async function createAccountBody() {
           });
           location.reload();
         }
-      } else if (typeCol.innerHTML === "staff") {
+      } else if (typeCol.innerHTML === "Staff") {
         if (suspendedColData === "No") {
           const result = await axios.put(`/api/staff/${emailColData}`, {
             suspended: "true",
