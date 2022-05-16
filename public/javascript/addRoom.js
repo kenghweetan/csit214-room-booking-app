@@ -21,49 +21,6 @@ function dateToLocalISOString(date) {
   ).toISOString();
 }
 
-async function handleSubmits(event) {
-  event.preventDefault();
-  const radio1 = document.getElementById("flexCheckDefault").value;
-  //const room1 = document.getElementById("Rname").value;
-
-  const result = await axios
-    .post("api/amenity", {
-      type: radio1,
-      RmName: $("#Rname").val(),
-    })
-    .then(function (response) {
-      console.log(response);
-    });
-}
-
-async function handleSubmits2(event) {
-  event.preventDefault();
-  const radio2 = document.getElementById("flexCheckDefault2").value;
-
-  const result = await axios
-    .post("api/amenity", {
-      type: radio2,
-      RoomName: $("#Rname").val(),
-    })
-    .then(function (response) {
-      console.log(response);
-    });
-}
-
-async function handleSubmits(event) {
-  event.preventDefault();
-  const radio1 = document.getElementById("flexCheckDefault").value;
-
-  const result = await axios
-    .post("api/amenity", {
-      type: radio1,
-      RoomName: $("#Rname").val(),
-    })
-    .then(function (response) {
-      console.log(response);
-    });
-}
-
 async function handleSubmit(event) {
   event.preventDefault();
   const bookingDate = document.getElementById("launchDate").value;

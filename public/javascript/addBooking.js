@@ -45,13 +45,6 @@ function loadSelectEventListeners() {
 
   $("#venue").on("change", function () {
     const selectedRoomInfo = $(this).children("option:selected").data().value;
-    $("#amenities")
-      .empty()
-      .append(
-        selectedRoomInfo.amenities?.map((amenity) =>
-          $("<li></li>").html(amenity.type)
-        )
-      );
     $("#location").empty().html(selectedRoomInfo.location);
     $("#capacity").empty().html(selectedRoomInfo.capacity);
   });
@@ -61,14 +54,12 @@ async function populateRoomDropdown() {
   const rooms = (await axios.get("/api/rooms")).data;
   const roomOptions = await Promise.all(
     rooms.map(async (room) => {
-      const amenities = (await axios.get(`/api/amenity?RoomName=${room.name}`))
-        .data;
       const roomOption = $("<option></option>")
         .attr({
           name: room.name,
           value: room.name,
         })
-        .data("value", { ...room, amenities })
+        .data("value", { ...room })
         .html(room.name);
       return roomOption;
     })
@@ -197,8 +188,6 @@ function loadRoomDetails() {
   if (roomName) {
     $("#venue option")
       .filter(function () {
-        console.log(this);
-        console.log(this.value === roomName);
         return this.value === roomName;
       })
       .attr("selected", true)

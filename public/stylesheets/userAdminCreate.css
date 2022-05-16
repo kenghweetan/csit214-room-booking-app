@@ -15,7 +15,7 @@
 }
 
 #selectDrop {
-    width: 300px;
+    width: 500px;
 }
 
 #accTypeLabel {
@@ -25,7 +25,7 @@
 }
 
 #emailTextbox {
-    width: 300px;
+    width: 500px;
 }
 
 #emailTextLabel {
@@ -35,7 +35,7 @@
 }
 
 #pwTextbox {
-    width: 300px;
+    width: 500px;
 }
 
 #pwTextLabel {
@@ -45,7 +45,7 @@
 }
 
 #pwCfmTextbox {
-    width: 300px;
+    width: 500px;
 }
 
 #pwCfmTextLabel {

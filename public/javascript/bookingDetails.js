@@ -7,14 +7,6 @@ document
 $("#Rname").on("change", function () {
   console.log($(this).val());
   const selectedRoomInfo = $(this).children("option:selected").data().value;
-  $("#Ramenities")
-    .empty()
-    .append(
-      selectedRoomInfo.amenities?.map((amenity) =>
-        $("<li></li>").html(amenity.type)
-      )
-    );
-  console.log($(`#Rname`).val());
   $("#Rlocation").empty().val(selectedRoomInfo.location);
   $("#Rcapacity").empty().val(selectedRoomInfo.capacity);
 });
@@ -112,14 +104,6 @@ async function loadBookingDetails() {
   document.getElementById("Rdate").value = booking.date;
   document.getElementById("status").value =
     booking.status === "confirmed" ? "Confirmed" : "Cancelled";
-  /*   if (booking.status === "cancelled") {
-    const confirmButton = document.createElement("button");
-    confirmButton.setAttribute("class", "btn btn-primary btn-lg");
-    confirmButton.setAttribute("id", "delet");
-    confirmButton.innerHTML = "Confirm Booking";
-    confirmButton.addEventListener("click", confirmBooking);
-    document.getElementById("delet").replaceWith(confirmButton);
-  } */
   $("#RsT").timepicker().setTime(booking.startTime);
   $("#ReT").timepicker().setTime(booking.endTime);
   console.log($("#Rprom option"));
@@ -247,13 +231,11 @@ async function populateRoomDropdown() {
   const rooms = (await axios.get("/api/rooms")).data;
   const roomOptions = await Promise.all(
     rooms.map(async (room) => {
-      const amenities = (await axios.get(`/api/amenity?roomName=${room.name}`))
-        .data;
       const roomOption = $("<option></option>")
         .attr({
           name: room.name,
         })
-        .data("value", { ...room, amenities })
+        .data("value", { ...room })
         .html(room.name);
       return roomOption;
     })

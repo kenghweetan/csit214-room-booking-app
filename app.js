@@ -23,7 +23,6 @@ require("./routes/api/authRoutes")(app);
 require("./routes/api/bookingRoutes")(app);
 require("./routes/api/roomRoutes")(app);
 require("./routes/api/promoCodeRoutes")(app);
-require("./routes/api/amenityRoutes")(app);
 require("./routes/api/studentRoutes")(app);
 require("./routes/api/staffRoutes")(app);
 require("./routes/api/userAdminRoutes")(app);

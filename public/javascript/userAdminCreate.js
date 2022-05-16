@@ -106,11 +106,6 @@ function createButtons() {
   const buttonDiv = document.createElement("div");
   buttonDiv.setAttribute("class", "buttons");
 
-  // a tag for confirm button
-  const atag = document.createElement("a");
-  // atag.setAttribute();
-  buttonDiv.appendChild(atag);
-
   // Create confirm button
   const confirmButton = document.createElement("button");
   setAttributes(confirmButton, {
@@ -119,22 +114,18 @@ function createButtons() {
     type: "submit",
   });
   confirmButton.innerHTML = "Confirm";
-  atag.appendChild(confirmButton);
+  buttonDiv.appendChild(confirmButton);
 
   // a tag for cancel button
-  const atag2 = document.createElement("a");
-  atag2.setAttribute("href", "/userAdminHome");
-  buttonDiv.appendChild(atag2);
-
-  // Create cancel button
-  const cancelButton = document.createElement("button");
-  setAttributes(cancelButton, {
+  const cancelLink = document.createElement("a");
+  cancelLink.setAttribute("href", "/userAdminHome");
+  setAttributes(cancelLink, {
     class: "btn btn-secondary",
     id: "cancelButton",
+    href: "/userAdminHome",
   });
-  cancelButton.innerHTML = "Cancel";
-  atag2.appendChild(cancelButton);
-
+  cancelLink.innerHTML = "Cancel";
+  buttonDiv.appendChild(cancelLink);
   return buttonDiv;
 }
 
