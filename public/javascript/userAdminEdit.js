@@ -12,7 +12,7 @@ function createEditCard() {
   editCard.appendChild(createPwCfmTextbox());
   editCard.appendChild(createButtons());
   document.getElementById("editForm").appendChild(editCard);
-  loadAccDetails();
+  getEditData();
 }
 
 // Create dropdown list to choose account type
@@ -32,7 +32,7 @@ function createAccDropdown() {
   });
 
   // Create options for dropdown list
-  const accOptionList = ["Student", "Staff", "Admin"];
+  const accOptionList = ["Student", "Staff"];
   for (const options of accOptionList) {
     const accOption = document.createElement("option");
     accOption.setAttribute("value", options);
@@ -73,7 +73,7 @@ function createPwTextbox() {
   setAttributes(pwTextbox, {
     class: "form-control form-control-lg",
     id: "pwTextbox",
-    type: "text",
+    type: "password",
   });
 
   pwTextLabel.append(pwTextbox);
@@ -92,7 +92,7 @@ function createPwCfmTextbox() {
   setAttributes(pwCfmTextbox, {
     class: "form-control form-control-lg",
     id: "pwCfmTextbox",
-    type: "text",
+    type: "password",
   });
 
   pwCfmTextLabel.append(pwCfmTextbox);
@@ -125,13 +125,14 @@ function createButtons() {
   atag.appendChild(confirmButton);
 
   // Create cancel button
-  const cancelButton = document.createElement("button");
-  setAttributes(cancelButton, {
+  const cancelLink = document.createElement("a");
+  setAttributes(cancelLink, {
     class: "btn btn-secondary",
-    id: "cancelButton",
+    id: "cancelLink",
+    href: "/userAdminHome",
   });
-  cancelButton.innerHTML = "Cancel";
-  atag2.appendChild(cancelButton);
+  cancelLink.innerHTML = "Cancel";
+  atag2.appendChild(cancelLink);
 
   return buttonDiv;
 }
@@ -142,30 +143,40 @@ function setAttributes(el, attrs) {
   }
 }
 
-// async function getEditData() {
-//   const results = await axios.put();
-// }
-async function handleSubmit(event) {
-  event.preventDefault();
-  try {
-    const result = await axios.put("/api/userAdmin/", {
-      email: emailTextbox.innerText,
-      password: pwTextbox.innerText,
-    });
-    alert("Edit successful!");
-  } catch (error) {
-    alert(error.message);
-  }
+async function getEditData() {
+  const userEmail = JSON.parse(document.getElementById("userEmail").innerText);
+  const userType = JSON.parse(document.getElementById("userType").innerText);
+  const results = (await axios.get(`/api/userAdmin/${userType}/${userEmail}`))
+    .data;
+
+  document.getElementById("emailTextbox").value = results.email;
+  document.getElementById("pwTextbox").value = results.password;
+  document.getElementById("selectDrop").value = userType;
+  console.log(results);
 }
 
-async function loadAccDetails() {
-  const accEmail = JSON.parse(document.getElementById("email").innerHTML);
-  console.log(accEmail);
-  const accUserType = JSON.parse(document.getElementById("userType").innerHTML);
-  const promoCodeData = (
-    await axios.get(`api/userAdmin?email=${accEmail}&userType=${accUserType}`)
-  ).data[0];
-  console.log(promoCodeData);
-  document.getElementById("emailTextbox").value = promoCodeData.email;
-  document.getElementById("pwTextbox").value = promoCodeData.password;
+async function handleSubmit(event) {
+  event.preventDefault();
+  const userEmail = JSON.parse(document.getElementById("userEmail").innerText);
+  const userType = JSON.parse(document.getElementById("userType").innerText);
+
+  const newEmail = document.getElementById("emailTextbox").value;
+  const newPassword = document.getElementById("pwTextbox").value;
+  const confirmNewPassword = document.getElementById("pwCfmTextbox").value;
+  try {
+    if (newPassword !== confirmNewPassword)
+      throw new Error("Passwords do not match");
+    const result = await axios.put(
+      `/api/${userType === "Student" ? "students" : "staff"}/${userEmail}`,
+      {
+        email: newEmail,
+        password: newPassword,
+      }
+    );
+    alert("Edit successful!");
+    window.location = "/userAdminHome";
+  } catch (error) {
+    console.log(error);
+    alert(error.message);
+  }
 }

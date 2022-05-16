@@ -3,59 +3,35 @@ const Op = db.Sequelize.Op;
 const { userAdmin, Student, Staff } = db;
 
 module.exports = {
-  findAll: async (req, res) => {
+  findByEmailAndType: async (req, res) => {
     try {
-      const userAdminDetails = req.query.userAdminDetails;
-      /*         var condition = userAdminDetails ? {
-                userAdminDetails: {
-                    [Op.like]: `%${email}%`,
-                    [Op.like]: `%${password}%`,
-                    [Op.like]: `%${suspended}%`,
-                    [Op.like]: `%${lastLoggedIn}%`,
-                    [Op.like]: `%${lastLoggedOut}%`,
-                },
-            } :
-            userAdmin.findAll({ where: condition })
-            .then((data) => {
-                res.send(data);
-            })
-            .catch((err) => {
-                res.status(500).send({
-                    message: err.message || "Error Occured.",
-                });
-            }); */
+      const userEmail = req.params.userEmail;
+      const userType = req.params.userType;
+      const userTypeModel = userType === "Student" ? Student : Staff;
 
-      const students = await Student.findAll().map((student) => {
-        return { ...student, type: "student" };
+      const result = await userTypeModel.findOne({
+        where: { email: userEmail },
       });
 
-      const staffs = await Staff.findAll().map((staff) => {
-        return { ...staff, type: "staff" };
-      });
-
-      res.send([...students, ...staffs]);
+      res.send(result);
     } catch (err) {
-      res.status(500).send({
-        message: `Error 500 Updating`,
-      });
+      res.status(500).send(`${err.message ? err.message : "error occured"}`);
     }
   },
 
-  findAllStudentAndStaff: async (_req, res) => {
+  findAllStudentAndStaff: async (req, res) => {
     try {
       const students = (await Student.findAll()).map((student) => {
-        return { ...student.dataValues, type: "student" };
+        return { ...student.dataValues, type: "Student" };
       });
 
       const staffs = (await Staff.findAll()).map((staff) => {
-        return { ...staff.dataValues, type: "staff" };
+        return { ...staff.dataValues, type: "Staff" };
       });
       res.send([...students, ...staffs]);
     } catch (err) {
       console.log(err);
-      res.status(500).send({
-        message: `Error 500 Internal Server Error`,
-      });
+      res.status(500).send(`${err.message ? err.message : "error occured"}`);
     }
   },
 
@@ -72,9 +48,7 @@ module.exports = {
         res.send({ message: `Cannot Update` });
       }
     } catch (err) {
-      res.status(500).send({
-        message: `Error 500 Updating`,
-      });
+      res.status(500).send(`${err.message ? err.message : "error occured"}`);
     }
   },
 
@@ -90,7 +64,9 @@ module.exports = {
         message: "User Admin Deleted Successfully",
       });
     } catch (err) {
-      return res.status(400).json({ error });
+      return res
+        .status(400)
+        .send(`${err.message ? err.message : "error occured"}`);
     }
   },
 
@@ -109,9 +85,7 @@ module.exports = {
         res.send(data);
       })
       .catch((err) => {
-        res.status(500).send({
-          message: err.message || "error occured",
-        });
+        res.status(500).send(`${err.message ? err.message : "error occured"}`);
       });
   },
 };

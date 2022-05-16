@@ -8,10 +8,12 @@ module.exports = () => {
     });
   });
 
-  router.get("/userAdminEdit", isUserAdmin, (req, res) => {
+  router.get("/userAdminEdit/:userType/:email", isUserAdmin, (req, res) => {
     res.render("userAdminEdit", {
       title: "Edit Account",
       email: req.session.email,
+      userEmail: req.params.email,
+      userType: req.params.userType,
     });
   });
 

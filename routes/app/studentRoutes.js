@@ -5,6 +5,7 @@ module.exports = () => {
     res.render("bookingDetails", {
       title: "Booking Details",
       email: req.session.email,
+      userType: req.session.userType,
       bookingId: req.params.bookingId,
     });
   });
@@ -33,6 +34,13 @@ module.exports = () => {
   router.get("/addBooking", isStudent, (req, res) => {
     res.render("addBooking", {
       title: "Add Booking",
+      email: req.session.email,
+    });
+  });
+
+  router.get("/viewStudentRoom", isStudent, (req, res) => {
+    res.render("viewStudentRoom", {
+      title: "View Rooms",
       email: req.session.email,
     });
   });
