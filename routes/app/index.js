@@ -1,5 +1,6 @@
 const studentRouter = require("./studentRoutes");
 const staffRouter = require("./staffRoutes");
+const userAdminRouter = require("./userAdminRoutes");
 const router = require("express").Router();
 const { isLoggedIn } = require("../../middleware/isLoggedIn");
 
@@ -10,11 +11,16 @@ module.exports = (app) => {
   });
   router.use("/", studentRouter());
   router.use("/", staffRouter());
-
+  router.use("/", userAdminRouter());
   router.get("/", (req, res) => {
-    console.log(req.session.userType);
-    if (req.session.userType === "Student") return res.redirect("/student");
-    else return res.redirect("/staff");
+    switch (req.session.userType) {
+      case "Student":
+        return res.redirect("/student");
+      case "Staff":
+        return res.redirect("/staff");
+      case "userAdmin":
+        return res.redirect("/userAdmin");
+    }
   });
 
   app.use("/", router);

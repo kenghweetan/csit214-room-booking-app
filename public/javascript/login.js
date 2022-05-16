@@ -8,7 +8,7 @@ function login(event) {
 
   axios
     .post("/api/auth/login", {
-      userType,
+      userType: userType === "User Admin" ? "userAdmin" : userType,
       email,
       password,
     })
@@ -16,6 +16,7 @@ function login(event) {
       window.location = "/";
     })
     .catch((error) => {
+      console.log(error.response.data);
       alert(`${error.response.data}`);
     });
 }

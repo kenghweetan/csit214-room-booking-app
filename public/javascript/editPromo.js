@@ -8,8 +8,11 @@ function createEditCard() {
   editCard.setAttribute("class", "editAccCard card shadow-sm table-responsive");
   editCard.appendChild(createEmailTextbox());
   editCard.appendChild(createPwTextbox());
+  editCard.appendChild(createExpiryPicker());
   editCard.appendChild(createButtons());
+
   document.getElementById("editForm").appendChild(editCard);
+  loadPromoCodeDetails();
 }
 
 // Create textbox to edit email
@@ -25,6 +28,7 @@ function createEmailTextbox() {
     class: "form-control form-control-lg",
     id: "emailTextbox",
     type: "text",
+    require: "",
   });
   emailTextLabel.append(emailTextbox);
   return emailTextLabel;
@@ -42,11 +46,36 @@ function createPwTextbox() {
   setAttributes(pwTextbox, {
     class: "form-control form-control-lg",
     id: "pwTextbox",
-    type: "text",
+    type: "number",
+    min: 1,
+    max: 100,
+    required: "",
   });
 
   pwTextLabel.append(pwTextbox);
   return pwTextLabel;
+}
+
+function dateToLocalISOString(date) {
+  return new Date(
+    date.getTime() - date.getTimezoneOffset() * 60000
+  ).toISOString();
+}
+
+function createExpiryPicker() {
+  const dateLabel = document.createElement("label");
+  dateLabel.setAttribute("id", "dateLabel");
+  dateLabel.innerHTML = "Expiry";
+  const expiryDatePicker = document.createElement("input");
+  setAttributes(expiryDatePicker, {
+    type: "date",
+    id: "expiryDatePicker",
+    class: "form-control form-control-lg",
+    min: dateToLocalISOString(new Date()).split("T")[0],
+  });
+
+  dateLabel.appendChild(expiryDatePicker);
+  return dateLabel;
 }
 
 // Create confirm and cancel buttons for the form
@@ -75,10 +104,11 @@ function createButtons() {
   atag.appendChild(confirmButton);
 
   // Create cancel button
-  const cancelButton = document.createElement("button");
+  const cancelButton = document.createElement("a");
   setAttributes(cancelButton, {
     class: "btn btn-secondary",
     id: "cancelButton",
+    href: "/viewPromoCodes",
   });
   cancelButton.innerHTML = "Cancel";
   atag2.appendChild(cancelButton);
@@ -94,17 +124,43 @@ function setAttributes(el, attrs) {
 
 async function handleSubmit(event) {
   event.preventDefault();
-
+  const promoCodeName = JSON.parse(
+    document.getElementById("promoCodeName").innerText
+  );
+  const emailTextbox = document.getElementById("emailTextbox");
+  const pwTextbox = document.getElementById("pwTextbox");
+  const expiryDatePicker = document.getElementById("expiryDatePicker");
   try {
-    const result = await axios.put("/api/promocodes/", {
-      name: emailTextbox.innerText,
-      discountRate: pwTextbox.innerText
+    const result = await axios.put(`/api/promocodes/${promoCodeName}`, {
+      name: emailTextbox.value,
+      discountRate: pwTextbox.value,
+      expiryDate: expiryDatePicker.value,
     });
     alert("Edit successful!");
+    window.location = "/viewPromoCodes";
   } catch (error) {
-    alert(error.message);
+    alert(error.response.data);
   }
   /* 
   console.log(
    ) */
+}
+
+async function loadPromoCodeDetails() {
+  const promoCodeName = JSON.parse(
+    document.getElementById("promoCodeName").innerText
+  );
+  console.log(promoCodeName);
+  const promoCodeData = (
+    await axios.get(`/api/promoCodes?name=${promoCodeName}`)
+  ).data[0];
+
+  document.getElementById("emailTextbox").value = promoCodeData.name;
+  document.getElementById("pwTextbox").value = Number(
+    promoCodeData.discountRate
+  );
+  document.getElementById("expiryDatePicker").valueAsDate = new Date(
+    promoCodeData.expiryDate
+  );
+  console.log(promoCodeData.expiryDate);
 }

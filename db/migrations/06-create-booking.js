@@ -9,7 +9,7 @@ module.exports = {
         primaryKey: true,
       },
       status: {
-        type: Sequelize.ENUM("confirmed", "canceled"),
+        type: Sequelize.ENUM("confirmed", "cancelled"),
         allowNull: false,
       },
       startDateTime: {

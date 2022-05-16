@@ -44,6 +44,16 @@
     align-self: center;
 }
 
+#expiryDatePicker {
+    width: 300px;
+}
+
+#dateLabel {
+    padding: 20px;
+    font-size: 25px;
+    align-self: center;
+}
+
 #confirmButton {
     margin-right: 10px;
 }

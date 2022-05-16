@@ -18,20 +18,19 @@ async function createAccountTable() {
   accountTable.setAttribute("class", "table");
   accountTable.setAttribute("id", "tableid");
 
-  accountTable.appendChild(createRoomHeader());
+  accountTable.appendChild(createBookingHeader());
   accountTable.appendChild(await createBookingBody());
 
   return accountTable;
 }
 
-function createRoomHeader() {
+function createBookingHeader() {
   const thead = document.createElement("thead");
 
   const tr = document.createElement("tr");
   thead.appendChild(tr);
 
   const headers = [
-    "Status",
     "Room Name",
     "Date",
     "Start Time",
@@ -62,9 +61,7 @@ async function createBookingBody() {
       PromoCodeName,
       RoomName,
     } = booking;
-
     const typedBooking = {
-      status: status === "confirmed" ? "Confirmed" : "Cancelled",
       roomName: RoomName,
       date: new Date(startDateTime).toLocaleDateString("en-SG"),
       startTime: new Date(startDateTime).toLocaleTimeString("en-SG"),
@@ -89,11 +86,11 @@ async function createBookingBody() {
     promoTRContent.push(linkTd);
 
     /*   const cancelLink = document.createElement("button");
-        cancelLink.setAttribute("type", "button");
-        cancelLink.setAttribute("class", "btn btn-danger");
-        cancelLink.setAttribute("id", "suspendButton");
-        cancelLink.innerHTML = "Suspend";
-        atag2.appendChild(cancelLink); */
+    cancelLink.setAttribute("type", "button");
+    cancelLink.setAttribute("class", "btn btn-danger");
+    cancelLink.setAttribute("id", "suspendButton");
+    cancelLink.innerHTML = "Suspend";
+    atag2.appendChild(cancelLink); */
 
     promoTR.append(...promoTRContent);
     return promoTR;
@@ -102,8 +99,8 @@ async function createBookingBody() {
   const promoCodeBody = document.createElement("tBody");
 
   /*   for (let i = 0; i < promoOptions.length; i++) {
-      promoCodeBody.appendChild(promoOptions[i]);
-    } */
+    promoCodeBody.appendChild(promoOptions[i]);
+  } */
   promoCodeBody.append(...promoOptions);
   return promoCodeBody;
 }

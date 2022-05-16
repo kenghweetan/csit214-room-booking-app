@@ -1,4 +1,4 @@
-document.getElementById("logout").addEventListener("click", logout);
+document.getElementById("logout")?.addEventListener("click", logout);
 
 function logout(event) {
   event.preventDefault();

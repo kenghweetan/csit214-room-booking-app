@@ -29,24 +29,6 @@ require("./routes/api/staffRoutes")(app);
 require("./routes/api/userAdminRoutes")(app);
 require("./routes/app")(app);
 
-app.get("/userAdminHome", (req, res) => {
-  res.render(path.join(__dirname, "/views/userAdminHome"), {
-    title: "View Accounts",
-  });
-});
-
-app.get("/userAdminEdit", (req, res) => {
-  res.render(path.join(__dirname, "/views/userAdminEdit"), {
-    title: "Edit Account",
-  });
-});
-
-app.get("/userAdminCreate", (req, res) => {
-  res.render(path.join(__dirname, "/views/userAdminCreate"), {
-    title: "Create Account",
-  });
-});
-
 let PORT = process.env.PORT;
 
 if (PORT == null || PORT == "") {

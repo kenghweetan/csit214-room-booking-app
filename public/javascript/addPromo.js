@@ -1,6 +1,8 @@
 window.onload = createCreateCard;
 
-document.getElementById("createForm").addEventListener("submit", submitPromoCode);
+document
+  .getElementById("createForm")
+  .addEventListener("submit", submitPromoCode);
 
 // Create card for the form
 function createCreateCard() {
@@ -11,6 +13,7 @@ function createCreateCard() {
   );
   createCard.appendChild(createEmailTextbox());
   createCard.appendChild(createPwTextbox());
+  createCard.appendChild(createExpiryPicker());
   createCard.appendChild(createButtons());
   document.getElementById("createForm").appendChild(createCard);
 }
@@ -28,6 +31,7 @@ function createEmailTextbox() {
     class: "form-control form-control-lg",
     id: "emailTextbox",
     type: "text",
+    required: "",
   });
   emailTextLabel.append(emailTextbox);
   return emailTextLabel;
@@ -45,11 +49,37 @@ function createPwTextbox() {
   setAttributes(pwTextbox, {
     class: "form-control form-control-lg",
     id: "pwTextbox",
-    type: "text",
+    type: "number",
+    min: 1,
+    max: 100,
+    required: "",
   });
 
   pwTextLabel.append(pwTextbox);
   return pwTextLabel;
+}
+
+function createExpiryPicker() {
+  const dateLabel = document.createElement("label");
+  dateLabel.setAttribute("id", "dateLabel");
+  dateLabel.innerHTML = "Expiry";
+  const expiryDatePicker = document.createElement("input");
+  setAttributes(expiryDatePicker, {
+    type: "date",
+    id: "expiryDatePicker",
+    class: "form-control form-control-lg",
+    min: dateToLocalISOString(new Date()).split("T")[0],
+    required: "",
+  });
+
+  dateLabel.appendChild(expiryDatePicker);
+  return dateLabel;
+}
+
+function dateToLocalISOString(date) {
+  return new Date(
+    date.getTime() - date.getTimezoneOffset() * 60000
+  ).toISOString();
 }
 
 // Create confirm and cancel buttons for the form
@@ -57,7 +87,7 @@ function createButtons() {
   const buttonDiv = document.createElement("div");
   buttonDiv.setAttribute("class", "buttons");
 
-  // a tag for confirm button
+  /*   // a tag for confirm button
   const atag = document.createElement("a");
   // atag.setAttribute();
   buttonDiv.appendChild(atag);
@@ -65,26 +95,28 @@ function createButtons() {
   // a tag for cancel button
   const atag2 = document.createElement("a");
   atag2.setAttribute("href", "/viewPromoCodes");
-  buttonDiv.appendChild(atag2);
+  buttonDiv.appendChild(atag2); */
 
   // Create confirm button
   const confirmButton = document.createElement("button");
   setAttributes(confirmButton, {
     class: "btn btn-primary",
     id: "confirmButton",
-    //type: "submit",
+    type: "submit",
   });
   confirmButton.innerHTML = "Confirm";
-  atag.appendChild(confirmButton);
+  buttonDiv.appendChild(confirmButton);
 
   // Create cancel button
-  const cancelButton = document.createElement("button");
-  setAttributes(cancelButton, {
+  const cancelLink = document.createElement("a");
+  setAttributes(cancelLink, {
     class: "btn btn-secondary",
     id: "cancelButton",
+    href: "/viewPromoCodes",
   });
-  cancelButton.innerHTML = "Cancel";
-  atag2.appendChild(cancelButton);
+
+  cancelLink.innerHTML = "Cancel";
+  buttonDiv.appendChild(cancelLink);
 
   return buttonDiv;
 }
@@ -97,13 +129,19 @@ function setAttributes(el, attrs) {
 
 async function submitPromoCode(event) {
   event.preventDefault();
+  console.log("working");
+  const emailTextbox = document.getElementById("emailTextbox");
+  const pwTextbox = document.getElementById("pwTextbox");
+  const expiryDatePicker = document.getElementById("expiryDatePicker");
   try {
     const submit = await axios.post("/api/promocodes/", {
-      name: emailTextbox.innerText,
-      discountRate: pwTextbox.innerText
+      name: emailTextbox.value,
+      discountRate: pwTextbox.value,
+      expiryDate: expiryDatePicker.valueAsDate,
     });
     alert("Addition successful!");
-  }catch (error) {
+    window.location = "/viewPromoCodes";
+  } catch (error) {
     alert(error.message);
   }
 }
