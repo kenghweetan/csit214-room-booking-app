@@ -19,7 +19,6 @@ async function createAccountTable() {
   accountTable.setAttribute("id", "tableid");
 
   accountTable.appendChild(createBookingHeader());
-  console.log(await createBookingBody());
   accountTable.appendChild(await createBookingBody());
 
   return accountTable;
@@ -50,7 +49,6 @@ function createBookingHeader() {
 
 async function createBookingBody() {
   const bookings = (await axios.get("/api/bookings/myBookings")).data;
-  console.log(bookings);
   const promoOptions = bookings.map((booking) => {
     var promoTR = document.createElement("tr");
     const {
@@ -71,13 +69,10 @@ async function createBookingBody() {
       price: `$${netPrice}`,
     };
 
-    console.log(typedBooking);
-
     // ["name", "discountRate", "expiryDate"]
     const promoTRContent = Object.keys(typedBooking).map((key) => {
       const bookingColumn = document.createElement("td");
       bookingColumn.innerHTML = typedBooking[key];
-      console.log(typeof booking[key]);
       return bookingColumn;
     });
     const linkTd = document.createElement("td");
@@ -102,10 +97,6 @@ async function createBookingBody() {
   });
 
   const promoCodeBody = document.createElement("tBody");
-  console.log("with ...");
-  console.log(...promoOptions);
-  console.log("without");
-  console.log(promoOptions);
 
   /*   for (let i = 0; i < promoOptions.length; i++) {
     promoCodeBody.appendChild(promoOptions[i]);

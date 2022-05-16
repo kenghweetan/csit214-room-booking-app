@@ -21,11 +21,6 @@ async function createWeekView(date) {
   const week = document.getElementById("week");
   let newWeek = [];
 
-  // week.innerHTML = null; (null/empty string)
-  // while (week.firstChild) {
-  //   week.removeChild(week.lastChild)
-  // }
-
   for (let i = 0; i < 6; i++) {
     const getADate = date.getDate();
     const addDate = i === 0 ? 0 : 1;

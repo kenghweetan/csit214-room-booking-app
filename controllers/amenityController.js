@@ -62,7 +62,6 @@ module.exports = {
       type: req.body.type,
       RoomName: req.body.RoomName,
     };
-    console.log(creates);
 
     Amenity.create(creates)
       .then((data) => {

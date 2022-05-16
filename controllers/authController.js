@@ -14,13 +14,17 @@ module.exports = {
     // Execute SQL query that'll select the account from the database based on the specified email and password
     try {
       const validUser = await userTypeModel.findOne({
-        where: { email: email, password: password },
+        where: { email: email },
       });
 
       console.log(validUser);
 
-      if (!validUser)
-        return res.status(401).send("Incorrect Email and/or Password");
+      if (!validUser) return res.status(401).send("User not found");
+      if (validUser.password !== password)
+        return res.status(401).send("Incorrect Password");
+      if (validUser.suspended)
+        return res.status(401).send("User has been suspended");
+
       await userTypeModel.update(
         { lastLoggedIn: new Date() },
         {
