@@ -174,6 +174,9 @@ async function handleSubmit(event) {
         })
         .then(function (response) {
           console.log(response);
+        })
+        .catch(function (error) {
+          alert(error.data.response);
         });
       alert("Account Created!");
       window.location = "/userAdminHome";
