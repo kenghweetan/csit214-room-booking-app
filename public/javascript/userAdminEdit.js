@@ -1,6 +1,6 @@
 window.onload = createEditCard;
 
-// document.getElementById("editAccForm").addEventListener("submit", handleSubmit);
+document.getElementById("editAccForm").addEventListener("submit", handleSubmit);
 
 // Create card for the form
 function createEditCard() {
@@ -12,6 +12,7 @@ function createEditCard() {
   editCard.appendChild(createPwCfmTextbox());
   editCard.appendChild(createButtons());
   document.getElementById("editForm").appendChild(editCard);
+  loadAccDetails();
 }
 
 // Create dropdown list to choose account type
@@ -144,15 +145,27 @@ function setAttributes(el, attrs) {
 // async function getEditData() {
 //   const results = await axios.put();
 // }
-// async function handleSubmit(event) {
-//   event.preventDefault();
-//   try {
-//     const result = await axios.put("/api/userAdmin/", {
-//       email: emailTextbox.innerText,
-//       password: pwTextbox.innerText,
-//     });
-//     alert("Edit successful!");
-//   } catch (error) {
-//     alert(error.message);
-//   }
-// }
+async function handleSubmit(event) {
+  event.preventDefault();
+  try {
+    const result = await axios.put("/api/userAdmin/", {
+      email: emailTextbox.innerText,
+      password: pwTextbox.innerText,
+    });
+    alert("Edit successful!");
+  } catch (error) {
+    alert(error.message);
+  }
+}
+
+async function loadAccDetails() {
+  const accEmail = JSON.parse(document.getElementById("email").innerHTML);
+  console.log(accEmail);
+  const accUserType = JSON.parse(document.getElementById("userType").innerHTML);
+  const promoCodeData = (
+    await axios.get(`api/userAdmin?email=${accEmail}&userType=${accUserType}`)
+  ).data[0];
+  console.log(promoCodeData);
+  document.getElementById("emailTextbox").value = promoCodeData.email;
+  document.getElementById("pwTextbox").value = promoCodeData.password;
+}

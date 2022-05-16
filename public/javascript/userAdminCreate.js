@@ -84,12 +84,12 @@ function createPwTextbox() {
 
 // Create textbox to confirm password
 function createPwCfmTextbox() {
-  // Create label for password
+  // Create label for confirn password
   const pwCfmTextLabel = document.createElement("label");
   pwCfmTextLabel.setAttribute("id", "pwCfmTextLabel");
   pwCfmTextLabel.innerHTML = "Confirm Password";
 
-  // Create textbox
+  // Create confirm password textbox
   const pwCfmTextbox = document.createElement("input");
   setAttributes(pwCfmTextbox, {
     class: "form-control form-control-lg",
@@ -148,14 +148,37 @@ async function handleSubmit(event) {
   event.preventDefault();
   const accTypeResult = document.getElementById("selectDrop").value;
   console.log(accTypeResult);
+  const pwData = $("#pwTextbox").val();
+  const pwCfmData = $("#pwCfmTextbox").val();
   if (accTypeResult === "Student") {
-    const result = await axios
-      .post("api/students/", {
-        email: $("#emailTextbox").val(),
-        password: $("#pwTextbox").val(),
-      })
-      .then(function (response) {
-        console.log(response);
-      });
+    if (pwData === pwCfmData) {
+      const result = await axios
+        .post("api/students/", {
+          email: $("#emailTextbox").val(),
+          password: $("#pwTextbox").val(),
+        })
+        .then(function (response) {
+          console.log(response);
+        });
+      alert("Account Created!");
+      window.location = "/userAdminHome";
+    } else {
+      alert("Passwords do not match!");
+    }
+  } else {
+    if (pwData === pwCfmData) {
+      const result = await axios
+        .post("api/staff/", {
+          email: $("#emailTextbox").val(),
+          password: $("#pwTextbox").val(),
+        })
+        .then(function (response) {
+          console.log(response);
+        });
+      alert("Account Created!");
+      window.location = "/userAdminHome";
+    } else {
+      alert("Passwords do not match!");
+    }
   }
 }

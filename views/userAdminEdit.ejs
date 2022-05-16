@@ -14,6 +14,12 @@
 
 <body>
     <%- include('../public/partials/adminNav'); %>
+        <span id='email' hidden>
+            <%= JSON.stringify(email); %>
+        </span>
+        <span id='userType' hidden>
+            <%= JSON.stringify(userType); %>
+        </span>
         <div class="header">
             <h1>Edit Account</h1>
         </div>
