@@ -220,6 +220,7 @@ function populateTimeDropdown() {
 
   $("#ReT").timepicker({
     datePicker: false,
+
     timeFormat: "HH:mm",
     minTime: "09:30",
     maxTime: "18:00",

@@ -44,8 +44,6 @@ module.exports = {
 
   updatePromoCodeDetails: async (req, res) => {
     const name = req.params.name;
-    console.log(req.body);
-    console.log(name);
     try {
       const num = await PromoCode.update(req.body, {
         where: { name: name },

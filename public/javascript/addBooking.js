@@ -26,7 +26,6 @@ function calculateTotalCost() {
     const endTime = $("#endTime").timepicker().getTime();
     const hourlyRate = $("#venue").children("option:selected")?.data()
       .value?.hourlyRate;
-    console.log($("#promoCodes").children("option:selected").data());
     const discount = $("#promoCodes").children("option:selected")?.data()
       .value?.discountRate;
     // To calculate the time difference of two dates
@@ -56,9 +55,6 @@ $("#venue").on("change", function () {
 
 async function populateRoomDropdown() {
   const rooms = (await axios.get("/api/rooms")).data;
-  console.log(await axios.get("/api/rooms"));
-  console.log(await axios.get("/api/rooms").data);
-  console.log(rooms);
   const roomOptions = await Promise.all(
     rooms.map(async (room) => {
       const amenities = (await axios.get(`api/amenity?roomName=${room.name}`))
@@ -153,7 +149,6 @@ function dateToLocalISOString(date) {
 
 async function handleSubmit(event) {
   event.preventDefault();
-  console.log("test");
   const startTime = $("#startTime").timepicker().getTime();
   const endTime = $("#endTime").timepicker().getTime();
   const bookingDate = document.getElementById("date").valueAsDate;

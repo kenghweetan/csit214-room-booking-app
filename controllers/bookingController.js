@@ -34,7 +34,6 @@ module.exports = {
           },
         }
       : null;
-    console.log(startDateTime);
 
     Booking.findAll({
       where: {

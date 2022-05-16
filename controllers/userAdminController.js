@@ -43,9 +43,6 @@ module.exports = {
 
   findAllStudentAndStaff: async (_req, res) => {
     try {
-      console.log("HI");
-      console.log(await Student.findAll());
-      console.log("smth broke");
       const students = (await Student.findAll()).map((student) => {
         return { ...student.dataValues, type: "student" };
       });
@@ -53,7 +50,6 @@ module.exports = {
       const staffs = (await Staff.findAll()).map((staff) => {
         return { ...staff.dataValues, type: "staff" };
       });
-      console.log(students);
       res.send([...students, ...staffs]);
     } catch (err) {
       console.log(err);

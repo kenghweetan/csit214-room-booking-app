@@ -104,9 +104,6 @@ function createButtons() {
     id: "confirmButton",
     type: "submit",
   });
-  /*   confirmButton.addEventListener("click", () => {
-    console.log("test");
-  }); */
   confirmButton.innerHTML = "Confirm";
   buttonDiv.appendChild(confirmButton);
 
