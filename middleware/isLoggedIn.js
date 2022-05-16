@@ -13,4 +13,8 @@ module.exports = {
     if (req.session.userType !== "Staff") return res.redirect("/");
     next();
   },
+  isUserAdmin: (req, res, next) => {
+    if (req.session.userType !== "userAdmin") return res.redirect("/");
+    next();
+  },
 };

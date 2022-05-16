@@ -52,12 +52,14 @@ module.exports = () => {
   router.get("/editRoom", isStaff, (request, response) => {
     response.render("editRoom", {
       title: "Edit Promo Codes",
+      email: request.session.email,
     });
   });
 
   router.get("/viewRoom", isStaff, (request, response) => {
     response.render("viewRoom", {
       title: "View Rooms",
+      email: request.session.email,
     });
   });
 

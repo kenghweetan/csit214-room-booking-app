@@ -8,7 +8,7 @@ function login(event) {
 
   axios
     .post("/api/auth/login", {
-      userType,
+      userType: userType === "User Admin" ? "userAdmin" : userType,
       email,
       password,
     })

@@ -19,8 +19,8 @@ async function createAccountTable() {
   accountTable.setAttribute("id", "tableid");
 
   accountTable.appendChild(createRoomHeader());
-  console.log(await createRoomBody());
-  accountTable.appendChild(await createRoomBody());
+  console.log(await createBookingBody());
+  accountTable.appendChild(await createBookingBody());
 
   return accountTable;
 }
