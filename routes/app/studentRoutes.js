@@ -37,6 +37,13 @@ module.exports = () => {
     });
   });
 
+  router.get("/viewStudentRoom", isStudent, (req, res) => {
+    res.render("viewStudentRoom", {
+      title: "View Rooms",
+      email: req.session.email,
+    });
+  });
+
   router.get("/paymentReceipt/:bookingId", isStudent, (req, res) => {
     res.render("paymentReceipt", {
       title: "Payment Receipt",
