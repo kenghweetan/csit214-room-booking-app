@@ -1,6 +1,10 @@
-const { default: axios } = require("axios");
-
 window.onload = loadDefaultView;
+
+document
+  .getElementById("sDate")
+  .addEventListener("change", ({ target: { valueAsDate } }) => {
+    createWeekView(valueAsDate);
+  });
 
 function loadDefaultView() {
   const defaultDate = new Date();
@@ -16,11 +20,6 @@ async function createWeekView(date) {
   // console.log(new Date());
   const week = document.getElementById("week");
   let newWeek = [];
-
-  // week.innerHTML = null; (null/empty string)
-  // while (week.firstChild) {
-  //   week.removeChild(week.lastChild)
-  // }
 
   for (let i = 0; i < 6; i++) {
     const getADate = date.getDate();
@@ -47,8 +46,7 @@ async function createTimeLineCard(date) {
 
 async function createTimeLineTable(date) {
   const timeLineTable = document.createElement("table");
-  timeLineTable.setAttribute("class", "table");
-  timeLineTable.setAttribute("id", "tableid");
+  setAttributes(timeLineTable, { class: "table", id: "tableid" });
   const caption = document.createElement("caption");
   caption.setAttribute("id", "captionDate");
 
@@ -82,9 +80,11 @@ async function createTLBody(date) {
   const tBody = document.createElement("tbody");
   const rooms = (await axios.get("/api/rooms")).data;
   console.log(rooms);
-  rooms.forEach((room) => {
-    const bookings = await axios.get("/api/bookings", { startingDate: date }).data;
-    console.log(room);
+  rooms.forEach(async (room) => {
+    const bookings = await axios.get("/api/bookings", {
+      params: { startDateTime: date, roomName: room.name },
+    }).data;
+    console.log(bookings);
     const tr = document.createElement("tr");
     const roomNameCol = document.createElement("td");
     roomNameCol.innerHTML = room.name;
@@ -95,8 +95,10 @@ async function createTLBody(date) {
       td.setAttribute("class", "selectable");
       // td.addEventListener("click", function(event){event.preventDefault(); console.log("testclick")})
       if (Math.random() < 0.5) {
-        td.setAttribute("style", "background-color: blue;");
-        td.setAttribute("class", "booked");
+        setAttributes(td, {
+          style: "background-color: blue;",
+          class: "booked",
+        });
       } else {
         td.setAttribute("class", "selectable");
       }
@@ -107,4 +109,10 @@ async function createTLBody(date) {
     tBody.appendChild(tr);
   });
   return tBody;
+}
+
+function setAttributes(el, attrs) {
+  for (var key in attrs) {
+    el.setAttribute(key, attrs[key]);
+  }
 }

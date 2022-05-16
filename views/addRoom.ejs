@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>Create Room Page</title>
+    <%- include('../public/partials/head'); %>
+        <link rel="stylesheet" type="text/css" href="/stylesheets/timepicker.css" />
+        <style>
+            .center-screen {
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                text-align: center;
+                color: #212529;
+                min-height: 100vh;
+            }
+        </style>
+</head>
+
+<body>
+    <%- include('../public/partials/staffNav'); %>
+
+        <br />
+        <form id="addRoom">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-8">
+                        <h1 id="Bd">Create a Room</h1>
+
+                    </div><br>
+                    <!-- <div class="col-md-4 d-flex justify-content-lg-end">
+                        <button type="submit" class="btn btn-outline-danger btn-lg" id="delet">Delete Booking</button>
+                    </div> -->
+                </div>
+                <div class="row">
+                    <div class=" col-md-4">
+                        <label for="Rname" class=" form-label col-form-lable">Room Name</label>
+                        <input type="text" class="form-control" id="Rname">
+                        <br>
+                        <label for="Rlocation" class=" form-label col-form-lable">Location</label>
+                        <input type="text" class="form-control" id="Rlocation">
+
+                        <br>
+                        <label for="Rprice" class="form-label col-form-lable">Hourly Rate</label>
+                        <input type="text" class="form-control" id="Rprice">
+
+
+                    </div>
+
+
+
+                    <div class="col-md-4">
+                        <form role="form">
+                            <label for="Rpromo" class=" form-label col-form-lable">Promotion Code</label>
+                            <input type="text" class="form-control" id="Rpromo">
+
+                            </br>
+                            <label for="launchDate" class=" form-label">Launch Room On</label>
+                            <input type="datetime-local" class="form-control" id="launchDate" value="">
+                            </br>
+
+                            <label for="Rcapacity" class=" form-label col-form-lable">Capacity</label>
+                            <input type="text" class="form-control" id="Rcapacity">
+                            </br>
+                            <br>
+                        </form>
+                    </div>
+
+
+                    <div class="d-grid gap-2  d-md-flex justify-content-md-center">
+                        <input type="submit" class="btn btn-primary btn-lg" id="submit" value="Submit" />
+                        <a class="btn btn-secondary btn-lg" id="back" href="/viewRoom">Back</a>
+                    </div>
+        </form>
+        </div>
+        <%- include('../public/partials/scripts'); %>
+            <script type="text/javascript" src="/javascript/addRoom.js"></script>
+</body>
+
+</html>

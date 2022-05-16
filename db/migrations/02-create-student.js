@@ -10,6 +10,18 @@ module.exports = {
                 type: Sequelize.STRING,
                 allowNull: false,
             },
+            suspended: {
+                type: Sequelize.BOOLEAN,
+                allowNull: false,
+                defaultValue: false,
+            },
+            lastLoggedIn: {
+                type: Sequelize.DATE,
+
+            },
+            lastLoggedOut: {
+                type: Sequelize.DATE,
+            },
         });
     },
     down: (queryInterface, Sequelize) => {

@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>Edit Room Page</title>
+    <%- include('../public/partials/head'); %>
+        <link rel="stylesheet" type="text/css" href="/stylesheets/timepicker.css" />
+        <style>
+            .center-screen {
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                text-align: center;
+                color: #212529;
+                min-height: 100vh;
+            }
+        </style>
+</head>
+
+<body>
+    <%- include('../public/partials/staffNav'); %>
+
+        <br />
+        <form id="addRoom">
+            <span id='name' hidden>
+                <%= JSON.stringify(name)%>
+            </span>
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-8">
+                        <h1 id="Bd">Edit Room</h1>
+
+                    </div><br>
+                    <div class="col-md-4 d-flex justify-content-lg-end">
+                        <button type="submit" class="btn btn-outline-danger btn-lg" id="delet">Cancel Room</button>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class=" col-md-4">
+                        <label for="Rname" class=" form-label col-form-lable">Room Name</label>
+                        <input type="text" class="form-control" id="Rname" disabled>
+                        <br>
+                        <label for="Rlocation" class=" form-label col-form-lable">Location</label>
+                        <input type="text" class="form-control" id="Rlocation" disabled>
+
+                        <br>
+                        <label for="Rprice" class="form-label col-form-lable">Hourly Rate</label>
+                        <input type="text" class="form-control" id="Rprice" disabled>
+
+
+                    </div>
+
+
+
+                    <div class="col-md-4">
+                        <form role="form">
+
+
+                            <label for="launchDate" class=" form-label">Launch Room On</label>
+                            <input type="datetime-local" class="form-control" id="launchDate" disabled>
+                            </br>
+
+                            <label for="Rcapacity" class=" form-label col-form-lable">Capacity</label>
+                            <input type="text" class="form-control" id="Rcapacity" disabled>
+                            </br>
+                            <br>
+                        </form>
+                    </div>
+
+
+                    <div class="d-grid gap-2  d-md-flex justify-content-md-center">
+                        <input type="button" class="btn btn-primary btn-lg" id="edit" value="Edit" />
+                        <input type="button" class="btn btn-secondary btn-lg" id="back" value="Back"
+                            onclick="window.location.href='/viewRoom'" />
+                    </div>
+        </form>
+        </div>
+        <%- include('../public/partials/scripts'); %>
+            <script type=" text/javascript " src="/javascript/editRoom.js "></script>
+</body>
+
+</html>

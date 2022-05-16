@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <!-- Required meta tags -->
+    <%- include('../public/partials/head'); %>
+
+        <link rel="stylesheet" type="text/css" href="/stylesheets/userAdminEdit.css" />
+
+        <title>
+            <%= title%>
+        </title>
+</head>
+
+<body>
+    <%- include('../public/partials/adminNav'); %>
+        <span id='userEmail' hidden>
+            <%= JSON.stringify(userEmail); %>
+        </span>
+        <span id='userType' hidden>
+            <%= JSON.stringify(userType); %>
+        </span>
+        <div class="header">
+            <h1>Edit Account</h1>
+        </div>
+        <form id="editAccForm">
+            <div id="editForm">
+
+            </div>
+        </form>
+        <%- include('../public/partials/scripts'); %>
+            <script src="/javascript/userAdminEdit.js" type="text/javascript"></script>
+</body>
+
+</html>

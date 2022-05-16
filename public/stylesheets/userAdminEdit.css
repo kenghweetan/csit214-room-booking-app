@@ -1,0 +1,59 @@
+.header {
+    text-align: center;
+    padding-top: 50px;
+}
+
+.editAccCard {
+    margin: 50px 400px 50px 400px;
+    padding: 20px;
+}
+
+.buttons {
+    align-self: center;
+    padding: 20px;
+    padding-top: 80px;
+}
+
+#selectDrop {
+    width: 300px;
+}
+
+#accTypeLabel {
+    padding: 20px;
+    font-size: 25px;
+    align-self: center;
+}
+
+#emailTextbox {
+    width: 500px;
+}
+
+#emailTextLabel {
+    padding: 20px;
+    font-size: 25px;
+    align-self: center;
+}
+
+#pwTextbox {
+    width: 500px;
+}
+
+#pwTextLabel {
+    padding: 20px;
+    font-size: 25px;
+    align-self: center;
+}
+
+#pwCfmTextbox {
+    width: 500px;
+}
+
+#pwCfmTextLabel {
+    padding: 20px;
+    font-size: 25px;
+    align-self: center;
+}
+
+#confirmButton {
+    margin-right: 10px;
+}

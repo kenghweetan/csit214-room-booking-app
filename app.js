@@ -1,11 +1,12 @@
+const dotenv = require("dotenv");
+const path = require("path");
 const express = require("express");
 const session = require("express-session");
-const path = require("path");
-const app = express();
-const sequelize = require("./db/models");
-const login = require("./controllers/login");
 
-app.set("views", "./views");
+const app = express();
+
+dotenv.config();
+app.set("views", path.join(__dirname, "views"));
 app.set("view engine", "ejs");
 app.use(
   session({
@@ -18,32 +19,14 @@ app.use(express.static(__dirname + "/public"));
 app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
 
-app.get("/", (req, res) => {
-  console.log(req.session);
-  if (req.session.loggedIn) {
-    return res.redirect("/calendar-view");
-  }
-  return res.redirect("/login");
-});
-
-app.get("/login", (req, res) => {
-  res.render(path.join(__dirname, "/views/login"), { title: "Login" });
-});
-
-app.post("/login", login);
-
-app.get("/bookingDetails", (req, res) => {
-  res.render(path.join(__dirname, "/views/bookingDetails"), { title: "Login" });
-});
-
-app.get("/calendar-view", (req, res) => {
-  res.render(path.join(__dirname, "/views/calendar-view"), {
-    title: "Calendar",
-  });
-});
-
-require("./routes/bookingRoutes")(app);
-require("./routes/roomRoutes")(app);
+require("./routes/api/authRoutes")(app);
+require("./routes/api/bookingRoutes")(app);
+require("./routes/api/roomRoutes")(app);
+require("./routes/api/promoCodeRoutes")(app);
+require("./routes/api/studentRoutes")(app);
+require("./routes/api/staffRoutes")(app);
+require("./routes/api/userAdminRoutes")(app);
+require("./routes/app")(app);
 
 let PORT = process.env.PORT;
 

@@ -1,0 +1,59 @@
+.header {
+    text-align: center;
+    padding-top: 50px;
+}
+
+.createAccCard {
+    margin: 50px 400px 50px 400px;
+    padding: 20px;
+}
+
+.buttons {
+    align-self: center;
+    padding: 20px;
+    padding-top: 80px;
+}
+
+#selectDrop {
+    width: 300px;
+}
+
+#accTypeLabel {
+    padding: 20px;
+    font-size: 25px;
+    align-self: center;
+}
+
+#emailTextbox {
+    width: 300px;
+}
+
+#emailTextLabel {
+    padding: 20px;
+    font-size: 25px;
+    align-self: center;
+}
+
+#pwTextbox {
+    width: 300px;
+}
+
+#pwTextLabel {
+    padding: 20px;
+    font-size: 25px;
+    align-self: center;
+}
+
+#expiryDatePicker {
+    width: 300px;
+}
+
+#dateLabel {
+    padding: 20px;
+    font-size: 25px;
+    align-self: center;
+}
+
+#confirmButton {
+    margin-right: 10px;
+}
