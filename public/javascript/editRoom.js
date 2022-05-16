@@ -2,12 +2,13 @@ document.getElementById("delet").style.display = "none";
 //document.getElementById("edit").addEventListener("click", handleEdit);
 document.getElementById("edit").addEventListener("click", changeText);
 document.getElementById("edit").addEventListener("click", editroom);
+/* document.getElementById("edit").addEventListener("click", editCom);
+document.getElementById("edit").addEventListener("click", editTv); */
 //document.getElementById("back").addEventListener("click", homeRedir);
 document.getElementById("delet").addEventListener("click", delCom);
 document.getElementById("delet").addEventListener("click", delTv);
 document.getElementById("delet").addEventListener("click", deleteRoom);
 
-//const { default: axios } = require("axios");
 
 window.addEventListener("load", () => {
     $(document).ready(() => {
@@ -89,6 +90,8 @@ function changeText() {
     proceedButton.addEventListener("click", handleEdit);
     proceedButton.addEventListener("click", editCom);
     proceedButton.addEventListener("click", editTv);
+    /*  proceedButton.addEventListener("click", uncheckCom);
+     proceedButton.addEventListener("click", uncheckTv); */
     editButton.replaceWith(proceedButton);
 
 
@@ -168,6 +171,40 @@ async function delCom(event) {
     }
 }
 
+/* async function uncheckTv(event) {
+    event.preventDefault();
+    const name = JSON.parse(document.getElementById("name").innerHTML);
+    const radio1 = document.getElementById("TV").value;
+
+    if (document.getElementById("TV").checked = false) {
+        try {
+            const result = await axios
+                .delete(`/api/amenity/${name}`, {
+                    type: radio1,
+                })
+        } catch (error) {
+            console.log(error.response.data);
+        }
+    }
+}
+
+async function uncheckCom(event) {
+    event.preventDefault();
+    const name = JSON.parse(document.getElementById("name").innerHTML);
+    const radio1 = document.getElementById("Computer").value;
+
+    if (document.getElementById("Computer").checked = false) {
+        try {
+            const result = await axios
+                .delete(`/api/amenity/${name}`, {
+                    type: radio1,
+                })
+        } catch (error) {
+            console.log(error.response.data);
+        }
+    }
+}
+ */
 async function delTv(event) {
     event.preventDefault();
     const name = JSON.parse(document.getElementById("name").innerHTML);
@@ -232,37 +269,79 @@ async function handleEdit(event) {
 async function editCom(event) {
     event.preventDefault();
     const name = JSON.parse(document.getElementById("name").innerHTML);
-    const radio1 = document.getElementById("Computer").value;
-
-    try {
-        const result = await axios
-            .put(`/api/amenity/${name}`, {
-                type: radio1,
-            })
-            .then(function(response) {
-                console.log(response);
-            });
-    } catch (error) {
-        alert(error.response.data);
-        console.log(error.response.data);
-    }
+    const radio1 = document.getElementById("Computer").innerHTML = "Computer";
+    /* const check1 = document.getElementById("Computer").checked = true;
+    const check2 = document.getElementById("TV").checked = false; */
+    const radio2 = document.getElementById("Computer").innerHTML = "TV";
+    /* 
+        if ($('#TV').is(':checked') || $('#Computer').is(':checked')) {
+            try {
+                const result = await axios
+                    .put(`/api/amenity/${name}`, {
+                        type: radio1,
+                    })
+                    .then(function(response) {
+                        console.log(response);
+                    });
+            } catch (error) {
+                alert(error.response.data);
+                console.log(error.response.data);
+            }
+        } else if ($('#TV').is(':checked') == false || $('#Computer').is(':checked') == true || $('#Computer').is(':checked') == false && $('#TV').is(':checked') == false) {
+            try {
+                const result = await axios
+                    .delete(`/api/amenity/${name}`, {
+                        type: radio2,
+                    })
+            } catch (error) {
+                console.log(error.response.data);
+            }
+            try {
+                const result = await axios
+                    .put(`/api/amenity/${name}`, {
+                        type: radio1,
+                    })
+            } catch (error) {
+                console.log(error.response.data);
+            }
+        } */
 }
 
 async function editTv(event) {
     event.preventDefault();
     const name = JSON.parse(document.getElementById("name").innerHTML);
-    const radio1 = document.getElementById("TV").value;
+    const radio1 = document.getElementById("TV").innerHTML = "TV"
+    const radio2 = document.getElementById("TV").innerHTML = "Computer"
 
-    try {
-        const result = await axios
-            .put(`/api/amenity/${name}`, {
-                type: radio1,
-            })
-            .then(function(response) {
-                console.log(response);
-            });
-    } catch (error) {
-        alert(error.response.data);
-        console.log(error.response.data);
-    }
+    /*   if ($('#TV').is(':checked') || $('#Computer').is(':checked')) {
+          try {
+              const result = await axios
+                  .put(`/api/amenity/${name}`, {
+                      type: radio1,
+                  })
+                  .then(function(response) {
+                      console.log(response);
+                  });
+          } catch (error) {
+              alert(error.response.data);
+              console.log(error.response.data);
+          }
+      } else if ($('#TV').is(':checked') == true || $('#Computer').is(':checked') == false ) {
+          try {
+              const result = await axios
+                  .delete(`/api/amenity/${name}`, {
+                      type: radio2,
+                  })
+          } catch (error) {
+              console.log(error.response.data);
+          }
+          try {
+              const result = await axios
+                  .put(`/api/amenity/${name}`, {
+                      type: radio1,
+                  })
+          } catch (error) {
+              console.log(error.response.data);
+          }
+      } else if ($('#Computer').is(':checked') == false && $('#TV').is(':checked') == false) */
 }

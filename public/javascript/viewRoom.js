@@ -77,7 +77,7 @@ async function createRoomBody() {
         const editLink = document.createElement("a");
 
 
-        editLink.setAttribute("href", `/editRoom/${name}`);
+        editLink.setAttribute("href", `/roomDetails/${name}`);
         editLink.setAttribute("id", "seeDetails");
         editLink.innerHTML = "Edit";
         linkTd.appendChild(editLink);
