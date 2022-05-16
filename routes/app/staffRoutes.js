@@ -7,12 +7,14 @@ module.exports = () => {
       title: "Add Room",
       email: req.session.email,
     });
+  });
 
   router.get("/roomDetails", isStaff, (req, response) => {
     response.render("roomDetails", {
       title: "roomDetails",
       email: req.session.email,
     });
+  });
 
   router.get("/viewRooms", isStaff, (req, response) => {
     response.render("viewRooms", {
@@ -26,12 +28,14 @@ module.exports = () => {
       title: "Promo Codes",
       email: req.session.email,
     });
+  });
 
   router.get("/addPromoCode", isStaff, (req, response) => {
     response.render("addPromoCode", {
       title: "Add Promo Code",
       email: req.session.email,
     });
+  });
 
   router.get("/editPromoCode/:name", isStaff, (req, response) => {
     response.render("editPromoCode", {
@@ -39,23 +43,23 @@ module.exports = () => {
       promoCodeName: req.params.name,
       email: req.session.email,
     });
+  });
 
   router.get("/staff", isStaff, (_req, res) => {
     res.redirect("/viewRooms");
   });
 
-    router.get("/editRoom", isStaff, (request, response) => {
-        response.render("editRoom", {
-            title: "Edit Promo Codes",
-        });
+  router.get("/editRoom", isStaff, (request, response) => {
+    response.render("editRoom", {
+      title: "Edit Promo Codes",
     });
+  });
 
-    router.get("/viewRoom", isStaff, (request, response) => {
-        response.render("viewRoom", {
-            title: "View Rooms",
-        });
+  router.get("/viewRoom", isStaff, (request, response) => {
+    response.render("viewRoom", {
+      title: "View Rooms",
     });
+  });
 
-
-    return router;
+  return router;
 };
