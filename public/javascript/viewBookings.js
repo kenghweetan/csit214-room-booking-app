@@ -32,6 +32,7 @@ function createRoomHeader() {
   thead.appendChild(tr);
 
   const headers = [
+    "Status",
     "Room Name",
     "Date",
     "Start Time",
@@ -65,6 +66,7 @@ async function createBookingBody() {
     } = booking;
 
     const typedBooking = {
+      status: status === "confirmed" ? "Confirmed" : "Cancelled",
       roomName: RoomName,
       date: new Date(startDateTime).toLocaleDateString("en-SG"),
       startTime: new Date(startDateTime).toLocaleTimeString("en-SG"),

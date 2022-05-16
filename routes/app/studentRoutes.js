@@ -23,12 +23,12 @@ module.exports = () => {
     });
   });
 
-  router.get("/calendar-view", isStudent, (req, res) => {
+  /*   router.get("/calendar-view", isStudent, (req, res) => {
     res.render("calendar-view", {
       title: "Calendar",
       email: req.session.email,
     });
-  });
+  }); */
 
   router.get("/addBooking", isStudent, (req, res) => {
     res.render("addBooking", {
@@ -46,7 +46,7 @@ module.exports = () => {
   });
 
   router.get("/student", isStudent, (req, res) => {
-    res.redirect("/calendar-view");
+    res.redirect("/viewBookings");
   });
 
   return router;

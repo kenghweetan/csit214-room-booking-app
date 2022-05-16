@@ -23,6 +23,25 @@ module.exports = {
       });
   },
 
+  findAllValid: async (req, res) => {
+    const currentDateWithoutTime = new Date();
+    currentDateWithoutTime.setHours(0, 0, 0, 0);
+    try {
+      const data = await PromoCode.findAll({
+        where: {
+          expiryDate: {
+            [Op.gte]: currentDateWithoutTime,
+          },
+        },
+      });
+      res.send(data);
+    } catch (err) {
+      res.status(500).send({
+        message: err.message || "Error Occured.",
+      });
+    }
+  },
+
   updatePromoCodeDetails: async (req, res) => {
     const name = req.params.name;
     console.log(req.body);
