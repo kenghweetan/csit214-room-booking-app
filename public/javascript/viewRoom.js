@@ -77,11 +77,11 @@ async function createRoomBody() {
         const editLink = document.createElement("a");
 
 
-        /*    editLink.setAttribute("href", `/bookingDetails/${bookingId}`);
-           editLink.setAttribute("id", "seeDetails");
-           editLink.innerHTML = "See details";
-           linkTd.appendChild(editLink);
-           promoTRContent.push(linkTd); */
+        editLink.setAttribute("href", `/roomDetails/${name}`);
+        editLink.setAttribute("id", "seeDetails");
+        editLink.innerHTML = "Edit";
+        linkTd.appendChild(editLink);
+        promoTRContent.push(linkTd);
 
 
         promoTR.append(...promoTRContent);
