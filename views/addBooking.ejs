@@ -19,6 +19,9 @@
 
 <body>
     <%- include('../public/partials/studentNav'); %>
+        <span id='roomName' hidden>
+            <%= JSON.stringify(roomName); %>
+        </span>
         <div class="container center-screen">
             <form id="bookingForm">
                 <div class="d-flex flex-column justify-content-center">

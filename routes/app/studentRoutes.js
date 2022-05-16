@@ -31,10 +31,19 @@ module.exports = () => {
     });
   }); */
 
-  router.get("/addBooking", isStudent, (req, res) => {
+  router.get("/addBooking/:roomName", isStudent, (req, res) => {
     res.render("addBooking", {
       title: "Add Booking",
       email: req.session.email,
+      roomName: req.params.roomName,
+    });
+  });
+
+  router.get("/addBooking/", isStudent, (req, res) => {
+    res.render("addBooking", {
+      title: "Add Booking",
+      email: req.session.email,
+      roomName: "",
     });
   });
 

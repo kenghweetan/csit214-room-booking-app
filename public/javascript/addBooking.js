@@ -1,18 +1,14 @@
 document.getElementById("bookingForm").addEventListener("submit", handleSubmit);
 
-$(document).ready(() => {
+$(document).ready(async () => {
   document
     .getElementById("date")
     .setAttribute("min", dateToLocalISOString(new Date()).split("T")[0]);
   populateTimeDropdown();
-  populateRoomDropdown();
-  populatePromoCodeDropdown();
-});
-
-let selects = Array.from(document.getElementsByTagName("select"));
-
-selects.forEach((select) => {
-  select.addEventListener("change", calculateTotalCost);
+  await populateRoomDropdown();
+  await populatePromoCodeDropdown();
+  loadSelectEventListeners();
+  loadRoomDetails();
 });
 
 function calculateTotalCost() {
@@ -40,28 +36,37 @@ function calculateTotalCost() {
   }
 }
 
-$("#venue").on("change", function () {
-  const selectedRoomInfo = $(this).children("option:selected").data().value;
-  $("#amenities")
-    .empty()
-    .append(
-      selectedRoomInfo.amenities?.map((amenity) =>
-        $("<li></li>").html(amenity.type)
-      )
-    );
-  $("#location").empty().html(selectedRoomInfo.location);
-  $("#capacity").empty().html(selectedRoomInfo.capacity);
-});
+function loadSelectEventListeners() {
+  let selects = Array.from(document.getElementsByTagName("select"));
+
+  selects.forEach((select) => {
+    select.addEventListener("change", calculateTotalCost);
+  });
+
+  $("#venue").on("change", function () {
+    const selectedRoomInfo = $(this).children("option:selected").data().value;
+    $("#amenities")
+      .empty()
+      .append(
+        selectedRoomInfo.amenities?.map((amenity) =>
+          $("<li></li>").html(amenity.type)
+        )
+      );
+    $("#location").empty().html(selectedRoomInfo.location);
+    $("#capacity").empty().html(selectedRoomInfo.capacity);
+  });
+}
 
 async function populateRoomDropdown() {
   const rooms = (await axios.get("/api/rooms")).data;
   const roomOptions = await Promise.all(
     rooms.map(async (room) => {
-      const amenities = (await axios.get(`api/amenity?roomName=${room.name}`))
+      const amenities = (await axios.get(`/api/amenity?RoomName=${room.name}`))
         .data;
       const roomOption = $("<option></option>")
         .attr({
           name: room.name,
+          value: room.name,
         })
         .data("value", { ...room, amenities })
         .html(room.name);
@@ -183,5 +188,20 @@ async function handleSubmit(event) {
   } catch (error) {
     console.log(error);
     alert(error.response.data || "Error adding Booking");
+  }
+}
+
+function loadRoomDetails() {
+  const roomName = JSON.parse(document.getElementById("roomName").innerHTML);
+  console.log(roomName);
+  if (roomName) {
+    $("#venue option")
+      .filter(function () {
+        console.log(this);
+        console.log(this.value === roomName);
+        return this.value === roomName;
+      })
+      .attr("selected", true)
+      .change();
   }
 }

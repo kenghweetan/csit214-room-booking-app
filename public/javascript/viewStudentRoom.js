@@ -31,7 +31,13 @@ function createRoomHeader() {
   const tr = document.createElement("tr");
   thead.appendChild(tr);
 
-  const headers = ["Room Name", "Location", "Capacity"];
+  const headers = [
+    "Room Name",
+    "Location",
+    "Capacity",
+    "Hourly Rate",
+    "Bookings",
+  ];
   for (const header of headers) {
     const accCol = document.createElement("th");
     accCol.innerHTML = header;
@@ -46,11 +52,12 @@ async function createRoomBody() {
   console.log(rooms);
   const roomOptions = rooms.map((rooms) => {
     var roomTR = document.createElement("tr");
-    const { name, location, capacity } = rooms;
+    const { name, location, capacity, hourlyRate } = rooms;
     const populateRoom = {
       name: name,
       location: location,
       capacity: capacity,
+      hourlyRate: `$${Number(hourlyRate).toFixed(2)}`,
     };
 
     console.log(populateRoom);
@@ -65,9 +72,9 @@ async function createRoomBody() {
     const linkTd = document.createElement("td");
     const editLink = document.createElement("a");
 
-    editLink.setAttribute("href", "/addBooking");
-    editLink.setAttribute("id", "addBooking");
-    editLink.innerHTML = "Add Booking";
+    editLink.setAttribute("href", `/addBooking/${populateRoom.name}`);
+    editLink.setAttribute("class", "link-primary");
+    editLink.innerHTML = "Make a Booking";
     linkTd.appendChild(editLink);
     roomTRContent.push(linkTd);
 

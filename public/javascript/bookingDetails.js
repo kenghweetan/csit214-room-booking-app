@@ -1,6 +1,5 @@
 document.getElementById("delet").style.display = "none";
-document.getElementById("edit").addEventListener("click", editbooking);
-document.getElementById("edit").addEventListener("click", changeText);
+
 document.getElementById("delet").addEventListener("click", deleteBooking);
 document
   .getElementById("Rdate")
@@ -26,6 +25,20 @@ window.addEventListener("load", () => {
     await populateRoomDropdown();
     await populatePromoCodeDropdown();
     await loadBookingDetails();
+    const bookingId = JSON.parse(
+      document.getElementById("bookingId").innerHTML
+    );
+    const { endDateTime } = (
+      await axios.get(`/api/bookings?bookingId=${bookingId}`)
+    ).data[0];
+
+    if (new Date() > new Date(endDateTime)) {
+      document.getElementById("edit").value = "Booking Date has passed";
+      document.getElementById("edit").setAttribute("disabled", "");
+    } else {
+      document.getElementById("edit").addEventListener("click", editbooking);
+      document.getElementById("edit").addEventListener("click", changeText);
+    }
   });
 });
 
@@ -39,7 +52,6 @@ function calculateTotalCost() {
     $("#RsT").timepicker().getTime() &&
     $("#ReT").timepicker().getTime() &&
     $("#Rname").children("option:selected")?.data().value?.hourlyRate;
-  console.log(formFieldsAreFilled);
   if (formFieldsAreFilled) {
     const startTime = $("#RsT").timepicker().getTime();
     const endTime = $("#ReT").timepicker().getTime();

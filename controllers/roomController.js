@@ -3,78 +3,97 @@ const Op = db.Sequelize.Op;
 const { Room } = db;
 
 module.exports = {
-    findAll: (req, res) => {
-        const name = req.query.name;
-        let condition = name ?
-            {
-                name: {
-                    [Op.eq]: `${name}`,
-                },
-            } :
-            null;
-        Room.findAll({ where: condition })
-            .then((data) => {
-                res.send(data);
-            })
-            .catch((err) => {
-                res.status(500).send({
-                    message: err.message || "Error Occured.",
-                });
-            });
-    },
+  findAll: (req, res) => {
+    let condition = null;
+    if (req.session.userType === "Student") {
+      condition = { launchDateTime: { [Op.lte]: new Date() } };
+    } else {
+      const name = req.query.name;
+      condition = name
+        ? {
+            name: {
+              [Op.eq]: `${name}`,
+            },
+          }
+        : null;
+    }
+    Room.findAll({ where: condition })
+      .then((data) => {
+        res.send(data);
+      })
+      .catch((err) => {
+        res.status(500).send({
+          message: err.message || "Error Occured.",
+        });
+      });
+  },
 
-    updateRoomDetails: async(req, res) => {
-        const name = req.params.name;
-        try {
-            const num = await Room.update(req.body, {
-                where: { name: name },
-            });
+  findAllAvailable: (req, res) => {
+    Room.findAll({
+      where: condi,
+    })
+      .then((data) => {
+        res.send(data);
+      })
+      .catch((err) => {
+        res.status(500).send({
+          message: err.message || "Error Occured.",
+        });
+      });
+  },
 
-            if (num == 1) {
-                res.send({ message: "Updated Successfully." });
-            } else {
-                res.send({ message: `Cannot Update ${name}.` });
-            }
-        } catch (err) {
-            res.status(500).send({
-                message: `Error 500 Updating ${name}`,
-            });
-        }
-    },
+  updateRoomDetails: async (req, res) => {
+    const name = req.params.name;
+    try {
+      const num = await Room.update(req.body, {
+        where: { name: name },
+      });
 
-    deleteRooms: async(req, res) => {
-        try {
-            let name = req.params.name;
+      if (num == 1) {
+        res.send({ message: "Updated Successfully." });
+      } else {
+        res.send({ message: `Cannot Update ${name}.` });
+      }
+    } catch (err) {
+      res.status(500).send({
+        message: `Error 500 Updating ${name}`,
+      });
+    }
+  },
 
-            await Room.destroy({
-                where: { name: name },
-            });
+  deleteRooms: async (req, res) => {
+    try {
+      let name = req.params.name;
 
-            return res.status(200).json({
-                message: "Room Deleted Successfully",
-            });
-        } catch (err) {
-            return res.status(400).json({ err });
-        }
-    },
+      await Room.destroy({
+        where: { name: name },
+      });
 
-    createRooms: (req, res) => {
-        const creates = {
-            name: req.body.name,
-            capacity: req.body.capacity,
-            location: req.body.location,
-            launchDateTime: req.body.launchDateTime,
-            hourlyRate: req.body.hourlyRate,
-        };
-        console.log(creates);
-        Room.create(creates)
-            .then((data) => {
-                res.send(data);
-            })
-            .catch((err) => {
-                res.status(500).send({
-                    message: err.message || "error occured",
-                });
-            });
-    },
+      return res.status(200).json({
+        message: "Room Deleted Successfully",
+      });
+    } catch (err) {
+      return res.status(400).json({ err });
+    }
+  },
+
+  createRooms: (req, res) => {
+    const creates = {
+      name: req.body.name,
+      capacity: req.body.capacity,
+      location: req.body.location,
+      launchDateTime: req.body.launchDateTime,
+      hourlyRate: req.body.hourlyRate,
+    };
+    console.log(creates);
+    Room.create(creates)
+      .then((data) => {
+        res.send(data);
+      })
+      .catch((err) => {
+        res.status(500).send({
+          message: err.message || "error occured",
+        });
+      });
+  },
 };
