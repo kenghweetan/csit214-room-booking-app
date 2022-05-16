@@ -6,11 +6,14 @@ $(document).ready(() => {
     .setAttribute("min", dateToLocalISOString(new Date()).split("T")[0]);
   populateTimeDropdown();
   populateRoomDropdown();
+  populatePromoCodeDropdown();
 });
 
-var roomSelect = document.getElementsByTagName("select")[0];
+let selects = Array.from(document.getElementsByTagName("select"));
 
-roomSelect.addEventListener("change", calculateTotalCost);
+selects.forEach((select) => {
+  select.addEventListener("change", calculateTotalCost);
+});
 
 function calculateTotalCost() {
   const formFieldsAreFilled =
@@ -23,13 +26,18 @@ function calculateTotalCost() {
     const endTime = $("#endTime").timepicker().getTime();
     const hourlyRate = $("#venue").children("option:selected")?.data()
       .value?.hourlyRate;
+    console.log($("#promoCodes").children("option:selected").data());
+    const discount = $("#promoCodes").children("option:selected")?.data()
+      .value?.discountRate;
     // To calculate the time difference of two dates
     const timeDifferenceInMillis = endTime.getTime() - startTime.getTime();
     const millisToHoursRatio = 1000 * 60 * 60;
     // To calculate the no. of days between two dates
     const timeDifferenceInHours = timeDifferenceInMillis / millisToHoursRatio;
-    const totalCost = Number(hourlyRate) * timeDifferenceInHours;
-    $("#cost").html(totalCost.toFixed(2));
+    const grossPrice = Number(hourlyRate) * timeDifferenceInHours;
+    const netPrice = Number(grossPrice) * (discount ? 1 - discount : 1);
+    $("#grossPrice").html(grossPrice.toFixed(2));
+    $("#netPrice").html(netPrice.toFixed(2));
   }
 }
 
@@ -65,6 +73,41 @@ async function populateRoomDropdown() {
     })
   );
   $("#venue").append(...roomOptions);
+}
+
+async function populatePromoCodeDropdown() {
+  const promoCodes = (await axios.get("/api/promocodes/findAllValid")).data;
+
+  const promoOptions = await Promise.all(
+    promoCodes.map(async (promoCode) => {
+      const promoOption = $("<option></option>")
+        .attr({
+          name: promoCode.name,
+        })
+        .data("value", {
+          ...promoCode,
+          discountRate: Number(promoCode.discountRate / 100),
+        })
+        .html(promoCode.name);
+      return promoOption;
+    })
+  );
+  const defaultOption = $("<option></option>")
+    .attr({
+      hidden: "",
+    })
+    .html(
+      Array.isArray(promoOptions) && promoOptions.length
+        ? "Select a Promo Code"
+        : "No Promo Codes Available"
+    );
+  /*  if  (Array.isArray(promoOptions) && array.length) { { */
+  // array empty or does not exist
+  $("#promoCodes").append(defaultOption, ...promoOptions);
+  if (!(Array.isArray(promoOptions) && promoOptions.length))
+    $("#promoCodes").attr({
+      disabled: "",
+    });
 }
 
 function populateTimeDropdown() {
@@ -127,19 +170,19 @@ async function handleSubmit(event) {
   endDateTime.setSeconds(endTime.getSeconds());
   endDateTime.setMilliseconds(endTime.getMilliseconds());
 
-  const bookingGrossPrice = Number($("#cost").html());
-
+  const PromoCodeName = $("#promoCodes").children("option:selected").val();
+  const bookingGrossPrice = Number($("#grossPrice").html());
+  const bookingNetPrice = Number($("#netPrice").html());
   try {
-    const result = await axios.post("api/bookings", {
-      roomName: $("#venue").children("option:selected").val(),
+    const result = await axios.post("/api/bookings", {
+      RoomName: $("#venue").children("option:selected").val(),
       status: "confirmed",
       startDateTime,
       endDateTime,
       grossPrice: bookingGrossPrice,
-      netPrice: bookingGrossPrice,
+      PromoCodeName: PromoCodeName,
+      netPrice: bookingNetPrice,
     });
-    console.log(result);
-    console.log(result.data);
     alert("booking successful!");
     window.location = `/paymentReceipt/${result.data.bookingId}`;
   } catch (error) {

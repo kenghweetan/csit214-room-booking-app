@@ -71,14 +71,14 @@ module.exports = {
     const bookingId = req.params.bookingId;
     try {
       const updatedBooking = {
-        status: req.body.status,
-        startDateTime: req.body.startDateTime,
-        endDateTime: req.body.endDateTime,
-        grossPrice: req.body.grossPrice,
-        promoCode: req.body.promoCode ? req.body.promoCode : null,
-        netPrice: req.body.netPrice,
-        StudentEmail: req.session.email,
-        RoomName: req.body.roomName,
+        status: req.body.status ? req.body.status : null,
+        startDateTime: req.body.startDateTime ? req.body.startDateTime : null,
+        endDateTime: req.body.endDateTime ? req.body.endDateTime : null,
+        grossPrice: req.body.grossPrice ? req.body.grossPrice : null,
+        PromoCodeName: req.body.PromoCodeName ? req.body.PromoCodeName : null,
+        netPrice: req.body.netPrice ? req.body.netPrice : null,
+        StudentEmail: req.session.email ? req.session.email : null,
+        RoomName: req.body.RoomName ? req.body.RoomName : null,
       };
 
       const anotherBookingAlreadyExists = !!(await Booking.findOne({
@@ -95,6 +95,9 @@ module.exports = {
             },
             endDateTime: {
               [Op.gt]: new Date(updatedBooking.startDateTime),
+            },
+            status: {
+              [Op.eq]: "confirmed",
             },
           },
         },
@@ -115,25 +118,25 @@ module.exports = {
       }
     } catch (err) {
       console.log(err);
-      res.status(500).send({
-        message: `Error 500 Updating ${bookingId}`,
-      });
+      res.status(500).send(`Error 500 Updating ${bookingId}`);
     }
   },
 
-  deleteBookings: async (req, res) => {
+  cancelBookings: async (req, res) => {
     try {
       const bookingId = req.params.bookingId;
 
-      await Booking.destroy({
-        where: { bookingId: bookingId },
-      });
+      await Booking.update(
+        { status: "cancelled" },
+        {
+          where: { bookingId: bookingId },
+        }
+      );
 
-      return res.status(200).json({
-        message: "Booking Deleted Successfully",
-      });
+      return res.status(200).json("Booking Deleted Successfully");
     } catch (err) {
-      return res.status(400).json({ error });
+      console.log(err);
+      return res.status(500).send(err.message);
     }
   },
 
@@ -143,10 +146,10 @@ module.exports = {
       startDateTime: req.body.startDateTime,
       endDateTime: req.body.endDateTime,
       grossPrice: req.body.grossPrice,
-      promoCode: req.body.grossPrice,
+      PromoCodeName: req.body.PromoCodeName,
       netPrice: req.body.netPrice,
       StudentEmail: req.session.email,
-      RoomName: req.body.roomName,
+      RoomName: req.body.RoomName,
     };
 
     try {
@@ -173,9 +176,7 @@ module.exports = {
       const result = await Booking.create(newBooking);
       return res.send(result);
     } catch (err) {
-      return res.status(500).send({
-        message: err.message || "error occured",
-      });
+      return res.status(500).send(err.message);
     }
   },
 };

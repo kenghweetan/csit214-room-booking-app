@@ -22,7 +22,7 @@
 
                 </div><br>
                 <div class="col-md-4 d-flex justify-content-lg-end">
-                    <button type="submit" class="btn btn-outline-danger btn-lg" id="delet">Delete Booking</button>
+                    <button type="submit" class="btn btn-danger btn-lg" id="delet">Cancel Booking</button>
                 </div>
             </div>
             <div class="row">
@@ -41,10 +41,9 @@
                         <input type="date" class="form-control" id="Rdate" disabled>
                         </br>
 
-                        <label for="RsT" class=" form-label">Start Time</label>
-                        <input type="text" class="form-control timepicker" id="RsT" disabled>
+                        <label for="Rdate" class=" form-label ">Status</label>
+                        <input type="text" class="form-control" id="status" disabled />
                         </br>
-
                     </form>
                 </div>
 
@@ -64,16 +63,24 @@
                     <label for="Rcapacity" class=" form-label col-form-lable">Capacity</label>
                     <input type="text" class="form-control" id="Rcapacity" value="69" disabled readonlyS>
                     <br>
-                    <label for="Rprice" class="form-label col-form-lable">Price</label>
-                    <span>$<input type="text" class="form-control" id="Rprice" value="69" disabled readonlyS></span>
+                    <label for="Rprice" class="form-label col-form-lable">Gross Price</label>
+                    <span>$<input type="text" class="form-control" id="grossPrice" value="" disabled readonlyS></span>
+                    <br>
+                    <label for="Rprice" class="form-label col-form-lable">Net Price</label>
+                    <span>$<input type="text" class="form-control" id="netPrice" value="" disabled readonlyS></span>
                 </div>
 
                 <div class="col-md-4 col-md-offset-1">
+                    <label for="RsT" class=" form-label">Start Time</label>
+                    <input type="text" class="form-control timepicker" id="RsT" disabled>
+                    </br>
+
                     <label for="ReT" class=" form-label">End Time</label>
                     <input type="text" class="form-control timepicker" id="ReT" value="" disabled>
                     </br>
                     <label for="Rcapacity" class=" form-label col-form-lable">Promotional Code</label>
-                    <input type="text" class="form-control" id="Rprom" value="000000" disabled>
+                    <select class="form-select" id="Rprom" value="" disabled>
+                    </select>
 
 
                     <br><br>
@@ -82,8 +89,8 @@
 
 
             <div class="d-grid gap-2  d-md-flex justify-content-md-center">
-                <input type="button" class="btn btn-outline-primary btn-lg" id="edit" value="Edit" />
-                <input type="button" class="btn btn-outline-secondary btn-lg" id="back" value="Back" />
+                <input type="button" class="btn btn-primary btn-lg" id="edit" value="Edit" />
+                <a class="btn btn-secondary btn-lg" href="/viewBookings" id="back" value="Back">Back</a>
             </div>
         </div>
 
