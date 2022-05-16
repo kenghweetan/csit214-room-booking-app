@@ -1,8 +1,6 @@
 //const { default: axios } = require("axios");
 
 document.getElementById("addRoom").addEventListener("submit", handleSubmit);
-document.getElementById("addRoom").addEventListener("submit", handleSubmits);
-document.getElementById("addRoom").addEventListener("submit", handleSubmits2);
 
 $(document).ready(() => {
   var currentTime = new Date();
@@ -37,5 +35,7 @@ async function handleSubmit(event) {
     })
     .then(function (response) {
       console.log(response);
+      alert("Room Created!");
+      window.location = "/viewRoom";
     });
 }

@@ -63,7 +63,7 @@ module.exports = () => {
   });
 
   router.get("/student", isStudent, (req, res) => {
-    res.redirect("/viewBookings");
+    res.redirect("/viewStudentRoom");
   });
 
   return router;

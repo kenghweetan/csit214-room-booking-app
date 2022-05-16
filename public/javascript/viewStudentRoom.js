@@ -36,7 +36,7 @@ function createRoomHeader() {
     "Location",
     "Capacity",
     "Hourly Rate",
-    "Bookings",
+    "Manage",
   ];
   for (const header of headers) {
     const accCol = document.createElement("th");

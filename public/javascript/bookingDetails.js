@@ -318,7 +318,7 @@ async function handleSubmit(event) {
     });
 
     alert("Edit successful!");
-    window.location = "/viewBookings";
+    window.location = `/paymentReceipt/${bookingId}`;
   } catch (error) {
     alert(error.response.data);
     console.log(error.response.data);
@@ -334,24 +334,6 @@ async function deleteBooking() {
     const result = await axios.delete(`/api/bookings/${bookingId}`);
 
     alert("Cancellation successful!");
-    window.location = "/viewBookings";
-  } catch (error) {
-    alert(error.response.data);
-    console.log(error.response.data);
-  }
-}
-
-async function confirmBooking() {
-  try {
-    const bookingId = JSON.parse(
-      document.getElementById("bookingId").innerHTML
-    );
-
-    const result = await axios.put(`/api/bookings/${bookingId}`, {
-      status: "confirmed",
-    });
-
-    alert("Booking confirmed");
     window.location = "/viewBookings";
   } catch (error) {
     alert(error.response.data);
