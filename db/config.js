@@ -15,6 +15,10 @@ module.exports = {
     dialect: "mysql",
   },
   production: {
-    use_env_variable: "DATABASE_URL",
+    username: "root",
+    password: null,
+    database: "rookboomdb",
+    host: "127.0.0.1",
+    dialect: "mysql",
   },
 };
