@@ -141,14 +141,14 @@ module.exports = {
 
   createBookings: async (req, res) => {
     const newBooking = {
-      status: req.body.status,
-      startDateTime: req.body.startDateTime,
-      endDateTime: req.body.endDateTime,
-      grossPrice: req.body.grossPrice,
-      PromoCodeName: req.body.PromoCodeName,
-      netPrice: req.body.netPrice,
-      StudentEmail: req.session.email,
-      RoomName: req.body.RoomName,
+      status: req.body.status ? req.body.status : null,
+      startDateTime: req.body.startDateTime ? req.body.startDateTime : null,
+      endDateTime: req.body.endDateTime ? req.body.endDateTime : null,
+      grossPrice: req.body.grossPrice ? req.body.grossPrice : null,
+      PromoCodeName: req.body.PromoCodeName ? req.body.PromoCodeName : null,
+      netPrice: req.body.netPrice ? req.body.netPrice : null,
+      StudentEmail: req.session.email ? req.session.email : null,
+      RoomName: req.body.RoomName ? req.body.RoomName : null,
     };
 
     try {

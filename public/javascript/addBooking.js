@@ -162,6 +162,7 @@ async function handleSubmit(event) {
   endDateTime.setMilliseconds(endTime.getMilliseconds());
 
   const PromoCodeName = $("#promoCodes").children("option:selected").val();
+  console.log(PromoCodeName);
   const bookingGrossPrice = Number($("#grossPrice").html());
   const bookingNetPrice = Number($("#netPrice").html());
   try {
@@ -171,7 +172,8 @@ async function handleSubmit(event) {
       startDateTime,
       endDateTime,
       grossPrice: bookingGrossPrice,
-      PromoCodeName: PromoCodeName,
+      PromoCodeName:
+        PromoCodeName === "Select a Promo Code" ? null : PromoCodeName,
       netPrice: bookingNetPrice,
     });
     alert("booking successful!");
