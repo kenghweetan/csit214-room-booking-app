@@ -3,80 +3,83 @@ const Op = db.Sequelize.Op;
 const { Staff } = db;
 
 module.exports = {
-    findAll: async(req, res) => {
-        const staffDetails = req.query.staffDetails;
-        var condition = staffDetails ? {
-                staffDetails: {
-                    [Op.like]: `%${email}%`,
-                    [Op.like]: `%${password}%`,
-                    [Op.like]: `%${suspended}%`,
-                    [Op.like]: `%${lastLoggedIn}%`,
-                    [Op.like]: `%${lastLoggedOut}%`,
-                },
-            } :
-            Staff.findAll({ where: condition })
-            .then((data) => {
-                res.send(data);
-            })
-            .catch((err) => {
-                res.status(500).send({
-                    message: err.message || "Error Occured.",
-                });
-            });
-    },
-
-    updateStaffDetails: async(req, res) => {
-        const email = req.params.email;
-        try {
-            const num = await Staff.update(req.body, {
-                where: { email: email },
-            });
-
-            if (num == 1) {
-                res.send({ message: "Updated Successfully." });
-            } else {
-                res.send({ message: `Cannot Update` });
-            }
-        } catch (err) {
+  findAll: async (req, res) => {
+    const staffDetails = req.query.staffDetails;
+    var condition = staffDetails
+      ? {
+          staffDetails: {
+            [Op.like]: `%${email}%`,
+            [Op.like]: `%${password}%`,
+            [Op.like]: `%${suspended}%`,
+            [Op.like]: `%${lastLoggedIn}%`,
+            [Op.like]: `%${lastLoggedOut}%`,
+          },
+        }
+      : Staff.findAll({ where: condition })
+          .then((data) => {
+            res.send(data);
+          })
+          .catch((err) => {
             res.status(500).send({
-                message: `Error 500 Updating`,
+              message: err.message || "Error Occured.",
             });
-        }
-    },
+          });
+  },
 
-    deleteStaff: async(req, res) => {
-        try {
-            let email = req.params.email;
+  updateStaffDetails: async (req, res) => {
+    const email = req.params.email;
+    try {
+      const num = await Staff.update(req.body, {
+        where: { email: email },
+      });
 
-            await Staff.destroy({
-                where: { email: email },
-            });
+      if (num == 1) {
+        res.send({ message: "Updated Successfully." });
+      } else {
+        res.send({ message: `Cannot Update` });
+      }
+    } catch (err) {
+      res.status(500).send({
+        message: `Error 500 Updating`,
+      });
+    }
+  },
 
-            return res.status(200).json({
-                message: "Staff Deleted Successfully",
-            });
-        } catch (err) {
-            return res.status(400).json({ error });
-        }
-    },
+  deleteStaff: async (req, res) => {
+    try {
+      let email = req.params.email;
 
-    createStaff: (req, res) => {
-        const creates = {
-            email: req.body.email,
-            password: req.body.password,
-            suspended: req.body.suspended,
-            lastLoggedIn: req.body.lastLoggedIn,
-            lastLoggedOut: req.body.lastLoggedOut
-        };
+      await Staff.destroy({
+        where: { email: email },
+      });
 
-        Staff.create(creates)
-            .then((data) => {
-                res.send(data);
-            })
-            .catch((err) => {
-                res.status(500).send({
-                    message: err.message || "error occured",
-                });
-            });
-    },
+      return res.status(200).json({
+        message: "Staff Deleted Successfully",
+      });
+    } catch (err) {
+      return res.status(400).json({ error });
+    }
+  },
+
+  createStaff: async (req, res) => {
+    const creates = {
+      email: req.body.email,
+      password: req.body.password,
+      suspended: req.body.suspended,
+      lastLoggedIn: req.body.lastLoggedIn,
+      lastLoggedOut: req.body.lastLoggedOut,
+    };
+    try {
+      const userAlreadyExists = !!(await Staff.findOne({
+        where: { email: creates.email },
+      }));
+      if (userAlreadyExists) throw new Error("User already exists");
+      else {
+        const data = await Staff.create(creates);
+        res.send(data);
+      }
+    } catch (err) {
+      res.status(500).send(err.message || "error occured");
+    }
+  },
 };

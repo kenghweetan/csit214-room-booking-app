@@ -57,7 +57,8 @@ function createEmailTextbox() {
   setAttributes(emailTextbox, {
     class: "form-control form-control-lg",
     id: "emailTextbox",
-    type: "text",
+    type: "email",
+    required: "",
   });
   emailTextLabel.append(emailTextbox);
   return emailTextLabel;
@@ -75,7 +76,8 @@ function createPwTextbox() {
   setAttributes(pwTextbox, {
     class: "form-control form-control-lg",
     id: "pwTextbox",
-    type: "text",
+    type: "password",
+    required: "",
   });
 
   pwTextLabel.append(pwTextbox);
@@ -94,7 +96,8 @@ function createPwCfmTextbox() {
   setAttributes(pwCfmTextbox, {
     class: "form-control form-control-lg",
     id: "pwCfmTextbox",
-    type: "text",
+    type: "password",
+    required: "",
   });
 
   pwCfmTextLabel.append(pwCfmTextbox);
@@ -150,9 +153,13 @@ async function handleSubmit(event) {
         })
         .then(function (response) {
           console.log(response);
+          alert("Account Created!");
+          window.location = "/userAdminHome";
+        })
+        .catch(function (error) {
+          console.log(error);
+          alert(error.response.data);
         });
-      alert("Account Created!");
-      window.location = "/userAdminHome";
     } else {
       alert("Passwords do not match!");
     }
@@ -165,9 +172,12 @@ async function handleSubmit(event) {
         })
         .then(function (response) {
           console.log(response);
+          alert("Account Created!");
+          window.location = "/userAdminHome";
         })
         .catch(function (error) {
-          alert(error.data.response);
+          console.log(error);
+          alert(error.response.data);
         });
       alert("Account Created!");
       window.location = "/userAdminHome";
