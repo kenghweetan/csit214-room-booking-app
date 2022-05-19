@@ -152,19 +152,22 @@ async function handleEdit(event) {
   const bookingDate = document.getElementById("launchDate").value;
   const bookDate = new Date(bookingDate);
 
-  try {
-    confirm("Confirm updated room?");
-    const result = await axios.put(`/api/rooms/${name}`, {
-      name: $("#Rname").val(),
-      capacity: $("#Rcapacity").val(),
-      location: $("#Rlocation").val(),
-      launchDateTime: bookDate,
-      hourlyRate: $("#Rprice").val(),
-    });
-
-    alert("Update Successful");
-    window.location = "/viewRoom";
-  } catch (error) {
-    alert("Error Updating");
+  if (confirm("Confirm updated room?")) {
+    try {
+      console.log(name);
+      console.log($("#Rname").val());
+      const result = await axios.put(`/api/rooms/${name}`, {
+        name: $("#Rname").val(),
+        capacity: $("#Rcapacity").val(),
+        location: $("#Rlocation").val(),
+        launchDateTime: bookDate,
+        hourlyRate: $("#Rprice").val(),
+      });
+      alert("Update Successful");
+      window.location = "/viewRoom";
+    } catch (error) {
+      console.log(error);
+      alert("Error Updating");
+    }
   }
 }

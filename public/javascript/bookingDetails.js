@@ -304,24 +304,25 @@ async function handleSubmit(event) {
   const bookingNetPrice = Number($("#netPrice").val());
   console.log($("#Rname").children("option:selected").val());
 
-  try {
-    confirm("Confirm updated booking?");
-    const result = await axios.put(`/api/bookings/${bookingId}`, {
-      RoomName: $("#Rname").children("option:selected").val(),
-      status: "confirmed",
-      startDateTime,
-      endDateTime,
-      grossPrice: bookingGrossPrice,
-      PromoCodeName:
-        promoCodeName === "Select a Promo Code" ? null : promoCodeName,
-      netPrice: bookingNetPrice,
-    });
+  if (confirm("Confirm updated booking?")) {
+    try {
+      const result = await axios.put(`/api/bookings/${bookingId}`, {
+        RoomName: $("#Rname").children("option:selected").val(),
+        status: "confirmed",
+        startDateTime,
+        endDateTime,
+        grossPrice: bookingGrossPrice,
+        PromoCodeName:
+          promoCodeName === "Select a Promo Code" ? null : promoCodeName,
+        netPrice: bookingNetPrice,
+      });
 
-    alert("Edit successful!");
-    window.location = `/paymentReceipt/${bookingId}`;
-  } catch (error) {
-    alert(error.response.data);
-    console.log(error.response.data);
+      alert("Edit successful!");
+      window.location = `/paymentReceipt/${bookingId}`;
+    } catch (error) {
+      alert(error.response.data);
+      console.log(error.response.data);
+    }
   }
 }
 

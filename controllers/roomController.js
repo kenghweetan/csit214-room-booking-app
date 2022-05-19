@@ -48,13 +48,15 @@ module.exports = {
       const num = await Room.update(req.body, {
         where: { name: name },
       });
-
-      if (num == 1) {
+      console.log(req.body);
+      console.log(name);
+      if (num === 1) {
         res.send({ message: "Updated Successfully." });
       } else {
         res.send({ message: `Cannot Update ${name}.` });
       }
     } catch (err) {
+      console.log(err);
       res.status(500).send({
         message: `Error 500 Updating ${name}`,
       });

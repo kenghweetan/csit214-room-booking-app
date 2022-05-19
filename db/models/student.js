@@ -17,33 +17,40 @@ Student.init({
     sequelize,
 }); */
 
-'use strict';
+"use strict";
 module.exports = (sequelize, DataTypes) => {
-    const Student = sequelize.define('Student', {
-        email: {
-            type: DataTypes.STRING,
-            allowNull: false,
-            primaryKey: true
-        },
-        password: {
-            type: DataTypes.STRING,
-            allowNull: false,
-        },
-        suspended: {
-            type: DataTypes.BOOLEAN,
-            allowNull: false,
-            defaultValue: false,
-        },
-        lastLoggedIn: {
-            type: DataTypes.DATE,
-        },
-        lastLoggedOut: {
-            type: DataTypes.DATE,
-        }
-    }, {});
+  const Student = sequelize.define(
+    "Student",
+    {
+      email: {
+        type: DataTypes.STRING,
+        allowNull: false,
+        primaryKey: true,
+      },
+      password: {
+        type: DataTypes.STRING,
+        allowNull: false,
+      },
+      suspended: {
+        type: DataTypes.BOOLEAN,
+        allowNull: false,
+        defaultValue: false,
+      },
+      lastLoggedIn: {
+        type: DataTypes.DATE,
+      },
+      lastLoggedOut: {
+        type: DataTypes.DATE,
+      },
+    },
+    {}
+  );
 
-    Student.associate = (models) => {
-        Student.hasMany(models.Booking);
-    };
-    return Student;
+  Student.associate = (models) => {
+    Student.hasMany(models.Booking, {
+      onDelete: "CASCADE",
+      onUpdate: "CASCADE",
+    });
+  };
+  return Student;
 };

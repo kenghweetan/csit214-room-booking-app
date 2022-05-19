@@ -30,6 +30,8 @@ module.exports = {
       },
       PromoCodeName: {
         type: Sequelize.STRING,
+        onDelete: "CASCADE",
+        onUpdate: "CASCADE",
         references: {
           model: "PromoCodes",
           key: "name",
@@ -39,6 +41,7 @@ module.exports = {
         type: Sequelize.STRING,
         allowNull: false,
         onDelete: "CASCADE",
+        onUpdate: "CASCADE",
         references: {
           model: "Rooms",
           key: "name",
@@ -47,6 +50,8 @@ module.exports = {
       StudentEmail: {
         type: Sequelize.STRING,
         allowNull: false,
+        onDelete: "CASCADE",
+        onUpdate: "CASCADE",
         references: {
           model: "students",
           key: "email",
