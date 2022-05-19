@@ -19,30 +19,21 @@ Staff.init({
 
 "use strict";
 module.exports = (sequelize, DataTypes) => {
-    const Staff = sequelize.define(
-        "Staff", {
-            email: {
-                type: DataTypes.STRING,
-                allowNull: false,
-                primaryKey: true,
-            },
-            password: {
-                type: DataTypes.STRING,
-                allowNull: false,
-            },
-            suspended: {
-                type: DataTypes.BOOLEAN,
-                allowNull: false,
-                defaultValue: false,
-            },
-            lastLoggedIn: {
-                type: DataTypes.DATE,
-            },
-            lastLoggedOut: {
-                type: DataTypes.DATE,
-            }
-        }, {}
-    );
+  const Staff = sequelize.define(
+    "Staff",
+    {
+      email: {
+        type: DataTypes.STRING,
+        allowNull: false,
+        primaryKey: true,
+      },
+      password: {
+        type: DataTypes.STRING,
+        allowNull: false,
+      },
+    },
+    {}
+  );
 
-    return Staff;
+  return Staff;
 };

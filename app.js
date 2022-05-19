@@ -25,7 +25,6 @@ require("./routes/api/roomRoutes")(app);
 require("./routes/api/promoCodeRoutes")(app);
 require("./routes/api/studentRoutes")(app);
 require("./routes/api/staffRoutes")(app);
-require("./routes/api/userAdminRoutes")(app);
 require("./routes/app")(app);
 
 let PORT = process.env.PORT;

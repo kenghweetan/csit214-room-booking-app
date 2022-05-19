@@ -10,9 +10,6 @@ module.exports = {
           staffDetails: {
             [Op.like]: `%${email}%`,
             [Op.like]: `%${password}%`,
-            [Op.like]: `%${suspended}%`,
-            [Op.like]: `%${lastLoggedIn}%`,
-            [Op.like]: `%${lastLoggedOut}%`,
           },
         }
       : Staff.findAll({ where: condition })
@@ -65,9 +62,6 @@ module.exports = {
     const creates = {
       email: req.body.email,
       password: req.body.password,
-      suspended: req.body.suspended,
-      lastLoggedIn: req.body.lastLoggedIn,
-      lastLoggedOut: req.body.lastLoggedOut,
     };
     try {
       const userAlreadyExists = !!(await Staff.findOne({

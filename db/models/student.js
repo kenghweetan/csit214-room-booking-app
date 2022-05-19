@@ -31,17 +31,6 @@ module.exports = (sequelize, DataTypes) => {
         type: DataTypes.STRING,
         allowNull: false,
       },
-      suspended: {
-        type: DataTypes.BOOLEAN,
-        allowNull: false,
-        defaultValue: false,
-      },
-      lastLoggedIn: {
-        type: DataTypes.DATE,
-      },
-      lastLoggedOut: {
-        type: DataTypes.DATE,
-      },
     },
     {}
   );
